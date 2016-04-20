@@ -13,6 +13,9 @@
 		CC60C0F21CC718AA0029DA40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC60C0F01CC718AA0029DA40 /* Main.storyboard */; };
 		CC60C0FD1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0FC1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift */; };
 		CC60C1081CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C1071CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift */; };
+		CC60C1161CC7199A0029DA40 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60C1151CC7199A0029DA40 /* MapKit.framework */; };
+		CC60C1181CC71DE10029DA40 /* MediaLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */; };
+		CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,11 @@
 		CC60C1031CC718AB0029DA40 /* MyPhotosOnAMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPhotosOnAMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC60C1071CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotosOnAMapUITests.swift; sourceTree = "<group>"; };
 		CC60C1091CC718AB0029DA40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC60C1151CC7199A0029DA40 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaLibrary.framework; path = System/Library/Frameworks/MediaLibrary.framework; sourceTree = SDKROOT; };
+		CC60C1191CC71E470029DA40 /* MyPhotosOnAMap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyPhotosOnAMap-Bridging-Header.h"; sourceTree = "<group>"; };
+		CC60C11A1CC71E470029DA40 /* MediaLibraryAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaLibraryAccessor.h; sourceTree = "<group>"; };
+		CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaLibraryAccessor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC60C1181CC71DE10029DA40 /* MediaLibrary.framework in Frameworks */,
+				CC60C1161CC7199A0029DA40 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +85,8 @@
 		CC60C0DE1CC718A90029DA40 = {
 			isa = PBXGroup;
 			children = (
+				CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */,
+				CC60C1151CC7199A0029DA40 /* MapKit.framework */,
 				CC60C0E91CC718A90029DA40 /* MyPhotosOnAMap */,
 				CC60C0FB1CC718AB0029DA40 /* MyPhotosOnAMapTests */,
 				CC60C1061CC718AB0029DA40 /* MyPhotosOnAMapUITests */,
@@ -100,6 +112,9 @@
 				CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */,
 				CC60C0F01CC718AA0029DA40 /* Main.storyboard */,
 				CC60C0F31CC718AA0029DA40 /* Info.plist */,
+				CC60C11A1CC71E470029DA40 /* MediaLibraryAccessor.h */,
+				CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */,
+				CC60C1191CC71E470029DA40 /* MyPhotosOnAMap-Bridging-Header.h */,
 			);
 			path = MyPhotosOnAMap;
 			sourceTree = "<group>";
@@ -253,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
+				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
 				CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,11 +402,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = MyPhotosOnAMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyPhotosOnAMap/MyPhotosOnAMap-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -398,11 +417,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = MyPhotosOnAMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyPhotosOnAMap/MyPhotosOnAMap-Bridging-Header.h";
 			};
 			name = Release;
 		};
