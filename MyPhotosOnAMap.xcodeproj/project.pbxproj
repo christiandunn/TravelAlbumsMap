@@ -1,0 +1,498 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */; };
+		CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EC1CC718A90029DA40 /* ViewController.swift */; };
+		CC60C0EF1CC718AA0029DA40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */; };
+		CC60C0F21CC718AA0029DA40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC60C0F01CC718AA0029DA40 /* Main.storyboard */; };
+		CC60C0FD1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0FC1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift */; };
+		CC60C1081CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C1071CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC60C0F91CC718AB0029DA40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC60C0DF1CC718A90029DA40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC60C0E61CC718A90029DA40;
+			remoteInfo = MyPhotosOnAMap;
+		};
+		CC60C1041CC718AB0029DA40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC60C0DF1CC718A90029DA40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC60C0E61CC718A90029DA40;
+			remoteInfo = MyPhotosOnAMap;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC60C0E71CC718A90029DA40 /* MyPhotosOnAMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPhotosOnAMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC60C0EC1CC718A90029DA40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC60C0F11CC718AA0029DA40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CC60C0F31CC718AA0029DA40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC60C0F81CC718AB0029DA40 /* MyPhotosOnAMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPhotosOnAMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC60C0FC1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotosOnAMapTests.swift; sourceTree = "<group>"; };
+		CC60C0FE1CC718AB0029DA40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC60C1031CC718AB0029DA40 /* MyPhotosOnAMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPhotosOnAMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC60C1071CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotosOnAMapUITests.swift; sourceTree = "<group>"; };
+		CC60C1091CC718AB0029DA40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC60C0E41CC718A90029DA40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60C0F51CC718AB0029DA40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60C1001CC718AB0029DA40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC60C0DE1CC718A90029DA40 = {
+			isa = PBXGroup;
+			children = (
+				CC60C0E91CC718A90029DA40 /* MyPhotosOnAMap */,
+				CC60C0FB1CC718AB0029DA40 /* MyPhotosOnAMapTests */,
+				CC60C1061CC718AB0029DA40 /* MyPhotosOnAMapUITests */,
+				CC60C0E81CC718A90029DA40 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC60C0E81CC718A90029DA40 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC60C0E71CC718A90029DA40 /* MyPhotosOnAMap.app */,
+				CC60C0F81CC718AB0029DA40 /* MyPhotosOnAMapTests.xctest */,
+				CC60C1031CC718AB0029DA40 /* MyPhotosOnAMapUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC60C0E91CC718A90029DA40 /* MyPhotosOnAMap */ = {
+			isa = PBXGroup;
+			children = (
+				CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */,
+				CC60C0EC1CC718A90029DA40 /* ViewController.swift */,
+				CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */,
+				CC60C0F01CC718AA0029DA40 /* Main.storyboard */,
+				CC60C0F31CC718AA0029DA40 /* Info.plist */,
+			);
+			path = MyPhotosOnAMap;
+			sourceTree = "<group>";
+		};
+		CC60C0FB1CC718AB0029DA40 /* MyPhotosOnAMapTests */ = {
+			isa = PBXGroup;
+			children = (
+				CC60C0FC1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift */,
+				CC60C0FE1CC718AB0029DA40 /* Info.plist */,
+			);
+			path = MyPhotosOnAMapTests;
+			sourceTree = "<group>";
+		};
+		CC60C1061CC718AB0029DA40 /* MyPhotosOnAMapUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CC60C1071CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift */,
+				CC60C1091CC718AB0029DA40 /* Info.plist */,
+			);
+			path = MyPhotosOnAMapUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CC60C0E61CC718A90029DA40 /* MyPhotosOnAMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC60C10C1CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMap" */;
+			buildPhases = (
+				CC60C0E31CC718A90029DA40 /* Sources */,
+				CC60C0E41CC718A90029DA40 /* Frameworks */,
+				CC60C0E51CC718A90029DA40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyPhotosOnAMap;
+			productName = MyPhotosOnAMap;
+			productReference = CC60C0E71CC718A90029DA40 /* MyPhotosOnAMap.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CC60C0F71CC718AB0029DA40 /* MyPhotosOnAMapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC60C10F1CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapTests" */;
+			buildPhases = (
+				CC60C0F41CC718AB0029DA40 /* Sources */,
+				CC60C0F51CC718AB0029DA40 /* Frameworks */,
+				CC60C0F61CC718AB0029DA40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC60C0FA1CC718AB0029DA40 /* PBXTargetDependency */,
+			);
+			name = MyPhotosOnAMapTests;
+			productName = MyPhotosOnAMapTests;
+			productReference = CC60C0F81CC718AB0029DA40 /* MyPhotosOnAMapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CC60C1021CC718AB0029DA40 /* MyPhotosOnAMapUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC60C1121CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapUITests" */;
+			buildPhases = (
+				CC60C0FF1CC718AB0029DA40 /* Sources */,
+				CC60C1001CC718AB0029DA40 /* Frameworks */,
+				CC60C1011CC718AB0029DA40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC60C1051CC718AB0029DA40 /* PBXTargetDependency */,
+			);
+			name = MyPhotosOnAMapUITests;
+			productName = MyPhotosOnAMapUITests;
+			productReference = CC60C1031CC718AB0029DA40 /* MyPhotosOnAMapUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC60C0DF1CC718A90029DA40 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Christian Dunn";
+				TargetAttributes = {
+					CC60C0E61CC718A90029DA40 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					CC60C0F71CC718AB0029DA40 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = CC60C0E61CC718A90029DA40;
+					};
+					CC60C1021CC718AB0029DA40 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = CC60C0E61CC718A90029DA40;
+					};
+				};
+			};
+			buildConfigurationList = CC60C0E21CC718A90029DA40 /* Build configuration list for PBXProject "MyPhotosOnAMap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CC60C0DE1CC718A90029DA40;
+			productRefGroup = CC60C0E81CC718A90029DA40 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC60C0E61CC718A90029DA40 /* MyPhotosOnAMap */,
+				CC60C0F71CC718AB0029DA40 /* MyPhotosOnAMapTests */,
+				CC60C1021CC718AB0029DA40 /* MyPhotosOnAMapUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC60C0E51CC718A90029DA40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC60C0EF1CC718AA0029DA40 /* Assets.xcassets in Resources */,
+				CC60C0F21CC718AA0029DA40 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60C0F61CC718AB0029DA40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60C1011CC718AB0029DA40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC60C0E31CC718A90029DA40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
+				CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60C0F41CC718AB0029DA40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC60C0FD1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC60C0FF1CC718AB0029DA40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC60C1081CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC60C0FA1CC718AB0029DA40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC60C0E61CC718A90029DA40 /* MyPhotosOnAMap */;
+			targetProxy = CC60C0F91CC718AB0029DA40 /* PBXContainerItemProxy */;
+		};
+		CC60C1051CC718AB0029DA40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC60C0E61CC718A90029DA40 /* MyPhotosOnAMap */;
+			targetProxy = CC60C1041CC718AB0029DA40 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CC60C0F01CC718AA0029DA40 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC60C0F11CC718AA0029DA40 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CC60C10A1CC718AB0029DA40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CC60C10B1CC718AB0029DA40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CC60C10D1CC718AB0029DA40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MyPhotosOnAMap/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CC60C10E1CC718AB0029DA40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MyPhotosOnAMap/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMap;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CC60C1101CC718AB0029DA40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MyPhotosOnAMapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMapTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyPhotosOnAMap.app/Contents/MacOS/MyPhotosOnAMap";
+			};
+			name = Debug;
+		};
+		CC60C1111CC718AB0029DA40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MyPhotosOnAMapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMapTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyPhotosOnAMap.app/Contents/MacOS/MyPhotosOnAMap";
+			};
+			name = Release;
+		};
+		CC60C1131CC718AB0029DA40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MyPhotosOnAMapUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMapUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MyPhotosOnAMap;
+			};
+			name = Debug;
+		};
+		CC60C1141CC718AB0029DA40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MyPhotosOnAMapUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMapUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MyPhotosOnAMap;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC60C0E21CC718A90029DA40 /* Build configuration list for PBXProject "MyPhotosOnAMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC60C10A1CC718AB0029DA40 /* Debug */,
+				CC60C10B1CC718AB0029DA40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC60C10C1CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC60C10D1CC718AB0029DA40 /* Debug */,
+				CC60C10E1CC718AB0029DA40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CC60C10F1CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC60C1101CC718AB0029DA40 /* Debug */,
+				CC60C1111CC718AB0029DA40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CC60C1121CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC60C1131CC718AB0029DA40 /* Debug */,
+				CC60C1141CC718AB0029DA40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CC60C0DF1CC718A90029DA40 /* Project object */;
+}
