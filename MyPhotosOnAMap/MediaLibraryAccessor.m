@@ -12,7 +12,10 @@
 
 @implementation MediaLibraryAccessor
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)initialize {
+    
+    Finished = FALSE;
+    MediaObjects = [NSMutableArray arrayWithCapacity:1000];
     
     NSDictionary *options = @{
                               MLMediaLoadSourceTypesKey: @(MLMediaSourceTypeImage),
@@ -71,12 +74,30 @@
     {
         NSArray * mediaObjects = self.allPhotosAlbum.mediaObjects;
         
-        for(MLMediaObject * mediaObject in mediaObjects)
+        for (MLMediaObject * mediaObject in mediaObjects)
         {
-            //NSURL * url  = mediaObject.URL;
-            ;
+            [MediaObjects addObject:mediaObject];
         }
+        
+        Finished = TRUE;
+        
+        if (!Delegate) { return; }
+        SEL selector = NSSelectorFromString(Selector);
+        IMP imp = [Delegate methodForSelector:selector];
+        void (*func)(id, SEL) = (void *)imp;
+        func(Delegate, selector);
     }
+}
+
+- (void)setDelegate:(id)del withSelector:(NSString *)sel {
+    
+    Delegate = del;
+    Selector = sel;
+}
+
+- (NSMutableArray *)getMediaObjects {
+    
+    return MediaObjects;
 }
 
 @end

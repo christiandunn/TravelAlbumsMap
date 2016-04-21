@@ -12,18 +12,13 @@ import MapKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let accessor = MediaLibraryAccessor();
-
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
         
-        accessor.applicationDidFinishLaunching(aNotification);
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }
-
-
 }
 

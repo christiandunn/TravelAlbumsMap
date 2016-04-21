@@ -10,15 +10,23 @@
 #import <MediaLibrary/MediaLibrary.h>
 
 @interface MediaLibraryAccessor : NSObject {
-    ;
+    NSMutableArray *MediaObjects;
+    bool Finished;
+    
+    id Delegate;
+    NSString *Selector;
 }
 
 @property MLMediaLibrary *mediaLibrary;
 @property MLMediaGroup *allPhotosAlbum;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
+- (void)initialize;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                         change:(NSDictionary *)change context:(void *)context;
+
+- (void)setDelegate:(id)del withSelector:(NSString *)sel;
+
+- (NSMutableArray *)getMediaObjects;
 
 @end
