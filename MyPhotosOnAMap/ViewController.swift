@@ -17,6 +17,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     var LatLons : [CLLocationCoordinate2D] = [];
     var FriendsNeededToNotBeLonely : Int = 10;
+    var Closeness : Double = 32.0;
     var annotations : [MKAnnotation] = [];
     
     let accessor = MediaLibraryAccessor();
@@ -24,8 +25,11 @@ class ViewController: NSViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         MapView.delegate = self;
-        accessor.initialize();
+        
+        ProgressBar.hidden = false;
+        ProgressBar.startAnimation(self);
         accessor.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
+        accessor.initialize();
     }
 
     override var representedObject: AnyObject? {
@@ -34,16 +38,14 @@ class ViewController: NSViewController, MKMapViewDelegate {
         }
     }
     
-    @objc internal func mediaAccessorDidReportProgress(progress: Double) {
-        ProgressBar.doubleValue = progress;
-    }
-    
     func mediaAccessorDidFinishLoadingAlbums() {
         
+        ProgressBar.hidden = true;
         let mediaObjects: Array<MLMediaObject> = accessor.getMediaObjects() as NSArray as! [MLMediaObject];
         let attributes = mediaObjects.map {$0.attributes}.filter {$0.indexForKey("latitude") != nil}.filter {$0.indexForKey("longitude") != nil};
         let latLons = attributes.map {CLLocationCoordinate2DMake($0["latitude"] as! Double, $0["longitude"] as! Double)};
         LatLons = latLons;
+        addPoints(LatLons);
     }
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -56,27 +58,53 @@ class ViewController: NSViewController, MKMapViewDelegate {
         if mapViewPoints.count == 0 {
             return;
         }
+        ProgressBar.hidden = false;
+        ProgressBar.startAnimation(self);
+        
         let lonelyPoints = mapViewPoints.filter {_countClosePoints($0, points: mapViewPoints) < FriendsNeededToNotBeLonely};
         let lonelyCoords = lonelyPoints.map {MapView.convertPoint($0, toCoordinateFromView: MapView)};
         _addLonelyCoordsToMap(lonelyCoords);
         
         let friendlyPoints = mapViewPoints.filter {_countClosePoints($0, points: mapViewPoints) >= FriendsNeededToNotBeLonely};
+        if friendlyPoints.count == 0 {
+            ProgressBar.hidden = true;
+            return;
+        }
         let (clusterCenters, maxD, clusterCounts) = _kMeansOuter(friendlyPoints);
         let clusterCoords = clusterCenters.map {MapView.convertPoint($0, toCoordinateFromView: MapView)};
         _addClusterCoordsToMap(clusterCoords, maxDs: maxD, clusterCounts: clusterCounts);
+        ProgressBar.hidden = true;
     }
     
     private func _kMeansOuter(points: [CGPoint]) -> ([CGPoint], [Double], [Int]) {
-        var k = min(1, LatLons.count);
+        var k = min(_estimateK(points), LatLons.count);
         var maxmaxD = 0.0;
         var (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
         maxmaxD = maxD.reduce(0.0) {max($0, $1)};
-        while maxmaxD > 32.0 && k < 100 {
+        while maxmaxD > (Closeness * 1.5) && k < 100 {
             k = min(k + 1, LatLons.count);
             (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
             maxmaxD = maxD.reduce(0.0) {max($0, $1)};
         }
         return (clusterCenters, maxD, clusterCounts);
+    }
+    
+    private func _estimateK(points: [CGPoint]) -> Int {
+        var k : Int = 1;
+        var centers : [CGPoint] = [CGPoint]();
+        for point in points {
+            var foundClique = false;
+            for center in centers {
+                if Double(_pointDistance(center, pt: point)) < (3 * Closeness) {
+                    foundClique = true;
+                }
+            }
+            if !foundClique {
+                centers.append(point);
+            }
+        }
+        k = centers.count;
+        return k;
     }
     
     private func _kMeans(k: Int, points: [CGPoint]) -> ([CGPoint], [Double], [Int]) {
@@ -90,7 +118,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
             centersMaxD.append(0.0);
             centersCount.append(0);
         }
-        for _ in 1...10 {
+        for _ in 1...5 {
             for p in 0...(closest.count-1) {
                 //Find the closest existing center of index c to the point p
                 var distance = 9999999.0;
@@ -127,6 +155,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     private func _addLonelyCoordsToMap(coords: [CLLocationCoordinate2D]) {
         for coord in coords {
             let annotation = MKPointAnnotation();
+            annotation.title = "Single Point";
             annotation.coordinate = coord;
             annotations.append(annotation);
             MapView.addAnnotation(annotation);
@@ -146,7 +175,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     private func _countClosePoints(point: CGPoint, points: [CGPoint]) -> Int {
-        let closeness = 16.0;
+        let closeness = Closeness;
         var count = 0;
         
         for pt in points {
