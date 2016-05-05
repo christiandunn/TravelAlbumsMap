@@ -197,10 +197,14 @@
                             <mapView fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nBh-r0-m7f">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                             </mapView>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="2pR-ly-fzQ">
+                                <rect key="frame" x="20" y="561" width="200" height="20"/>
+                            </progressIndicator>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="MapView" destination="nBh-r0-m7f" id="Kpx-Av-SVT"/>
+                        <outlet property="ProgressBar" destination="2pR-ly-fzQ" id="bE3-Ym-mK0"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

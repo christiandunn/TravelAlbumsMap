@@ -13,6 +13,7 @@ import Foundation
 class ViewController: NSViewController, MKMapViewDelegate {
 
     @IBOutlet weak var MapView: MKMapView!
+    @IBOutlet weak var ProgressBar: NSProgressIndicator!
     
     var LatLons : [CLLocationCoordinate2D] = [];
     var FriendsNeededToNotBeLonely : Int = 10;
@@ -31,6 +32,10 @@ class ViewController: NSViewController, MKMapViewDelegate {
         didSet {
         // Update the view, if already loaded.
         }
+    }
+    
+    @objc internal func mediaAccessorDidReportProgress(progress: Double) {
+        ProgressBar.doubleValue = progress;
     }
     
     func mediaAccessorDidFinishLoadingAlbums() {
@@ -70,7 +75,6 @@ class ViewController: NSViewController, MKMapViewDelegate {
             k = min(k + 1, LatLons.count);
             (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
             maxmaxD = maxD.reduce(0.0) {max($0, $1)};
-            print("Trying k = \(k)");
         }
         return (clusterCenters, maxD, clusterCounts);
     }
