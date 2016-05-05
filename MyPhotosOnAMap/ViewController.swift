@@ -10,15 +10,19 @@ import Cocoa
 import MapKit
 import Foundation
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, MKMapViewDelegate {
 
     @IBOutlet weak var MapView: MKMapView!
+    
+    var LatLons : [CLLocationCoordinate2D] = [];
+    var FriendsNeededToNotBeLonely : Int = 10;
+    var annotations : [MKAnnotation] = [];
     
     let accessor = MediaLibraryAccessor();
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        MapView.delegate = self;
         accessor.initialize();
         accessor.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
     }
@@ -34,28 +38,36 @@ class ViewController: NSViewController {
         let mediaObjects: Array<MLMediaObject> = accessor.getMediaObjects() as NSArray as! [MLMediaObject];
         let attributes = mediaObjects.map {$0.attributes}.filter {$0.indexForKey("latitude") != nil}.filter {$0.indexForKey("longitude") != nil};
         let latLons = attributes.map {CLLocationCoordinate2DMake($0["latitude"] as! Double, $0["longitude"] as! Double)};
-        addPoints(latLons);
+        LatLons = latLons;
+    }
+    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        _removeAllCoordsFromMap();
+        addPoints(LatLons);
     }
 
-    func addPoints(points: [CLLocationCoordinate2D]) {
+    private func addPoints(points: [CLLocationCoordinate2D]) {
         let mapViewPoints = points.map {MapView.convertCoordinate($0, toPointToView: MapView)}.filter {CGRectContainsPoint(MapView.frame, $0)};
-        let lonelyPoints = mapViewPoints.filter {_countClosePoints($0, points: mapViewPoints) < 10};
+        if mapViewPoints.count == 0 {
+            return;
+        }
+        let lonelyPoints = mapViewPoints.filter {_countClosePoints($0, points: mapViewPoints) < FriendsNeededToNotBeLonely};
         let lonelyCoords = lonelyPoints.map {MapView.convertPoint($0, toCoordinateFromView: MapView)};
         _addLonelyCoordsToMap(lonelyCoords);
         
-        let friendlyPoints = mapViewPoints.filter {_countClosePoints($0, points: mapViewPoints) >= 10};
+        let friendlyPoints = mapViewPoints.filter {_countClosePoints($0, points: mapViewPoints) >= FriendsNeededToNotBeLonely};
         let (clusterCenters, maxD, clusterCounts) = _kMeansOuter(friendlyPoints);
         let clusterCoords = clusterCenters.map {MapView.convertPoint($0, toCoordinateFromView: MapView)};
         _addClusterCoordsToMap(clusterCoords, maxDs: maxD, clusterCounts: clusterCounts);
     }
     
     private func _kMeansOuter(points: [CGPoint]) -> ([CGPoint], [Double], [Int]) {
-        var k = 1;
+        var k = min(1, LatLons.count);
         var maxmaxD = 0.0;
         var (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
         maxmaxD = maxD.reduce(0.0) {max($0, $1)};
         while maxmaxD > 32.0 && k < 100 {
-            k = k + 1;
+            k = min(k + 1, LatLons.count);
             (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
             maxmaxD = maxD.reduce(0.0) {max($0, $1)};
             print("Trying k = \(k)");
@@ -104,10 +116,15 @@ class ViewController: NSViewController {
         return (centers, centersMaxD, centersCount);
     }
     
+    private func _removeAllCoordsFromMap() {
+        MapView.removeAnnotations(annotations);
+    }
+    
     private func _addLonelyCoordsToMap(coords: [CLLocationCoordinate2D]) {
         for coord in coords {
             let annotation = MKPointAnnotation();
             annotation.coordinate = coord;
+            annotations.append(annotation);
             MapView.addAnnotation(annotation);
         }
     }
@@ -119,6 +136,7 @@ class ViewController: NSViewController {
             annotation.coordinate = coord;
             annotation.title = "Cluster Size: \(clusterCounts[i])";
             annotation.subtitle = "Cluster Max Distance Away: \(maxDs[i])";
+            annotations.append(annotation);
             MapView.addAnnotation(annotation);
         }
     }
