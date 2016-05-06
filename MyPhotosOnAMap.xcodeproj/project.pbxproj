@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC2400A41CDC3B4C00974E2D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2400A31CDC3B4C00974E2D /* Quartz.framework */; };
 		CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */; };
 		CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EC1CC718A90029DA40 /* ViewController.swift */; };
 		CC60C0EF1CC718AA0029DA40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 		CC60C1161CC7199A0029DA40 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60C1151CC7199A0029DA40 /* MapKit.framework */; };
 		CC60C1181CC71DE10029DA40 /* MediaLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */; };
 		CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */; };
+		CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CC2400A31CDC3B4C00974E2D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CC60C0E71CC718A90029DA40 /* MyPhotosOnAMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPhotosOnAMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC60C0EC1CC718A90029DA40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 		CC60C1191CC71E470029DA40 /* MyPhotosOnAMap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyPhotosOnAMap-Bridging-Header.h"; sourceTree = "<group>"; };
 		CC60C11A1CC71E470029DA40 /* MediaLibraryAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaLibraryAccessor.h; sourceTree = "<group>"; };
 		CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaLibraryAccessor.m; sourceTree = "<group>"; };
+		CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC2400A41CDC3B4C00974E2D /* Quartz.framework in Frameworks */,
 				CC60C1181CC71DE10029DA40 /* MediaLibrary.framework in Frameworks */,
 				CC60C1161CC7199A0029DA40 /* MapKit.framework in Frameworks */,
 			);
@@ -85,6 +90,7 @@
 		CC60C0DE1CC718A90029DA40 = {
 			isa = PBXGroup;
 			children = (
+				CC2400A31CDC3B4C00974E2D /* Quartz.framework */,
 				CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */,
 				CC60C1151CC7199A0029DA40 /* MapKit.framework */,
 				CC60C0E91CC718A90029DA40 /* MyPhotosOnAMap */,
@@ -109,6 +115,7 @@
 			children = (
 				CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */,
 				CC60C0EC1CC718A90029DA40 /* ViewController.swift */,
+				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
 				CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */,
 				CC60C0F01CC718AA0029DA40 /* Main.storyboard */,
 				CC60C0F31CC718AA0029DA40 /* Info.plist */,
@@ -270,6 +277,7 @@
 				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
 				CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */,
+				CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +504,7 @@
 				CC60C10E1CC718AB0029DA40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC60C10F1CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +513,7 @@
 				CC60C1111CC718AB0029DA40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC60C1121CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +522,7 @@
 				CC60C1141CC718AB0029DA40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
