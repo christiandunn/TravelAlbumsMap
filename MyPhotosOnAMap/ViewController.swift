@@ -20,6 +20,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     var LatLons : [(CLLocationCoordinate2D, MLMediaObject)] = [];
     var FriendsNeededToNotBeLonely : Int = 10;
     var Closeness : Double = 32.0;
+    var Clustering : ClusteringAlgorithm<MLMediaObject>? = nil;
     var annotations : [ModifiedPinAnnotation] = [];
     var currentAnno : ModifiedPinAnnotation? = nil;
     
@@ -28,6 +29,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         MapView.delegate = self;
+        Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: Closeness * 1.5);
         
         ProgressBar.hidden = false;
         ProgressBar.startAnimation(self);
@@ -76,88 +78,10 @@ class ViewController: NSViewController, MKMapViewDelegate {
             ProgressBar.hidden = true;
             return;
         }
-        let (clusterCenters, maxD, clusterCounts) = _kMeansOuter(friendlyPoints);
+        let (clusterCenters, maxD, clusterCounts) = Clustering!.kMeans(friendlyPoints);
         let clusterCoords = clusterCenters.map {(MapView.convertPoint($0.0, toCoordinateFromView: MapView), $0.1)};
         _addClusterCoordsToMap(clusterCoords, maxDs: maxD, clusterCounts: clusterCounts);
         ProgressBar.hidden = true;
-    }
-    
-    private func _kMeansOuter(points: [(CGPoint, MLMediaObject)]) -> ([(CGPoint, [MLMediaObject])], [Double], [Int]) {
-        var k = min(_estimateK(points.map({$0.0})), LatLons.count);
-        var maxmaxD = 0.0;
-        var (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
-        maxmaxD = maxD.reduce(0.0) {max($0, $1)};
-        while maxmaxD > (Closeness * 1.5) && k < 100 {
-            k = min(k + 1, LatLons.count);
-            (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
-            maxmaxD = maxD.reduce(0.0) {max($0, $1)};
-        }
-        return (clusterCenters, maxD, clusterCounts);
-    }
-    
-    private func _estimateK(points: [CGPoint]) -> Int {
-        var k : Int = 1;
-        var centers : [CGPoint] = [CGPoint]();
-        for point in points {
-            var foundClique = false;
-            for center in centers {
-                if Double(_pointDistance(center, pt: point)) < (3 * Closeness) {
-                    foundClique = true;
-                }
-            }
-            if !foundClique {
-                centers.append(point);
-            }
-        }
-        k = centers.count;
-        return k;
-    }
-    
-    private func _kMeans(k: Int, points: [(CGPoint, MLMediaObject)]) -> ([(CGPoint, [MLMediaObject])], [Double], [Int]) {
-        var centers : [(CGPoint, [MLMediaObject])] = [(CGPoint, [MLMediaObject])]();
-        var closest : [((CGPoint, MLMediaObject), Int)] = points.map {($0, 0)};
-        var centersMaxD = [Double]();
-        var centersCount = [Int]();
-        for i in 1...k {
-            let s : Int = points.count * (i - 1) / k;
-            centers.append((points[s].0, []));
-            centersMaxD.append(0.0);
-            centersCount.append(0);
-        }
-        for _ in 1...5 {
-            for p in 0...(closest.count-1) {
-                //Find the closest existing center of index c to the point p
-                var distance = 9999999.0;
-                for c in 0...(k-1) {
-                    let d = Double(_pointDistance(closest[p].0.0, pt: centers[c].0));
-                    if d < distance {
-                        distance = d;
-                        var oldClosest = closest[p];
-                        oldClosest.1 = c;
-                        closest[p] = oldClosest;
-                    }
-                }
-            }
-            //Recalculate the centers
-            for c in 0...(k-1) {
-                let pset = closest.filter {$0.1 == c};
-                let mediaObjects : [MLMediaObject] = pset.reduce([MLMediaObject]()) {
-                    (arr, newObj) -> [MLMediaObject] in
-                    var arr = arr;
-                    arr.append(newObj.0.1);
-                    return arr;
-                };
-                let newX = Double(pset.reduce(0) {$0 + $1.0.0.x})/Double(pset.count);
-                let newY = Double(pset.reduce(0) {$0 + $1.0.0.y})/Double(pset.count);
-                centers[c] = (CGPointMake(CGFloat(newX), CGFloat(newY)), mediaObjects);
-                
-                let maxD = pset.reduce(0) {max($0, _pointDistance($1.0.0, pt: centers[c].0))};
-                centersMaxD[c] = Double(maxD);
-                
-                centersCount[c] = pset.count;
-            }
-        }
-        return (centers, centersMaxD, centersCount);
     }
     
     private func _removeAllCoordsFromMap() {

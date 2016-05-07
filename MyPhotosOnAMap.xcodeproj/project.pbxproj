@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CC2400A41CDC3B4C00974E2D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2400A31CDC3B4C00974E2D /* Quartz.framework */; };
+		CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */; };
 		CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */; };
 		CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EC1CC718A90029DA40 /* ViewController.swift */; };
 		CC60C0EF1CC718AA0029DA40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		CC2400A31CDC3B4C00974E2D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusteringAlgorithm.swift; sourceTree = "<group>"; };
 		CC60C0E71CC718A90029DA40 /* MyPhotosOnAMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPhotosOnAMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC60C0EC1CC718A90029DA40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */,
 				CC60C0EC1CC718A90029DA40 /* ViewController.swift */,
 				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
+				CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */,
 				CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */,
 				CC60C0F01CC718AA0029DA40 /* Main.storyboard */,
 				CC60C0F31CC718AA0029DA40 /* Info.plist */,
@@ -276,6 +279,7 @@
 			files = (
 				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
+				CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */,
 				CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */,
 				CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */,
 			);
