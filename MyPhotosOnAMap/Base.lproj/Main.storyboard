@@ -196,17 +196,37 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <mapView fixedFrame="YES" mapType="hybrid" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nBh-r0-m7f">
-                                <rect key="frame" x="0.0" y="0.0" width="650" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="633" height="600"/>
                             </mapView>
-                            <ikImageBrowserView autoresizesSubviews="NO" fixedFrame="YES" zoomValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gxO-Ne-0y3">
-                                <rect key="frame" x="650" y="0.0" width="150" height="600"/>
-                                <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES"/>
-                                <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                <size key="cellSize" width="130" height="130"/>
-                            </ikImageBrowserView>
                             <progressIndicator wantsLayer="YES" canDrawConcurrently="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="2pR-ly-fzQ">
                                 <rect key="frame" x="302" y="284" width="32" height="32"/>
                             </progressIndicator>
+                            <scrollView fixedFrame="YES" horizontalLineScroll="150" horizontalPageScroll="10" verticalLineScroll="150" verticalPageScroll="10" hasHorizontalScroller="NO" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="d0F-eK-cJn">
+                                <rect key="frame" x="633" y="0.0" width="167" height="600"/>
+                                <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="r4w-eP-MFa">
+                                    <rect key="frame" x="1" y="1" width="150" height="598"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <ikImageBrowserView autoresizesSubviews="NO" fixedFrame="YES" zoomValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gxO-Ne-0y3">
+                                            <rect key="frame" x="0.0" y="-2" width="150" height="600"/>
+                                            <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES"/>
+                                            <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
+                                            <size key="cellSize" width="130" height="130"/>
+                                            <connections>
+                                                <outlet property="_verticalScroller" destination="6cO-F2-1ro" id="P6W-Dg-bjI"/>
+                                            </connections>
+                                        </ikImageBrowserView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="0dm-e3-5QM">
+                                    <rect key="frame" x="-100" y="-100" width="150" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="6cO-F2-1ro">
+                                    <rect key="frame" x="151" y="1" width="15" height="598"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
                     </view>
                     <connections>

@@ -29,4 +29,9 @@
 
 - (NSMutableArray *)getMediaObjects;
 
++ (NSDictionary *)getImagePropertiesDictionary:(NSURL *)path;
++ (NSString *)getExifDateTimeOriginal:(NSURL *)path;
++ (NSNumber *)getGpsAltitude:(NSURL *)path;
++ (NSNumber *)getGpsSpeed:(NSURL *)path;
+
 @end

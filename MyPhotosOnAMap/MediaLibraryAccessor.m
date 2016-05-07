@@ -100,4 +100,42 @@
     return MediaObjects;
 }
 
++ (NSDictionary *)getImagePropertiesDictionary:(NSURL *)path {
+    
+    CFURLRef url = (__bridge CFURLRef)path;
+    CGImageSourceRef myImageSource;
+    myImageSource = CGImageSourceCreateWithURL(url, NULL);
+    CFDictionaryRef imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource,0, NULL);
+    NSDictionary *imageDict = (__bridge NSDictionary *)imagePropertiesDictionary;
+    
+    return imageDict;
+}
+
++ (NSString *)getExifDateTimeOriginal:(NSURL *)path {
+    
+    NSDictionary *imageDict = [MediaLibraryAccessor getImagePropertiesDictionary:path];
+    NSDictionary *dictionary = [imageDict valueForKey:@"{Exif}"];
+    NSString *result = [dictionary valueForKey:@"DateTimeOriginal"];
+    
+    return result;
+}
+
++ (NSNumber *)getGpsAltitude:(NSURL *)path {
+    
+    NSDictionary *imageDict = [MediaLibraryAccessor getImagePropertiesDictionary:path];
+    NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
+    NSNumber *result = (NSNumber *)[dictionary valueForKey:@"Altitude"];
+    
+    return result;
+}
+
++ (NSNumber *)getGpsSpeed:(NSURL *)path {
+    
+    NSDictionary *imageDict = [MediaLibraryAccessor getImagePropertiesDictionary:path];
+    NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
+    NSNumber *result = (NSNumber *)[dictionary valueForKey:@"Speed"];
+    
+    return result;
+}
+
 @end

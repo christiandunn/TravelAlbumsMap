@@ -21,6 +21,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     var FriendsNeededToNotBeLonely : Int = 10;
     var Closeness : Double = 32.0;
     var Clustering : ClusteringAlgorithm<MLMediaObject>? = nil;
+    var Timing : NSTimer? = nil;
     var annotations : [ModifiedPinAnnotation] = [];
     var currentAnno : ModifiedPinAnnotation? = nil;
     
@@ -37,6 +38,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         accessor.initialize();
         
         ImageBrowser.setDataSource(self);
+        ImageBrowser.setCellsStyleMask(IKCellsStyleTitled + IKCellsStyleSubtitled);
     }
 
     override var representedObject: AnyObject? {
@@ -56,6 +58,14 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        if Timing != nil {
+            Timing?.invalidate();
+            Timing = nil;
+        }
+        Timing = NSTimer.scheduledTimerWithTimeInterval(1.00, target: self, selector: #selector(refreshPoints), userInfo: nil, repeats: false);
+    }
+    
+    @objc private func refreshPoints() {
         _removeAllCoordsFromMap();
         addPoints(LatLons);
     }

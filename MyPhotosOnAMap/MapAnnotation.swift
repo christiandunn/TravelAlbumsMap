@@ -61,11 +61,15 @@ public class ImageRep {
     }
     
     @objc public func imageTitle() -> String! {
-        return MediaObject.imageTitle();
+        return MediaLibraryAccessor.getExifDateTimeOriginal(MediaObject.URL);
     }
     
     @objc public func imageSubtitle() -> String! {
-        return MediaObject.imageSubtitle();
+        let altitude = MediaLibraryAccessor.getGpsAltitude(MediaObject.URL);
+        if altitude != nil {
+            return String(format: "%.2fm", altitude.doubleValue);
+        }
+        return "";
     }
     
     @objc public func isSelectable() -> Bool {
