@@ -11,10 +11,12 @@ import MapKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    @IBOutlet weak var windowee: NSWindow!
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        // Insert code here to initialize your application
         
+        NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
