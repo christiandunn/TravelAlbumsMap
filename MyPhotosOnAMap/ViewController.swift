@@ -48,6 +48,11 @@ class ViewController: NSViewController, MKMapViewDelegate {
         scrollView.documentView = ImageBrowser;
         scrollView.hasVerticalScroller = true;
         self.view.addSubview(scrollView);
+        
+        let whiteBackgroundView = NSView.init(frame: NSRect.init(x: 633, y: 0, width: 167, height: 600));
+        whiteBackgroundView.wantsLayer = true;
+        whiteBackgroundView.layer?.backgroundColor = NSColor.whiteColor().CGColor;
+        self.view.addSubview(whiteBackgroundView, positioned: NSWindowOrderingMode.Below, relativeTo: scrollView);
     }
 
     override var representedObject: AnyObject? {
@@ -164,6 +169,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         let annotation = view.annotation;
+        view.setSelected(true, animated: true);
         
         if let anno = annotation as? ModifiedPinAnnotation {
             currentAnno = anno;
