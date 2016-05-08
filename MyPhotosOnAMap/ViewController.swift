@@ -31,6 +31,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();
         MapView.delegate = self;
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
         

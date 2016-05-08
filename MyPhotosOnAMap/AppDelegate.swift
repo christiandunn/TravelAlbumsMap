@@ -11,8 +11,6 @@ import MapKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    @IBOutlet weak var windowee: NSWindow!
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         

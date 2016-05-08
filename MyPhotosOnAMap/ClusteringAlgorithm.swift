@@ -58,7 +58,7 @@ public class ClusteringAlgorithm<PointDataType> {
             centersMaxD.append(0.0);
             centersCount.append(0);
         }
-        for _ in 1...5 {
+        for _ in 1...3 {
             for p in 0...(closest.count-1) {
                 //Find the closest existing center of index c to the point p
                 var distance = 9999999.0;
@@ -75,19 +75,17 @@ public class ClusteringAlgorithm<PointDataType> {
             //Recalculate the centers
             for c in 0...(k-1) {
                 let pset = closest.filter {$0.1 == c};
-                let mediaObjects : [PointDataType] = pset.reduce([PointDataType]()) {
-                    (arr, newObj) -> [PointDataType] in
-                    var arr = arr;
+                let (mediaObjects, newX, newY) : ([PointDataType], Double, Double) = pset.reduce(([PointDataType](), 0.0, 0.0)) {
+                    (existingObj, newObj) -> ([PointDataType], Double, Double) in
+                    var arr = existingObj.0;
                     arr.append(newObj.0.1);
-                    return arr;
+                    let x = existingObj.1 + Double(newObj.0.0.x) / Double(pset.count);
+                    let y = existingObj.2 + Double(newObj.0.0.y) / Double(pset.count);
+                    return (arr, x, y);
                 };
-                let newX = Double(pset.reduce(0) {$0 + $1.0.0.x})/Double(pset.count);
-                let newY = Double(pset.reduce(0) {$0 + $1.0.0.y})/Double(pset.count);
                 centers[c] = (CGPointMake(CGFloat(newX), CGFloat(newY)), mediaObjects);
-                
                 let maxD = pset.reduce(0) {max($0, _pointDistance($1.0.0, pt: centers[c].0))};
                 centersMaxD[c] = Double(maxD);
-                
                 centersCount[c] = pset.count;
             }
         }
