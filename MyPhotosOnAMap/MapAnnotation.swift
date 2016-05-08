@@ -24,7 +24,21 @@ public class MapAnnotation {
     }
 }
 
-public class ModifiedPinAnnotation : MKPointAnnotation {
+public protocol ModifiedAnnotation {
+    
+    var DataLoad : MapAnnotation {get set}
+}
+
+public class ModifiedPinAnnotation : MKPointAnnotation, ModifiedAnnotation {
+    
+    public var DataLoad : MapAnnotation;
+    
+    init(withDataLoad data: MapAnnotation) {
+        DataLoad = data;
+    }
+}
+
+public class ModifiedClusterAnnotation : MKPointAnnotation, ModifiedAnnotation {
     
     public var DataLoad : MapAnnotation;
     

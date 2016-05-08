@@ -23,7 +23,8 @@ class ViewController: NSViewController, MKMapViewDelegate {
     var Clustering : ClusteringAlgorithm<MLMediaObject>? = nil;
     var Timing : NSTimer? = nil;
     var annotations : [ModifiedPinAnnotation] = [];
-    var currentAnno : ModifiedPinAnnotation? = nil;
+    var Overlays : [ModifiedClusterAnnotation] = [];
+    var currentAnno : ModifiedAnnotation? = nil;
     
     var verticalScroller : NSScroller? = nil;
     
@@ -104,6 +105,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     private func _removeAllCoordsFromMap() {
         MapView.removeAnnotations(annotations);
+        MapView.removeAnnotations(Overlays);
     }
     
     private func _addLonelyCoordsToMap(coords: [(CLLocationCoordinate2D, MLMediaObject)]) {
@@ -119,11 +121,10 @@ class ViewController: NSViewController, MKMapViewDelegate {
     private func _addClusterCoordsToMap(coords: [(CLLocationCoordinate2D, [MLMediaObject])], maxDs: [Double], clusterCounts: [Int]) {
         for i in 0...(coords.count - 1) {
             let coord = coords[i];
-            let annotation = ModifiedPinAnnotation(withDataLoad: MapAnnotation(withMediaObjects: coord.1))
+            let annotation = ModifiedClusterAnnotation(withDataLoad: MapAnnotation(withMediaObjects: coord.1));
+            annotation.title = "CLUSTER";
             annotation.coordinate = coord.0;
-            annotation.title = "Cluster Size: \(clusterCounts[i])";
-            annotation.subtitle = "Cluster Max Distance Away: \(maxDs[i])";
-            annotations.append(annotation);
+            Overlays.append(annotation);
             MapView.addAnnotation(annotation);
         }
     }
@@ -163,10 +164,41 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         let annotation = view.annotation;
+        
         if let anno = annotation as? ModifiedPinAnnotation {
             currentAnno = anno;
             ImageBrowser.reloadData();
         }
+        
+        if let anno = annotation as? ModifiedClusterAnnotation {
+            currentAnno = anno;
+            ImageBrowser.reloadData();
+        }
+    }
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if let anno = annotation as? ModifiedPinAnnotation {
+            let pinView = MKPinAnnotationView.init(annotation: anno, reuseIdentifier: "\(anno.coordinate.latitude), \(anno.coordinate.longitude)");
+            pinView.pinTintColor = NSColor.redColor();
+            return pinView;
+        }
+        
+        if let anno = annotation as? ModifiedClusterAnnotation {
+            let pinView = MKPinAnnotationView.init(annotation: anno, reuseIdentifier: "\(anno.coordinate.latitude), \(anno.coordinate.longitude)");
+            pinView.pinTintColor = NSColor.blueColor();
+            return pinView;
+        }
+        
+        return nil;
+    }
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        let o : MKCircle = overlay as! MKCircle;
+        let circle = MKCircleRenderer.init(circle: o);
+        circle.fillColor = NSColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5);
+        return circle;
     }
 }
 

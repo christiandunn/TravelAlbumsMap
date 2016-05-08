@@ -17,25 +17,27 @@ public class ClusteringAlgorithm<PointDataType> {
     }
     
     public func kMeans<PointDataType>(points: [(CGPoint, PointDataType)]) -> ([(CGPoint, [PointDataType])], [Double], [Int]) {
-        var k = min(_estimateK(points.map({$0.0})), points.count);
+        let initialEstimate = _estimateK(points.map({$0.0}));
+        var (k, initialCenters) = (min(initialEstimate.0, points.count), initialEstimate.1);
         var maxmaxD = 0.0;
-        var (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
+        var (clusterCenters, maxD, clusterCounts) = _kMeans(k, initialCenters: initialCenters, points: points);
         maxmaxD = maxD.reduce(0.0) {max($0, $1)};
         while maxmaxD > (MaxDistanceAwayFromCenterOfCluster) && k < 100 {
             k = min(k + 1, points.count);
-            (clusterCenters, maxD, clusterCounts) = _kMeans(k, points: points);
+            (clusterCenters, maxD, clusterCounts) = _kMeans(k, initialCenters: initialCenters, points: points);
             maxmaxD = maxD.reduce(0.0) {max($0, $1)};
+            print("k = \(k), maxmaxD = \(maxmaxD)");
         }
         return (clusterCenters, maxD, clusterCounts);
     }
     
-    private func _estimateK(points: [CGPoint]) -> Int {
+    private func _estimateK(points: [CGPoint]) -> (Int, [CGPoint]) {
         var k : Int = 1;
         var centers : [CGPoint] = [CGPoint]();
         for point in points {
             var foundClique = false;
             for center in centers {
-                if Double(_pointDistance(center, pt: point)) < (2 * MaxDistanceAwayFromCenterOfCluster) {
+                if Double(_pointDistance(center, pt: point)) < (MaxDistanceAwayFromCenterOfCluster) {
                     foundClique = true;
                 }
             }
@@ -44,21 +46,20 @@ public class ClusteringAlgorithm<PointDataType> {
             }
         }
         k = centers.count;
-        return k;
+        return (k, centers);
     }
     
-    private func _kMeans<PointDataType>(k: Int, points: [(CGPoint, PointDataType)]) -> ([(CGPoint, [PointDataType])], [Double], [Int]) {
+    private func _kMeans<PointDataType>(k: Int, initialCenters: [CGPoint], points: [(CGPoint, PointDataType)]) -> ([(CGPoint, [PointDataType])], [Double], [Int]) {
         var centers : [(CGPoint, [PointDataType])] = [(CGPoint, [PointDataType])]();
         var closest : [((CGPoint, PointDataType), Int)] = points.map {($0, 0)};
         var centersMaxD = [Double]();
         var centersCount = [Int]();
         for i in 1...k {
-            let s : Int = points.count * (i - 1) / k;
-            centers.append((points[s].0, []));
+            centers.append((initialCenters[i-1], []));
             centersMaxD.append(0.0);
             centersCount.append(0);
         }
-        for _ in 1...3 {
+        for _ in 1...6 {
             for p in 0...(closest.count-1) {
                 //Find the closest existing center of index c to the point p
                 var distance = 9999999.0;
