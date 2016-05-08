@@ -18,19 +18,21 @@ class ViewController: NSViewController, MKMapViewDelegate {
     @IBOutlet weak var ImageBrowser: IKImageBrowserView!
     
     var LatLons : [(CLLocationCoordinate2D, MLMediaObject)] = [];
-    var FriendsNeededToNotBeLonely : Int = 10;
-    var Closeness : Double = 32.0;
+    var FriendsNeededToNotBeLonely : Int = Constants.MinimumPointsForCluster;
+    var ClusterRadius : Double = Constants.ClusterRadius;
     var Clustering : ClusteringAlgorithm<MLMediaObject>? = nil;
     var Timing : NSTimer? = nil;
     var annotations : [ModifiedPinAnnotation] = [];
     var currentAnno : ModifiedPinAnnotation? = nil;
+    
+    var verticalScroller : NSScroller? = nil;
     
     let accessor = MediaLibraryAccessor();
     
     override func viewDidLoad() {
         super.viewDidLoad()
         MapView.delegate = self;
-        Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: Closeness * 1.5);
+        Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
         
         ProgressBar.hidden = false;
         ProgressBar.startAnimation(self);
@@ -39,6 +41,11 @@ class ViewController: NSViewController, MKMapViewDelegate {
         
         ImageBrowser.setDataSource(self);
         ImageBrowser.setCellsStyleMask(IKCellsStyleTitled + IKCellsStyleSubtitled);
+        
+        let scrollView = NSScrollView.init(frame: NSRect.init(x: 633, y: 10, width: 167, height: 580));
+        scrollView.documentView = ImageBrowser;
+        scrollView.hasVerticalScroller = true;
+        self.view.addSubview(scrollView);
     }
 
     override var representedObject: AnyObject? {
@@ -121,7 +128,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     private func _countClosePoints(point: CGPoint, points: [CGPoint]) -> Int {
-        let closeness = Closeness;
+        let closeness = ClusterRadius;
         var count = 0;
         
         for pt in points {
