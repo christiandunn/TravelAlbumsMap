@@ -14,13 +14,29 @@ import Quartz
 public class MapAnnotation {
     
     public var Objects : [MLMediaObject] = [];
+    public var Center : CLLocationCoordinate2D? = nil;
+    public var Coords : [CLLocationCoordinate2D] = [];
     
     init(withMediaObject object: MLMediaObject) {
         Objects.append(object);
     }
     
-    init(withMediaObjects objects: [MLMediaObject]) {
+    init(withMediaObjects objects: [MLMediaObject], andCluster cluster: ClusterOfCoordinates) {
+        let coords = cluster.Points;
         Objects.appendContentsOf(objects);
+        Coords.appendContentsOf(coords);
+        Center = cluster.Center;
+    }
+}
+
+public class ClusterOfCoordinates {
+    
+    public var Center : CLLocationCoordinate2D;
+    public var Points : [CLLocationCoordinate2D];
+    
+    init(withCenter center : CLLocationCoordinate2D, andPoints points : [CLLocationCoordinate2D]) {
+        Center = center;
+        Points = points;
     }
 }
 
@@ -44,6 +60,18 @@ public class ModifiedClusterAnnotation : MKPointAnnotation, ModifiedAnnotation {
     
     init(withDataLoad data: MapAnnotation) {
         DataLoad = data;
+    }
+    
+    public func enclosingRegion() -> MKCoordinateRegion {
+        let coords : [CLLocationCoordinate2D] = DataLoad.Coords;
+        let minLat = coords.reduce(9999999, combine: {min($0, $1.latitude)});
+        let minLon = coords.reduce(9999999, combine: {min($0, $1.longitude)});
+        let maxLat = coords.reduce(-9999999, combine: {max($0, $1.latitude)});
+        let maxLon = coords.reduce(-9999999, combine: {max($0, $1.longitude)});
+        
+        let span = MKCoordinateSpanMake(maxLat - minLat, maxLon - minLon);
+        let region = MKCoordinateRegionMake(DataLoad.Center!, span);
+        return region;
     }
 }
 

@@ -8,6 +8,16 @@
 
 import Foundation
 
+public class Cluster {
+    public var Center : CGPoint;
+    public var Points : [CGPoint];
+    
+    init(withCenter center : CGPoint, andPoints points : [CGPoint]) {
+        Center = center;
+        Points = points;
+    }
+}
+
 public class ClusteringAlgorithm<PointDataType> {
     
     var MaxDistanceAwayFromCenterOfCluster : Double;
@@ -16,19 +26,33 @@ public class ClusteringAlgorithm<PointDataType> {
         MaxDistanceAwayFromCenterOfCluster = distance;
     }
     
-    public func kMeans<PointDataType>(points: [(CGPoint, PointDataType)]) -> ([(CGPoint, [PointDataType])], [Double], [Int]) {
+    public func kMeans<PointDataType>(points: [(CGPoint, PointDataType)]) -> ([(CGPoint, [PointDataType])], [Double], [Int], [Cluster]) {
         let initialEstimate = _estimateK(points.map({$0.0}));
         var (k, initialCenters) = (min(initialEstimate.0, points.count), initialEstimate.1);
         var maxmaxD = 0.0;
-        var (clusterCenters, maxD, clusterCounts) = _kMeans(k, initialCenters: initialCenters, points: points);
+        var (clusterCenters, maxD, clusterCounts, clusters) = _kMeans(k, initialCenters: initialCenters, points: points);
         maxmaxD = maxD.reduce(0.0) {max($0, $1)};
         while maxmaxD > (MaxDistanceAwayFromCenterOfCluster) && k < 100 {
-            k = min(k + 1, points.count);
-            (clusterCenters, maxD, clusterCounts) = _kMeans(k, initialCenters: initialCenters, points: points);
+            if k < points.count {
+                k = k + 1;
+                initialCenters.append(_pointFarthestAway(initialCenters, points: points.map({$0.0})));
+            }
+            (clusterCenters, maxD, clusterCounts, clusters) = _kMeans(k, initialCenters: initialCenters, points: points);
             maxmaxD = maxD.reduce(0.0) {max($0, $1)};
             print("k = \(k), maxmaxD = \(maxmaxD)");
         }
-        return (clusterCenters, maxD, clusterCounts);
+        return (clusterCenters, maxD, clusterCounts, clusters);
+    }
+    
+    private func _pointFarthestAway(centers: [CGPoint], points: [CGPoint]) -> CGPoint {
+        let farthestPoint = points.reduce((points[0], 0), combine: {(farthestPoint, newPoint) -> (CGPoint, Double) in
+            let minDistanceToCluster = centers.reduce(9999999.0, combine: {(minDistance, nextCluster) -> Double in min(minDistance, Double(_pointDistance(nextCluster, pt: newPoint)))});
+            if minDistanceToCluster > farthestPoint.1 {
+                return (newPoint, minDistanceToCluster);
+            }
+            return farthestPoint;
+        });
+        return farthestPoint.0;
     }
     
     private func _estimateK(points: [CGPoint]) -> (Int, [CGPoint]) {
@@ -49,15 +73,20 @@ public class ClusteringAlgorithm<PointDataType> {
         return (k, centers);
     }
     
-    private func _kMeans<PointDataType>(k: Int, initialCenters: [CGPoint], points: [(CGPoint, PointDataType)]) -> ([(CGPoint, [PointDataType])], [Double], [Int]) {
+    private func _kMeans<PointDataType>(k: Int, initialCenters: [CGPoint], points: [(CGPoint, PointDataType)]) -> ([(CGPoint, [PointDataType])], [Double], [Int], [Cluster]) {
         var centers : [(CGPoint, [PointDataType])] = [(CGPoint, [PointDataType])]();
         var closest : [((CGPoint, PointDataType), Int)] = points.map {($0, 0)};
         var centersMaxD = [Double]();
         var centersCount = [Int]();
+        var clusters : [Cluster] = [Cluster]();
+        if k != initialCenters.count {
+            print("K cannot be different from the number of initial cluster centers");
+        }
         for i in 1...k {
             centers.append((initialCenters[i-1], []));
             centersMaxD.append(0.0);
             centersCount.append(0);
+            clusters.append(Cluster.init(withCenter: initialCenters[i-1], andPoints: []));
         }
         for _ in 1...6 {
             for p in 0...(closest.count-1) {
@@ -90,7 +119,15 @@ public class ClusteringAlgorithm<PointDataType> {
                 centersCount[c] = pset.count;
             }
         }
-        return (centers, centersMaxD, centersCount);
+        clusters = closest.reduce(clusters, combine: {
+            (existingObj, newObj) -> [Cluster] in
+            let index = newObj.1;
+            let point = newObj.0.0;
+            existingObj[index].Center = centers[index].0
+            existingObj[index].Points.append(point);
+            return existingObj;
+        })
+        return (centers, centersMaxD, centersCount, clusters);
     }
     
     private func _pointDistance(point: CGPoint, pt: CGPoint) -> CGFloat {

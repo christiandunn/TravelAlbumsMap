@@ -102,10 +102,17 @@ class ViewController: NSViewController, MKMapViewDelegate {
             ProgressBar.hidden = true;
             return;
         }
-        let (clusterCenters, maxD, clusterCounts) = Clustering!.kMeans(friendlyPoints);
+        let (clusterCenters, maxD, clusterCounts, clusters) = Clustering!.kMeans(friendlyPoints);
         let clusterCoords = clusterCenters.map {(MapView.convertPoint($0.0, toCoordinateFromView: MapView), $0.1)};
-        _addClusterCoordsToMap(clusterCoords, maxDs: maxD, clusterCounts: clusterCounts);
+        let clustersOfCoords = clusters.map({(c : Cluster) -> ClusterOfCoordinates in _convertClustersToCoordinate(c)});
+        _addClusterCoordsToMap(clusterCoords, maxDs: maxD, clusterCounts: clusterCounts, clusters: clustersOfCoords);
         ProgressBar.hidden = true;
+    }
+    
+    private func _convertClustersToCoordinate(cluster : Cluster) -> ClusterOfCoordinates {
+        let center = MapView.convertPoint(cluster.Center, toCoordinateFromView: MapView);
+        let points = cluster.Points.map({MapView.convertPoint($0, toCoordinateFromView: MapView)});
+        return ClusterOfCoordinates.init(withCenter: center, andPoints: points);
     }
     
     private func _removeAllCoordsFromMap() {
@@ -123,10 +130,10 @@ class ViewController: NSViewController, MKMapViewDelegate {
         }
     }
     
-    private func _addClusterCoordsToMap(coords: [(CLLocationCoordinate2D, [MLMediaObject])], maxDs: [Double], clusterCounts: [Int]) {
+    private func _addClusterCoordsToMap(coords: [(CLLocationCoordinate2D, [MLMediaObject])], maxDs: [Double], clusterCounts: [Int], clusters: [ClusterOfCoordinates]) {
         for i in 0...(coords.count - 1) {
             let coord = coords[i];
-            let annotation = ModifiedClusterAnnotation(withDataLoad: MapAnnotation(withMediaObjects: coord.1));
+            let annotation = ModifiedClusterAnnotation(withDataLoad: MapAnnotation(withMediaObjects: coord.1, andCluster: clusters[i]));
             annotation.title = "CLUSTER";
             annotation.coordinate = coord.0;
             Overlays.append(annotation);
@@ -179,6 +186,8 @@ class ViewController: NSViewController, MKMapViewDelegate {
         if let anno = annotation as? ModifiedClusterAnnotation {
             currentAnno = anno;
             ImageBrowser.reloadData();
+            
+            MapView.setRegion(anno.enclosingRegion(), animated: true);
         }
     }
     
