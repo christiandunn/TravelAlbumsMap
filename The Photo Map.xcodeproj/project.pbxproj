@@ -236,7 +236,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CC60C0E21CC718A90029DA40 /* Build configuration list for PBXProject "MyPhotosOnAMap" */;
+			buildConfigurationList = CC60C0E21CC718A90029DA40 /* Build configuration list for PBXProject "The Photo Map" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -506,7 +506,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CC60C0E21CC718A90029DA40 /* Build configuration list for PBXProject "MyPhotosOnAMap" */ = {
+		CC60C0E21CC718A90029DA40 /* Build configuration list for PBXProject "The Photo Map" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CC60C10A1CC718AB0029DA40 /* Debug */,

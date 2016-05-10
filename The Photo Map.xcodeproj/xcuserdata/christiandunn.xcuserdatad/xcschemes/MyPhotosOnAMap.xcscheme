@@ -17,7 +17,7 @@
                BlueprintIdentifier = "CC60C0E61CC718A90029DA40"
                BuildableName = "MyPhotosOnAMap.app"
                BlueprintName = "MyPhotosOnAMap"
-               ReferencedContainer = "container:MyPhotosOnAMap.xcodeproj">
+               ReferencedContainer = "container:The Photo Map.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "CC60C0F71CC718AB0029DA40"
                BuildableName = "MyPhotosOnAMapTests.xctest"
                BlueprintName = "MyPhotosOnAMapTests"
-               ReferencedContainer = "container:MyPhotosOnAMap.xcodeproj">
+               ReferencedContainer = "container:The Photo Map.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "CC60C1021CC718AB0029DA40"
                BuildableName = "MyPhotosOnAMapUITests.xctest"
                BlueprintName = "MyPhotosOnAMapUITests"
-               ReferencedContainer = "container:MyPhotosOnAMap.xcodeproj">
+               ReferencedContainer = "container:The Photo Map.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,7 +55,7 @@
             BlueprintIdentifier = "CC60C0E61CC718A90029DA40"
             BuildableName = "MyPhotosOnAMap.app"
             BlueprintName = "MyPhotosOnAMap"
-            ReferencedContainer = "container:MyPhotosOnAMap.xcodeproj">
+            ReferencedContainer = "container:The Photo Map.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "CC60C0E61CC718A90029DA40"
             BuildableName = "MyPhotosOnAMap.app"
             BlueprintName = "MyPhotosOnAMap"
-            ReferencedContainer = "container:MyPhotosOnAMap.xcodeproj">
+            ReferencedContainer = "container:The Photo Map.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -97,7 +97,7 @@
             BlueprintIdentifier = "CC60C0E61CC718A90029DA40"
             BuildableName = "MyPhotosOnAMap.app"
             BlueprintName = "MyPhotosOnAMap"
-            ReferencedContainer = "container:MyPhotosOnAMap.xcodeproj">
+            ReferencedContainer = "container:The Photo Map.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
