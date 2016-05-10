@@ -139,7 +139,7 @@
                             <progressIndicator wantsLayer="YES" canDrawConcurrently="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="2pR-ly-fzQ">
                                 <rect key="frame" x="302" y="284" width="32" height="32"/>
                             </progressIndicator>
-                            <ikImageBrowserView autoresizesSubviews="NO" fixedFrame="YES" zoomValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gxO-Ne-0y3">
+                            <ikImageBrowserView autoresizesSubviews="NO" fixedFrame="YES" zoomValue="1" allowsMultipleSelection="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxO-Ne-0y3">
                                 <rect key="frame" x="633" y="0.0" width="150" height="600"/>
                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES"/>
                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
