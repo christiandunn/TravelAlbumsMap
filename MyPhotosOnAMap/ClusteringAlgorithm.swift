@@ -39,7 +39,7 @@ public class ClusteringAlgorithm<PointDataType> {
             }
             (clusterCenters, maxD, clusterCounts, clusters) = _kMeans(k, initialCenters: initialCenters, points: points);
             maxmaxD = maxD.reduce(0.0) {max($0, $1)};
-            print("k = \(k), maxmaxD = \(maxmaxD)");
+            //print("k = \(k), maxmaxD = \(maxmaxD)");
         }
         return (clusterCenters, maxD, clusterCounts, clusters);
     }

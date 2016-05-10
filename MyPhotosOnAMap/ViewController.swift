@@ -236,6 +236,10 @@ class ViewController: NSViewController, MKMapViewDelegate {
             HighlitPoint = MKPointAnnotation.init();
             HighlitPoint?.coordinate = coord;
             MapView.addAnnotation(HighlitPoint!);
+            
+            if(!MKMapRectContainsPoint(MapView.visibleMapRect, MKMapPointForCoordinate(coord))) {
+                MapView.setCenterCoordinate(coord, animated: true);
+            }
         }
     }
     
