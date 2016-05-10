@@ -67,6 +67,9 @@
                                         <menuItem title="Open Directory" id="IYj-iW-HIb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
+                                        <menuItem title="Open Default Photo Library" id="5dn-Mx-GiR">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="YP4-1F-K1s"/>
                                         <menuItem title="Export All Points as CSV" id="7jb-E7-vqz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
