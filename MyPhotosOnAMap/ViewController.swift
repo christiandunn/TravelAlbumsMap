@@ -24,13 +24,14 @@ class ViewController: NSViewController, MKMapViewDelegate {
     var Timing : NSTimer? = nil;
     var annotations : [ModifiedPinAnnotation] = [];
     var Overlays : [ModifiedClusterAnnotation] = [];
-    var currentAnno : ModifiedAnnotation? = nil;
-    
+    var ImageBrowserDel : ImageBrowserDelegate? = nil;
     var verticalScroller : NSScroller? = nil;
-    
+    var HighlitPoint : MKPointAnnotation? = nil;
     let accessor = MediaLibraryAccessor();
+    var YellowPinView : MKPinAnnotationView? = nil;
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();
         MapView.delegate = self;
@@ -41,8 +42,8 @@ class ViewController: NSViewController, MKMapViewDelegate {
         accessor.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
         accessor.initialize();
         
-        ImageBrowser.setDataSource(self);
-        ImageBrowser.setCellsStyleMask(IKCellsStyleTitled + IKCellsStyleSubtitled);
+        ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);
+        
         
         let scrollView = NSScrollView.init(frame: NSRect.init(x: 633, y: 10, width: 167, height: 580));
         scrollView.documentView = ImageBrowser;
@@ -72,6 +73,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
         if Timing != nil {
             Timing?.invalidate();
             Timing = nil;
@@ -80,11 +82,13 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     @objc private func refreshPoints() {
+        
         _removeAllCoordsFromMap();
         addPoints(LatLons);
     }
 
     private func addPoints(points: [(CLLocationCoordinate2D, MLMediaObject)]) {
+        
         let mapViewPoints = points.map {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter {CGRectContainsPoint(MapView.frame, $0.0)};
         let mapViewCGPoints = mapViewPoints.map {$0.0};
         if mapViewPoints.count == 0 {
@@ -110,20 +114,22 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     private func _convertClustersToCoordinate(cluster : Cluster) -> ClusterOfCoordinates {
+        
         let center = MapView.convertPoint(cluster.Center, toCoordinateFromView: MapView);
         let points = cluster.Points.map({MapView.convertPoint($0, toCoordinateFromView: MapView)});
         return ClusterOfCoordinates.init(withCenter: center, andPoints: points);
     }
     
     private func _removeAllCoordsFromMap() {
+        
         MapView.removeAnnotations(annotations);
         MapView.removeAnnotations(Overlays);
     }
     
     private func _addLonelyCoordsToMap(coords: [(CLLocationCoordinate2D, MLMediaObject)]) {
+        
         for coord in coords {
-            let annotation = ModifiedPinAnnotation(withDataLoad: MapAnnotation(withMediaObject: coord.1));
-            annotation.title = "Single Point";
+            let annotation = ModifiedPinAnnotation(withDataLoad: MapAnnotation(withMediaObject: coord.1, andCoord:coord.0));
             annotation.coordinate = coord.0;
             annotations.append(annotation);
             MapView.addAnnotation(annotation);
@@ -131,10 +137,10 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     private func _addClusterCoordsToMap(coords: [(CLLocationCoordinate2D, [MLMediaObject])], maxDs: [Double], clusterCounts: [Int], clusters: [ClusterOfCoordinates]) {
+        
         for i in 0...(coords.count - 1) {
             let coord = coords[i];
             let annotation = ModifiedClusterAnnotation(withDataLoad: MapAnnotation(withMediaObjects: coord.1, andCluster: clusters[i]));
-            annotation.title = "CLUSTER";
             annotation.coordinate = coord.0;
             Overlays.append(annotation);
             MapView.addAnnotation(annotation);
@@ -142,6 +148,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     private func _countClosePoints(point: CGPoint, points: [CGPoint]) -> Int {
+        
         let closeness = ClusterRadius;
         var count = 0;
         
@@ -156,38 +163,30 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     private func _pointDistance(point: CGPoint, pt: CGPoint) -> CGFloat {
+        
         let distance = pow(pow(point.x - pt.x, 2) + pow(point.y - pt.y, 2), 0.5);
         return distance;
     }
-    
-    override func numberOfItemsInImageBrowser(aBrowser: IKImageBrowserView!) -> Int {
-        return currentAnno?.DataLoad.Objects.count ?? 0;
-    }
-    
-    override func imageBrowser(aBrowser: IKImageBrowserView!, itemAtIndex index: Int) -> AnyObject! {
-        let mediaObject = currentAnno?.DataLoad.Objects[index] ?? nil;
         
-        if mediaObject == nil {
-            return nil;
-        }
-        
-        return ImageRep(imageRepWithMediaObject: mediaObject!);
-    }
-    
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        let annotation = view.annotation;
-        view.setSelected(true, animated: true);
         
-        if let anno = annotation as? ModifiedPinAnnotation {
-            currentAnno = anno;
-            ImageBrowser.reloadData();
+        let annotation = view.annotation;
+        
+        if (annotation as? ModifiedPinAnnotation) != nil {
+            _processPhotoDataAnnotation(view);
         }
         
-        if let anno = annotation as? ModifiedClusterAnnotation {
-            currentAnno = anno;
-            ImageBrowser.reloadData();
-            
-            MapView.setRegion(anno.enclosingRegion(), animated: true);
+        if (annotation as? ModifiedClusterAnnotation) != nil {
+            _processPhotoDataAnnotation(view);
+        }
+    }
+    
+    private func _processPhotoDataAnnotation(view: MKAnnotationView) {
+        
+        let newRegion = ImageBrowserDel?.activateAnnotationView(view);
+        
+        if newRegion != nil {
+            MapView.setRegion(newRegion!, animated: true);
         }
     }
     
@@ -205,15 +204,53 @@ class ViewController: NSViewController, MKMapViewDelegate {
             return pinView;
         }
         
+        if let anno = annotation as? MKPointAnnotation {
+            if anno == HighlitPoint {
+                let pinView = MKPinAnnotationView.init(annotation: anno, reuseIdentifier: "\(anno.coordinate.latitude), \(anno.coordinate.longitude)");
+                pinView.pinTintColor = NSColor.yellowColor();
+                YellowPinView = pinView;
+                return pinView;
+            }
+        }
+        
         return nil;
     }
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
         
-        let o : MKCircle = overlay as! MKCircle;
-        let circle = MKCircleRenderer.init(circle: o);
-        circle.fillColor = NSColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5);
-        return circle;
+        if YellowPinView != nil && views.contains(YellowPinView!) {
+            YellowPinView?.wantsLayer = true;
+            YellowPinView!.layer?.zPosition = 10;
+        }
+    }
+    
+    func highlightPoint(withIndex: CLLocationCoordinate2D, yes: Bool) {
+        
+        if HighlitPoint != nil {
+            MapView.removeAnnotation(HighlitPoint!);
+            HighlitPoint = nil;
+        }
+        
+        if yes {
+            let coord = withIndex;
+            HighlitPoint = MKPointAnnotation.init();
+            HighlitPoint?.coordinate = coord;
+            MapView.addAnnotation(HighlitPoint!);
+        }
+    }
+    
+    private func _pixelsToDistance(pixels: Int) -> CLLocationDistance {
+        
+        let px1 = CGPointMake(MapView.frame.size.width / 2, MapView.frame.size.height / 2);
+        let coord1 = MapView.convertPoint(px1, toCoordinateFromView: MapView);
+        let px2 = CGPointMake(px1.x + CGFloat(pixels), px1.y);
+        let coord2 = MapView.convertPoint(px2, toCoordinateFromView: MapView);
+        
+        let point1 = MKMapPointForCoordinate(coord1);
+        let point2 = MKMapPointForCoordinate(coord2);
+        let distance : CLLocationDistance = MKMetersBetweenMapPoints(point1, point2);
+        
+        return distance;
     }
 }
 

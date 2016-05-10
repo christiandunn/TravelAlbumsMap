@@ -17,8 +17,10 @@ public class MapAnnotation {
     public var Center : CLLocationCoordinate2D? = nil;
     public var Coords : [CLLocationCoordinate2D] = [];
     
-    init(withMediaObject object: MLMediaObject) {
+    init(withMediaObject object: MLMediaObject, andCoord: CLLocationCoordinate2D) {
         Objects.append(object);
+        Coords.append(andCoord);
+        Center = andCoord;
     }
     
     init(withMediaObjects objects: [MLMediaObject], andCluster cluster: ClusterOfCoordinates) {

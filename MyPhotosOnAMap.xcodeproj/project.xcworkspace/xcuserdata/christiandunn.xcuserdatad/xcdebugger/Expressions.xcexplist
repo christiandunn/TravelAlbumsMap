@@ -11,6 +11,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ImageBrowserDelegate.(step in _8E471E01AB5A6C0C2A512F1722264621)() -&gt; ():ImageBrowserDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "ImageBrowser.selectionIndexes()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ViewController.mapView(MKMapView, rendererForOverlay : MKOverlay) -&gt; MKOverlayRenderer:ViewController.swift">
          <PersistentStrings>
             <PersistentString
