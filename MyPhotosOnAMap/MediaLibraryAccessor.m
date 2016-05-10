@@ -105,7 +105,10 @@
     CFURLRef url = (__bridge CFURLRef)path;
     CGImageSourceRef myImageSource;
     myImageSource = CGImageSourceCreateWithURL(url, NULL);
-    CFDictionaryRef imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource,0, NULL);
+    if (myImageSource == nil) {
+        return [[NSDictionary alloc] init];
+    }
+    CFDictionaryRef imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
     NSDictionary *imageDict = (__bridge NSDictionary *)imagePropertiesDictionary;
     
     return imageDict;
