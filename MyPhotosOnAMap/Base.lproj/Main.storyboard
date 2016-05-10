@@ -57,6 +57,51 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="File" id="0Ab-TN-7eV">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="File" id="oXv-US-vab">
+                                    <items>
+                                        <menuItem title="Open Single Image" id="gFv-eW-rv3">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Open Directory" id="IYj-iW-HIb">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="YP4-1F-K1s"/>
+                                        <menuItem title="Export All Points as CSV" id="7jb-E7-vqz">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Export Visible Points as CSV" id="w0D-3O-vM7">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="S8H-BH-R1j"/>
+                                        <menuItem title="Quit" id="0KQ-Ef-gdp">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Library" id="hCn-X0-uqg">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Library" id="9Cm-Zc-Oyq">
+                                    <items>
+                                        <menuItem title="Open Containing Folder" id="8lP-L3-nAf">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="Nek-74-5Rm"/>
+                                        <menuItem title="Navigate To" id="TZS-tR-2pE">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Navigate To" id="2MA-et-ipZ">
+                                                <items>
+                                                    <menuItem title="Country Name" id="1bd-dN-w2r">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
