@@ -12,4 +12,5 @@ public class Constants {
     
     public static let MinimumPointsForCluster : Int = 10;
     public static let ClusterRadius : Double = 32.0;
+    public static let MapViewFraction : Double = 0.75;
 }

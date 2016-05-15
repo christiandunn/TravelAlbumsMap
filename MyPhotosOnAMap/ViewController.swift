@@ -13,9 +13,9 @@ import Quartz
 
 class ViewController: NSViewController, MKMapViewDelegate {
 
-    @IBOutlet weak var MapView: MKMapView!
-    @IBOutlet weak var ProgressBar: NSProgressIndicator!
-    @IBOutlet weak var ImageBrowser: IKImageBrowserView!
+    var MapView: MKMapView!
+    var ProgressBar: NSProgressIndicator!
+    var ImageBrowser: IKImageBrowserView!
     
     var LatLons : [(CLLocationCoordinate2D, CDMediaObjectWithLocation)] = [];
     var FriendsNeededToNotBeLonely : Int = Constants.MinimumPointsForCluster;
@@ -29,26 +29,51 @@ class ViewController: NSViewController, MKMapViewDelegate {
     var HighlitPoint : MKPointAnnotation? = nil;
     let accessor = MediaLibraryAccessor();
     var YellowPinView : MKPinAnnotationView? = nil;
+    var scrollView : NSScrollView!;
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();
-        MapView.delegate = self;
+        NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();        
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
-        ProgressBar.hidden = true;
         
-        ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);        
+        ImageBrowser = IKImageBrowserView.init(frame: CGRectMake(0.0, 0.0, 1.0, 1.0));
+        self.view.addSubview(ImageBrowser);
+        ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);
         
-        let scrollView = NSScrollView.init(frame: NSRect.init(x: 633, y: 10, width: 167, height: 580));
+        MapView = MKMapView.init(frame: CGRectMake(0.0, 0.0, 1.0, 1.0));
+        MapView.mapType = MKMapType.Hybrid;
+        MapView.showsScale = true;
+        MapView.showsBuildings = true;
+        MapView.showsCompass = true;
+        MapView.showsZoomControls = true;
+        MapView.delegate = self;
+        self.view.addSubview(MapView);
+        
+        scrollView = NSScrollView.init(frame: ImageBrowser.frame);
         scrollView.documentView = ImageBrowser;
         scrollView.hasVerticalScroller = true;
         self.view.addSubview(scrollView);
         
-        let whiteBackgroundView = NSView.init(frame: NSRect.init(x: 633, y: 0, width: 167, height: 600));
-        whiteBackgroundView.wantsLayer = true;
-        whiteBackgroundView.layer?.backgroundColor = NSColor.whiteColor().CGColor;
-        self.view.addSubview(whiteBackgroundView, positioned: NSWindowOrderingMode.Below, relativeTo: scrollView);
+        ProgressBar = NSProgressIndicator.init(frame: CGRectMake(0.0, 0.0, 100.0, 100.0));
+        ProgressBar.style = NSProgressIndicatorStyle.SpinningStyle;
+        ProgressBar.indeterminate = true;
+        ProgressBar.displayedWhenStopped = true;
+        ProgressBar.hidden = true;
+        self.view.addSubview(ProgressBar);
+    }
+    
+    override func viewDidLayout() {
+        
+        super.viewDidLayout();
+        
+        let width = self.view.frame.size.width;
+        let height = self.view.frame.size.height;
+        
+        MapView.setFrameSize(CGSizeMake(width*0.75, height));
+        scrollView.setFrameOrigin(CGPointMake(width*CGFloat(Constants.MapViewFraction), 0.0));
+        scrollView.setFrameSize(CGSizeMake(width*CGFloat(1-Constants.MapViewFraction), height));
+        ProgressBar.setFrameOrigin(CGPointMake(MapView.frame.size.width/2 - 50.0, MapView.frame.size.height/2 - 50.0));
     }
     
     func loadMapWithFilePaths(paths: [NSURL]) {
