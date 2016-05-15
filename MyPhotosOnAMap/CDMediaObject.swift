@@ -11,8 +11,9 @@ import MapKit
 
 public class CDMediaObjectWithLocation {
     
-    var URL : NSURL;
-    var Location : CLLocationCoordinate2D?;
+    public var URL : NSURL;
+    public var Location : CLLocationCoordinate2D?;
+    public var Date : NSDate? = nil;
     
     init(withURL url : NSURL, andLocation location: CLLocationCoordinate2D?) {
         

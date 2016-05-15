@@ -31,14 +31,18 @@ class ViewController: NSViewController, MKMapViewDelegate {
     var YellowPinView : MKPinAnnotationView? = nil;
     var scrollView : NSScrollView!;
     
-    var BackMapRegion : MKCoordinateRegion? = nil;
-    var ForwardMapRegion : MKCoordinateRegion? = nil;
+    var BackStack : CDStack<MKCoordinateRegion>? = nil;
+    var ForwardStack : CDStack<MKCoordinateRegion>? = nil;
+    var NavigatingWithBackOrForwardButtons : Bool = false;
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();        
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
+        
+        BackStack = CDStack<MKCoordinateRegion>.init();
+        ForwardStack = CDStack<MKCoordinateRegion>.init();
         
         ImageBrowser = IKImageBrowserView.init(frame: CGRectMake(0.0, 0.0, 1.0, 1.0));
         ImageBrowser.setIntercellSpacing(CGSizeMake(0.0, 0.0));
@@ -115,7 +119,11 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
-        BackMapRegion = mapView.region;
+        let isRealChange = !NavigatingWithBackOrForwardButtons;
+        
+        if isRealChange {
+            BackStack?.push(mapView.region);
+        }
     }
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -125,6 +133,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
             Timing = nil;
         }
         Timing = NSTimer.scheduledTimerWithTimeInterval(1.00, target: self, selector: #selector(refreshPoints), userInfo: nil, repeats: false);
+        NavigatingWithBackOrForwardButtons = false;
     }
     
     @objc private func refreshPoints() {
@@ -310,18 +319,19 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     func forwardButtonPressed() {
         
-        if ForwardMapRegion != nil {
-            MapView.setRegion(ForwardMapRegion!, animated: true);
-            ForwardMapRegion = nil;
+        if let newRegion = ForwardStack?.pop() {
+            NavigatingWithBackOrForwardButtons = true;
+            BackStack?.push(MapView.region);
+            MapView.setRegion(newRegion, animated: true);
         }
     }
     
     func backButtonPressed() {
         
-        if BackMapRegion != nil {
-            ForwardMapRegion = MapView.region;
-            MapView.setRegion(BackMapRegion!, animated: true);
-            BackMapRegion = nil;
+        if let newRegion = BackStack?.pop() {
+            NavigatingWithBackOrForwardButtons = true;
+            ForwardStack?.push(MapView.region);
+            MapView.setRegion(newRegion, animated: true);
         }
     }
 }
