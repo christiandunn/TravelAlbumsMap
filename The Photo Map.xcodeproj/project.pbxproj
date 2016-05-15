@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC1A5E241CE83C6400E9D494 /* FileEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E231CE83C6400E9D494 /* FileEnumerator.swift */; };
+		CC1A5E261CE83F8100E9D494 /* ItemsInDirectoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E251CE83F8100E9D494 /* ItemsInDirectoryLoader.swift */; };
 		CC2400A41CDC3B4C00974E2D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2400A31CDC3B4C00974E2D /* Quartz.framework */; };
 		CC24AA861CDF14E300E6D529 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC24AA851CDF14E300E6D529 /* Constants.swift */; };
 		CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		CC1024B01CE01DF800373DAB /* MyPhotosOnAMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MyPhotosOnAMap.entitlements; sourceTree = "<group>"; };
+		CC1A5E231CE83C6400E9D494 /* FileEnumerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileEnumerator.swift; sourceTree = "<group>"; };
+		CC1A5E251CE83F8100E9D494 /* ItemsInDirectoryLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsInDirectoryLoader.swift; sourceTree = "<group>"; };
 		CC2400A31CDC3B4C00974E2D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CC24AA851CDF14E300E6D529 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusteringAlgorithm.swift; sourceTree = "<group>"; };
@@ -91,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC1A5E221CE83C4D00E9D494 /* File Enumeration */ = {
+			isa = PBXGroup;
+			children = (
+				CC1A5E251CE83F8100E9D494 /* ItemsInDirectoryLoader.swift */,
+				CC1A5E231CE83C6400E9D494 /* FileEnumerator.swift */,
+			);
+			name = "File Enumeration";
+			sourceTree = "<group>";
+		};
 		CC60C0DE1CC718A90029DA40 = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +129,7 @@
 		CC60C0E91CC718A90029DA40 /* MyPhotosOnAMap */ = {
 			isa = PBXGroup;
 			children = (
+				CC1A5E221CE83C4D00E9D494 /* File Enumeration */,
 				CC1024B01CE01DF800373DAB /* MyPhotosOnAMap.entitlements */,
 				CC24AA851CDF14E300E6D529 /* Constants.swift */,
 				CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */,
@@ -287,7 +301,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1A5E261CE83F8100E9D494 /* ItemsInDirectoryLoader.swift in Sources */,
 				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
+				CC1A5E241CE83C6400E9D494 /* FileEnumerator.swift in Sources */,
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
 				CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */,
 				CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */,

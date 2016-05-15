@@ -61,11 +61,11 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="oXv-US-vab">
                                     <items>
-                                        <menuItem title="Open Single Image" id="gFv-eW-rv3">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
                                         <menuItem title="Open Directory" id="IYj-iW-HIb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="openDirectoryMenuAction" target="Voe-Tx-rLC" id="YRa-S4-Pjg"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Open Default Photo Library" id="5dn-Mx-GiR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -75,10 +75,6 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem title="Export Visible Points as CSV" id="w0D-3O-vM7">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="S8H-BH-R1j"/>
-                                        <menuItem title="Quit" id="0KQ-Ef-gdp">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                     </items>

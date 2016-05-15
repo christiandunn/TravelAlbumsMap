@@ -36,14 +36,9 @@ class ViewController: NSViewController, MKMapViewDelegate {
         NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();
         MapView.delegate = self;
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
+        loadMapWithLibrary();
         
-        ProgressBar.hidden = false;
-        ProgressBar.startAnimation(self);
-        accessor.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
-        accessor.initialize();
-        
-        ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);
-        
+        ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);        
         
         let scrollView = NSScrollView.init(frame: NSRect.init(x: 633, y: 10, width: 167, height: 580));
         scrollView.documentView = ImageBrowser;
@@ -54,6 +49,18 @@ class ViewController: NSViewController, MKMapViewDelegate {
         whiteBackgroundView.wantsLayer = true;
         whiteBackgroundView.layer?.backgroundColor = NSColor.whiteColor().CGColor;
         self.view.addSubview(whiteBackgroundView, positioned: NSWindowOrderingMode.Below, relativeTo: scrollView);
+    }
+    
+    func loadMapWithFilePaths(paths: [NSURL]) {
+        
+    }
+    
+    func loadMapWithLibrary() {
+        
+        ProgressBar.hidden = false;
+        ProgressBar.startAnimation(self);
+        accessor.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
+        accessor.initialize();
     }
 
     override var representedObject: AnyObject? {
