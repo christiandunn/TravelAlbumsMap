@@ -31,6 +31,9 @@ class ViewController: NSViewController, MKMapViewDelegate {
     var YellowPinView : MKPinAnnotationView? = nil;
     var scrollView : NSScrollView!;
     
+    var BackMapRegion : MKCoordinateRegion? = nil;
+    var ForwardMapRegion : MKCoordinateRegion? = nil;
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -39,6 +42,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         
         ImageBrowser = IKImageBrowserView.init(frame: CGRectMake(0.0, 0.0, 1.0, 1.0));
         ImageBrowser.setIntercellSpacing(CGSizeMake(0.0, 0.0));
+        ImageBrowser.setAllowsMultipleSelection(false);
         self.view.addSubview(ImageBrowser);
         ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);
         
@@ -107,6 +111,11 @@ class ViewController: NSViewController, MKMapViewDelegate {
         let latLons = attributes.map {(CLLocationCoordinate2DMake($0.0["latitude"] as! Double, $0.0["longitude"] as! Double), CDMediaObjectFactory.createFromMlMediaObject(withObject: $0.1))};
         LatLons = latLons;
         addPoints(LatLons);
+    }
+    
+    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        
+        BackMapRegion = mapView.region;
     }
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -292,6 +301,28 @@ class ViewController: NSViewController, MKMapViewDelegate {
         let distance : CLLocationDistance = MKMetersBetweenMapPoints(point1, point2);
         
         return distance;
+    }
+    
+    func setImageBrowserZoom(zoom : Float) {
+        
+        ImageBrowser.setZoomValue(zoom);
+    }
+    
+    func forwardButtonPressed() {
+        
+        if ForwardMapRegion != nil {
+            MapView.setRegion(ForwardMapRegion!, animated: true);
+            ForwardMapRegion = nil;
+        }
+    }
+    
+    func backButtonPressed() {
+        
+        if BackMapRegion != nil {
+            ForwardMapRegion = MapView.region;
+            MapView.setRegion(BackMapRegion!, animated: true);
+            BackMapRegion = nil;
+        }
     }
 }
 

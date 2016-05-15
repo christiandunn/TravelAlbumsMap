@@ -23,6 +23,7 @@
 		CC60C1081CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C1071CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift */; };
 		CC60C1181CC71DE10029DA40 /* MediaLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */; };
 		CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */; };
+		CC7EA0401CE90E4000200021 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7EA03F1CE90E4000200021 /* WindowController.swift */; };
 		CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */; };
 		CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		CC60C1191CC71E470029DA40 /* MyPhotosOnAMap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyPhotosOnAMap-Bridging-Header.h"; sourceTree = "<group>"; };
 		CC60C11A1CC71E470029DA40 /* MediaLibraryAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaLibraryAccessor.h; sourceTree = "<group>"; };
 		CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaLibraryAccessor.m; sourceTree = "<group>"; };
+		CC7EA03F1CE90E4000200021 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBrowserDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +148,7 @@
 				CC60C0EC1CC718A90029DA40 /* ViewController.swift */,
 				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
 				CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */,
+				CC7EA03F1CE90E4000200021 /* WindowController.swift */,
 				CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */,
 				CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */,
 				CC60C0F01CC718AA0029DA40 /* Main.storyboard */,
@@ -314,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC1A5E261CE83F8100E9D494 /* ItemsInDirectoryLoader.swift in Sources */,
+				CC7EA0401CE90E4000200021 /* WindowController.swift in Sources */,
 				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
 				CC1A5E241CE83C6400E9D494 /* FileEnumerator.swift in Sources */,
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
