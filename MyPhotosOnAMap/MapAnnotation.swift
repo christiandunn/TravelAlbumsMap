@@ -105,13 +105,27 @@ public class ImageRep {
     }
     
     @objc public func imageTitle() -> String! {
-        return MediaLibraryAccessor.getExifDateTimeOriginal(MediaObject.URL);
+        let dateString : String! = MediaLibraryAccessor.getExifDateTimeOriginal(MediaObject.URL);
+        let dateFormatter : NSDateFormatter = NSDateFormatter.init();
+        let dateFormat : String = "yyyy:MM:dd HH:mm:ss";
+        dateFormatter.dateFormat = dateFormat;
+        dateFormatter.formatterBehavior = NSDateFormatterBehavior.Behavior10_4;
+        let date = dateFormatter.dateFromString(dateString);
+        
+        let currentDateFormatter : NSDateFormatter = NSDateFormatter.init();
+        currentDateFormatter.locale = NSLocale.currentLocale();
+        currentDateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle;
+        if date == nil {
+            return "";
+        }
+        return currentDateFormatter.stringFromDate(date!);
     }
     
     @objc public func imageSubtitle() -> String! {
         let altitude = MediaLibraryAccessor.getGpsAltitude(MediaObject.URL);
         if altitude != nil {
-            return String(format: "%.2fm", altitude.doubleValue);
+            let alt = altitude.doubleValue;
+            return CustomDistanceFormatter.init().stringWithDistance(alt);
         }
         return "";
     }

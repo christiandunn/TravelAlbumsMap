@@ -38,6 +38,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
         
         ImageBrowser = IKImageBrowserView.init(frame: CGRectMake(0.0, 0.0, 1.0, 1.0));
+        ImageBrowser.setIntercellSpacing(CGSizeMake(0.0, 0.0));
         self.view.addSubview(ImageBrowser);
         ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);
         

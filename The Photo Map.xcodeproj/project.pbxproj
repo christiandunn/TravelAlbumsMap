@@ -11,6 +11,7 @@
 		CC1A5E261CE83F8100E9D494 /* ItemsInDirectoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E251CE83F8100E9D494 /* ItemsInDirectoryLoader.swift */; };
 		CC1A5E281CE8583A00E9D494 /* CDMediaObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E271CE8583A00E9D494 /* CDMediaObject.swift */; };
 		CC1A5E2A1CE87C9C00E9D494 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1A5E291CE87C9C00E9D494 /* MapKit.framework */; };
+		CC1A5E2C1CE88B2D00E9D494 /* CustomDistanceFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */; };
 		CC2400A41CDC3B4C00974E2D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2400A31CDC3B4C00974E2D /* Quartz.framework */; };
 		CC24AA861CDF14E300E6D529 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC24AA851CDF14E300E6D529 /* Constants.swift */; };
 		CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */; };
@@ -49,6 +50,8 @@
 		CC1A5E251CE83F8100E9D494 /* ItemsInDirectoryLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsInDirectoryLoader.swift; sourceTree = "<group>"; };
 		CC1A5E271CE8583A00E9D494 /* CDMediaObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDMediaObject.swift; sourceTree = "<group>"; };
 		CC1A5E291CE87C9C00E9D494 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDistanceFormatter.m; sourceTree = "<group>"; };
+		CC1A5E2D1CE88B4500E9D494 /* CustomDistanceFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDistanceFormatter.h; sourceTree = "<group>"; };
 		CC2400A31CDC3B4C00974E2D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CC24AA851CDF14E300E6D529 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusteringAlgorithm.swift; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				CC60C0F31CC718AA0029DA40 /* Info.plist */,
 				CC60C11A1CC71E470029DA40 /* MediaLibraryAccessor.h */,
 				CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */,
+				CC1A5E2D1CE88B4500E9D494 /* CustomDistanceFormatter.h */,
+				CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */,
 				CC60C1191CC71E470029DA40 /* MyPhotosOnAMap-Bridging-Header.h */,
 			);
 			path = MyPhotosOnAMap;
@@ -312,6 +317,7 @@
 				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
 				CC1A5E241CE83C6400E9D494 /* FileEnumerator.swift in Sources */,
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
+				CC1A5E2C1CE88B2D00E9D494 /* CustomDistanceFormatter.m in Sources */,
 				CC1A5E281CE8583A00E9D494 /* CDMediaObject.swift in Sources */,
 				CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */,
 				CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */,
