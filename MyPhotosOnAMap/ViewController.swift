@@ -36,7 +36,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();
         MapView.delegate = self;
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
-        loadMapWithLibrary();
+        ProgressBar.hidden = true;
         
         ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);        
         
@@ -53,6 +53,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     func loadMapWithFilePaths(paths: [NSURL]) {
         
+        ProgressBar.hidden = false;
         let mediaObjectsWithLocation = paths.map {CDMediaObjectFactory.createMediaObject(withUrl: $0)}.filter {$0.Location != nil};
         LatLons = mediaObjectsWithLocation.map {($0.Location!, $0)};
         refreshPoints();

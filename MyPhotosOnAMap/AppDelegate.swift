@@ -28,6 +28,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     
+    @IBAction internal func openLibraryMenuAction(sender: NSMenuItem) {
+        
+        VC?.loadMapWithLibrary();
+    }
+    
     @IBAction internal func openDirectoryMenuAction(sender: NSMenuItem) {
         
         let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: VC!);

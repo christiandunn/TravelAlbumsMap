@@ -69,6 +69,9 @@
                                         </menuItem>
                                         <menuItem title="Open Default Photo Library" id="5dn-Mx-GiR">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="openLibraryMenuAction:" target="Voe-Tx-rLC" id="asa-UK-w2e"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="YP4-1F-K1s"/>
                                         <menuItem title="Export All Points as CSV" id="7jb-E7-vqz">
