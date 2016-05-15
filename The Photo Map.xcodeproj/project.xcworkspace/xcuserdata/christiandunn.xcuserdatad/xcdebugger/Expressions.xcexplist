@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ViewController.mapView(MKMapView, rendererForOverlay : MKOverlay) -&gt; MKOverlayRenderer:ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "MapView.visibleRect">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ViewController.(_addClusterCoordsToMap in _496069D427803E1D5777A32E2D608624)([(CLLocationCoordinate2D, [MLMediaObject])], maxDs : [Double], clusterCounts : [Int]) -&gt; ():ViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -19,12 +27,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ViewController.mapView(MKMapView, rendererForOverlay : MKOverlay) -&gt; MKOverlayRenderer:ViewController.swift">
+         contextName = "ViewController.(addPoints in _496069D427803E1D5777A32E2D608624)([(CLLocationCoordinate2D, CDMediaObjectWithLocation)]) -&gt; ():ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "+[MediaLibraryAccessor getLocation:]:MediaLibraryAccessor.m">
          <PersistentStrings>
             <PersistentString
-               value = "MapView.visibleRect">
+               value = "latitudeRef">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FileEnumerator.getAllImageFiles() -&gt; [String]:FileEnumerator.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

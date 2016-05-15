@@ -17,7 +17,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     @IBOutlet weak var ProgressBar: NSProgressIndicator!
     @IBOutlet weak var ImageBrowser: IKImageBrowserView!
     
-    var LatLons : [(CLLocationCoordinate2D, MLMediaObject)] = [];
+    var LatLons : [(CLLocationCoordinate2D, CDMediaObjectWithLocation)] = [];
     var FriendsNeededToNotBeLonely : Int = Constants.MinimumPointsForCluster;
     var ClusterRadius : Double = Constants.ClusterRadius;
     var Clustering : ClusteringAlgorithm<MLMediaObject>? = nil;
@@ -53,6 +53,9 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     func loadMapWithFilePaths(paths: [NSURL]) {
         
+        let mediaObjectsWithLocation = paths.map {CDMediaObjectFactory.createMediaObject(withUrl: $0)}.filter {$0.Location != nil};
+        LatLons = mediaObjectsWithLocation.map {($0.Location!, $0)};
+        refreshPoints();
     }
     
     func loadMapWithLibrary() {
@@ -74,7 +77,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         ProgressBar.hidden = true;
         let mediaObjects: Array<MLMediaObject> = accessor.getMediaObjects() as NSArray as! [MLMediaObject];
         let attributes = mediaObjects.map {($0.attributes, $0)}.filter {$0.0.indexForKey("latitude") != nil}.filter {$0.0.indexForKey("longitude") != nil};
-        let latLons = attributes.map {(CLLocationCoordinate2DMake($0.0["latitude"] as! Double, $0.0["longitude"] as! Double), $0.1)};
+        let latLons = attributes.map {(CLLocationCoordinate2DMake($0.0["latitude"] as! Double, $0.0["longitude"] as! Double), CDMediaObjectFactory.createFromMlMediaObject(withObject: $0.1))};
         LatLons = latLons;
         addPoints(LatLons);
     }
@@ -94,7 +97,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         addPoints(LatLons);
     }
 
-    private func addPoints(points: [(CLLocationCoordinate2D, MLMediaObject)]) {
+    private func addPoints(points: [(CLLocationCoordinate2D, CDMediaObjectWithLocation)]) {
         
         let mapViewPoints = points.map {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter {CGRectContainsPoint(MapView.frame, $0.0)};
         let mapViewCGPoints = mapViewPoints.map {$0.0};
@@ -133,7 +136,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         MapView.removeAnnotations(Overlays);
     }
     
-    private func _addLonelyCoordsToMap(coords: [(CLLocationCoordinate2D, MLMediaObject)]) {
+    private func _addLonelyCoordsToMap(coords: [(CLLocationCoordinate2D, CDMediaObjectWithLocation)]) {
         
         for coord in coords {
             let annotation = ModifiedPinAnnotation(withDataLoad: MapAnnotation(withMediaObject: coord.1, andCoord:coord.0));
@@ -143,7 +146,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         }
     }
     
-    private func _addClusterCoordsToMap(coords: [(CLLocationCoordinate2D, [MLMediaObject])], maxDs: [Double], clusterCounts: [Int], clusters: [ClusterOfCoordinates]) {
+    private func _addClusterCoordsToMap(coords: [(CLLocationCoordinate2D, [CDMediaObjectWithLocation])], maxDs: [Double], clusterCounts: [Int], clusters: [ClusterOfCoordinates]) {
         
         for i in 0...(coords.count - 1) {
             let coord = coords[i];

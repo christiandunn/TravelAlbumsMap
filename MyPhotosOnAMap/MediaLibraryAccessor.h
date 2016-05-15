@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MediaLibrary/MediaLibrary.h>
+#import <MapKit/MapKit.h>
 
 @interface MediaLibraryAccessor : NSObject {
     NSMutableArray *MediaObjects;
@@ -33,5 +34,6 @@
 + (NSString *)getExifDateTimeOriginal:(NSURL *)path;
 + (NSNumber *)getGpsAltitude:(NSURL *)path;
 + (NSNumber *)getGpsSpeed:(NSURL *)path;
++ (CLLocationCoordinate2D)getLocation:(NSURL *)path;
 
 @end

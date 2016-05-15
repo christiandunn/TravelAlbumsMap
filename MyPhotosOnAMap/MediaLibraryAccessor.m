@@ -141,4 +141,17 @@
     return result;
 }
 
++ (CLLocationCoordinate2D)getLocation:(NSURL *)path {
+    
+    NSDictionary *imageDict = [MediaLibraryAccessor getImagePropertiesDictionary:path];
+    NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
+    NSNumber *latitude = (NSNumber *)[dictionary valueForKey:@"Latitude"];
+    NSNumber *longitude = (NSNumber *)[dictionary valueForKey:@"Longitude"];
+    NSString *latitudeRef = (NSString *)[dictionary valueForKey:@"LatitudeRef"];
+    NSString *longitudeRef = (NSString *)[dictionary valueForKey:@"LongitudeRef"];
+    double lat = latitude.doubleValue * ([latitudeRef compare:@"S"] == NSOrderedSame ? -1 : 1);
+    double lon = longitude.doubleValue * ([longitudeRef compare:@"W"] == NSOrderedSame ? -1 : 1);
+    return CLLocationCoordinate2DMake(lat, lon);
+}
+
 @end

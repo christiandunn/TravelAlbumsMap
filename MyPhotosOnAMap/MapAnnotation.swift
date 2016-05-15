@@ -13,17 +13,17 @@ import Quartz
 
 public class MapAnnotation {
     
-    public var Objects : [MLMediaObject] = [];
+    public var Objects : [CDMediaObjectWithLocation] = [];
     public var Center : CLLocationCoordinate2D? = nil;
     public var Coords : [CLLocationCoordinate2D] = [];
     
-    init(withMediaObject object: MLMediaObject, andCoord: CLLocationCoordinate2D) {
+    init(withMediaObject object: CDMediaObjectWithLocation, andCoord: CLLocationCoordinate2D) {
         Objects.append(object);
         Coords.append(andCoord);
         Center = andCoord;
     }
     
-    init(withMediaObjects objects: [MLMediaObject], andCluster cluster: ClusterOfCoordinates) {
+    init(withMediaObjects objects: [CDMediaObjectWithLocation], andCluster cluster: ClusterOfCoordinates) {
         let coords = cluster.Points;
         Objects.appendContentsOf(objects);
         Coords.appendContentsOf(coords);
@@ -78,14 +78,14 @@ public class ModifiedClusterAnnotation : MKPointAnnotation, ModifiedAnnotation {
 }
 
 public class ImageRep {
-    private var MediaObject : MLMediaObject;
+    private var MediaObject : CDMediaObjectWithLocation;
     
-    init(imageRepWithMediaObject mediaObject : MLMediaObject) {
+    init(imageRepWithMediaObject mediaObject : CDMediaObjectWithLocation) {
         MediaObject = mediaObject;
     }
     
     @objc public func imageUID() -> String! {
-        return MediaObject.identifier;
+        return MediaObject.URL.absoluteString;
     }
     
     @objc public func imageRepresentationType() -> String! {

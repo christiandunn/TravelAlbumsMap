@@ -23,12 +23,24 @@ public class FileEnumerator {
     public func getAllImageFiles() -> [NSURL] {
         
         let allObjects = getAllObjects();
-        return allObjects;
+        let imageObjects = allObjects.filter({(URL : NSURL) -> Bool in hasImageSuffix(URL)});
+        return imageObjects;
     }
     
     private func getAllObjects() -> [NSURL] {
         
         let allObjects = DirectoryEnumerator?.allObjects as! [NSURL];
         return allObjects;
+    }
+    
+    private func hasImageSuffix(URL : NSURL) -> Bool {
+        
+        let stringValue = URL.absoluteString.lowercaseString;
+        return stringValue.hasSuffix("jpeg") ||
+            stringValue.hasSuffix("jpg") ||
+            stringValue.hasSuffix("bmp") ||
+            stringValue.hasSuffix("tiff") ||
+            stringValue.hasSuffix("tif") ||
+            stringValue.hasSuffix("gif");
     }
 }
