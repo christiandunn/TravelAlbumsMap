@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CC60C0E61CC718A90029DA40"
-               BuildableName = "MyPhotosOnAMap.app"
+               BuildableName = "The Photo Map.app"
                BlueprintName = "MyPhotosOnAMap"
                ReferencedContainer = "container:The Photo Map.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CC60C0E61CC718A90029DA40"
-            BuildableName = "MyPhotosOnAMap.app"
+            BuildableName = "The Photo Map.app"
             BlueprintName = "MyPhotosOnAMap"
             ReferencedContainer = "container:The Photo Map.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CC60C0E61CC718A90029DA40"
-            BuildableName = "MyPhotosOnAMap.app"
+            BuildableName = "The Photo Map.app"
             BlueprintName = "MyPhotosOnAMap"
             ReferencedContainer = "container:The Photo Map.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CC60C0E61CC718A90029DA40"
-            BuildableName = "MyPhotosOnAMap.app"
+            BuildableName = "The Photo Map.app"
             BlueprintName = "MyPhotosOnAMap"
             ReferencedContainer = "container:The Photo Map.xcodeproj">
          </BuildableReference>
