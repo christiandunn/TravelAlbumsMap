@@ -58,7 +58,7 @@
 		CC2400A31CDC3B4C00974E2D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CC24AA851CDF14E300E6D529 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusteringAlgorithm.swift; sourceTree = "<group>"; };
-		CC60C0E71CC718A90029DA40 /* MyPhotosOnAMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPhotosOnAMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC60C0E71CC718A90029DA40 /* The Photo Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Photo Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC60C0EC1CC718A90029DA40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 		CC60C0E81CC718A90029DA40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CC60C0E71CC718A90029DA40 /* MyPhotosOnAMap.app */,
+				CC60C0E71CC718A90029DA40 /* The Photo Map.app */,
 				CC60C0F81CC718AB0029DA40 /* MyPhotosOnAMapTests.xctest */,
 				CC60C1031CC718AB0029DA40 /* MyPhotosOnAMapUITests.xctest */,
 			);
@@ -211,7 +211,7 @@
 			);
 			name = MyPhotosOnAMap;
 			productName = MyPhotosOnAMap;
-			productReference = CC60C0E71CC718A90029DA40 /* MyPhotosOnAMap.app */;
+			productReference = CC60C0E71CC718A90029DA40 /* The Photo Map.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CC60C0F71CC718AB0029DA40 /* MyPhotosOnAMapTests */ = {
@@ -483,7 +483,7 @@
 				INFOPLIST_FILE = MyPhotosOnAMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.travelmap;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "The Photo Map";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyPhotosOnAMap/MyPhotosOnAMap-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -500,7 +500,7 @@
 				INFOPLIST_FILE = MyPhotosOnAMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.travelmap;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "The Photo Map";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyPhotosOnAMap/MyPhotosOnAMap-Bridging-Header.h";
 			};
 			name = Release;
