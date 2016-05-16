@@ -74,9 +74,15 @@
                                         <menuItem isSeparatorItem="YES" id="YP4-1F-K1s"/>
                                         <menuItem title="Export All Points as CSV" id="7jb-E7-vqz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="exportAllPointsToCsv:" target="Voe-Tx-rLC" id="cmd-Mu-nJ3"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Export Visible Points as CSV" id="w0D-3O-vM7">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="exportVisiblePointsToCsv:" target="Voe-Tx-rLC" id="jJ3-zs-RXc"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>

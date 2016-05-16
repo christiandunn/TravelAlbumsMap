@@ -366,5 +366,24 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
             LastRegion = nil;
         }
     }
+    
+    func exportToCsv(path : NSURL, instructions : SaveDialogService.SaveCsvInstructions) {
+        
+        var objects : [CDMediaObjectWithLocation] = [];
+        if instructions == SaveDialogService.SaveCsvInstructions.SaveAll {
+            objects = LatLons.map {$0.1};
+        }
+        if instructions == SaveDialogService.SaveCsvInstructions.SaveVisible {
+            let mapViewPoints = LatLons.map {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter {CGRectContainsPoint(MapView.frame, $0.0)};
+            objects = mapViewPoints.map {$0.1};
+        }
+        
+        let exporter = CDCsvExporter.init(withPath: path, andItems: objects);
+        let result = exporter.export();
+        let resultText = result ? "The CSV file has been saved." : "There was a problem saving the CSV file."
+        let alert = NSAlert.init();
+        alert.messageText = resultText;
+        alert.runModal();
+    }
 }
 

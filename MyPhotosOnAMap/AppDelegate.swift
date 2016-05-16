@@ -38,5 +38,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: VC!);
         itemLoader.loadItemsFromDirectory();
     }
+    
+    @IBAction internal func exportAllPointsToCsv(sender: NSMenuItem) {
+        SaveDialogService.init(withViewController: VC!).saveCsvAll();
+    }
+    
+    @IBAction internal func exportVisiblePointsToCsv(sender: NSMenuItem) {
+        SaveDialogService.init(withViewController: VC!).saveCsvVisible();
+    }
 }
 
