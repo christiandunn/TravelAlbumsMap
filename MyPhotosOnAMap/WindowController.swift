@@ -12,8 +12,11 @@ public class WindowController : NSWindowController {
     
     var VC : ViewController?;
     
-    @IBOutlet weak var BackButton: NSToolbarItem!
-    @IBOutlet weak var ForwardButton: NSToolbarItem!
+    @IBOutlet weak var BackButtonImageView: CDImageView!
+    @IBOutlet weak var ForwardButtonImageView: CDImageView!
+    @IBOutlet weak var LoadFolderImageView: CDImageView!
+    @IBOutlet weak var LoadLibraryImageView: CDImageView!
+    
     @IBOutlet weak var ZoomSlider: NSToolbarItem!
     @IBOutlet weak var Zoom: NSSlider!
     
@@ -21,13 +24,25 @@ public class WindowController : NSWindowController {
         
         VC = self.window!.contentViewController as! ViewController?;
         Zoom.continuous = true;
+        
+        BackButtonImageView.target = self;
+        BackButtonImageView.clickAction = #selector(backButtonPressed);
+        
+        ForwardButtonImageView.target = self;
+        ForwardButtonImageView.clickAction = #selector(forwardButtonPressed);
+        
+        LoadFolderImageView.target = self;
+        LoadFolderImageView.clickAction = #selector(openFolder);
+        
+        LoadLibraryImageView.target = self;
+        LoadLibraryImageView.clickAction = #selector(openLibrary);
     }
     
-    @IBAction func backButtonPressed(sender: AnyObject) {
+    func backButtonPressed() {
         VC?.backButtonPressed();
     }
     
-    @IBAction func forwardButtonPressed(sender: AnyObject) {
+    func forwardButtonPressed() {
         VC?.forwardButtonPressed();
     }
     
@@ -35,12 +50,12 @@ public class WindowController : NSWindowController {
         VC?.setImageBrowserZoom(Float(Zoom.doubleValue/100.0));
     }
     
-    @IBAction func openFolder(sender: AnyObject) {
+    func openFolder(sender: AnyObject) {
         let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: VC!);
         itemLoader.loadItemsFromDirectory();
     }
     
-    @IBAction func openLibrary(sender: AnyObject) {
+    func openLibrary(sender: AnyObject) {
         VC?.loadMapWithLibrary();
     }
 }

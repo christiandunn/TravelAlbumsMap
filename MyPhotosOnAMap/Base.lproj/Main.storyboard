@@ -145,7 +145,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MyPhotosOnAMap" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="The_Photo_Map" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -153,7 +153,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" customClass="WindowController" customModule="MyPhotosOnAMap" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="WindowController" customModule="The_Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="The Photo Map" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -163,22 +163,12 @@
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="vgq-p2-vlR"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="yCx-WH-CJP"/>
-                                <toolbarItem implicitItemIdentifier="F2AAF174-30C2-4B5B-94A8-F3FE54A06CAD" label="Back" paletteLabel="Back" tag="-1" image="Left-Arrow-Icon" id="S9D-Pw-ylK">
-                                    <connections>
-                                        <action selector="backButtonPressed:" target="B8D-0N-5wS" id="gT3-7U-6CO"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="CCE5A94E-6D8A-407E-B6D5-20917DBB7382" label="Forward" paletteLabel="Forward" tag="-1" image="Right-Arrow-Icon" id="PV3-NN-l1x">
-                                    <connections>
-                                        <action selector="forwardButtonPressed:" target="B8D-0N-5wS" id="hwv-Ek-f1d"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="DDDCE7A5-F85C-4D07-B0FC-A6FFE84515A4" label="Image Zoom" paletteLabel="Image Zoom" id="8Zp-Yn-iFc">
+                                <toolbarItem implicitItemIdentifier="DDDCE7A5-F85C-4D07-B0FC-A6FFE84515A4" label="Image Browser Zoom" paletteLabel="Image Browser Zoom" id="8Zp-Yn-iFc">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="96" height="21"/>
                                     <size key="maxSize" width="96" height="21"/>
                                     <slider key="view" verticalHuggingPriority="750" id="UJY-WP-Ypz">
-                                        <rect key="frame" x="0.0" y="14" width="96" height="21"/>
+                                        <rect key="frame" x="11" y="14" width="96" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="V4d-Ap-nho"/>
                                         <connections>
@@ -186,30 +176,62 @@
                                         </connections>
                                     </slider>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C35A9D9F-F2DE-4DDB-B9ED-C90DDD7D9F77" label="From Folder" paletteLabel="From Folder" tag="-1" image="Folder-Icon" id="898-Ld-Mwg">
-                                    <connections>
-                                        <action selector="openFolder:" target="B8D-0N-5wS" id="tT0-ba-eOr"/>
-                                    </connections>
+                                <toolbarItem implicitItemIdentifier="7C046B75-1F74-4622-952A-4BDB5DF07185" label="Back" paletteLabel="Back" image="Left-Arrow-Icon" id="KCo-ok-iHI">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="k39-Yi-PD5" customClass="CDImageView">
+                                        <rect key="frame" x="0.0" y="14" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Left-Arrow-Icon" id="3lK-N2-X3k"/>
+                                    </imageView>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="D9E1EE43-2156-4D90-B06B-49167B1207F5" label="From Library" paletteLabel="From Library" tag="-1" image="Photo-Library-Icon" id="zTg-Vo-Xfl">
-                                    <connections>
-                                        <action selector="openLibrary:" target="B8D-0N-5wS" id="gzi-Ga-2aA"/>
-                                    </connections>
+                                <toolbarItem implicitItemIdentifier="00AB64EC-96DD-48CF-9026-A9139C27648F" label="Forward" paletteLabel="Forward" image="Right-Arrow-Icon" id="SIg-bn-gVA">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="hGF-AE-DPC" customClass="CDImageView">
+                                        <rect key="frame" x="1" y="14" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Right-Arrow-Icon" id="sDD-PC-F52"/>
+                                    </imageView>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="9FB3EF20-B42C-4F93-A601-7084066245A6" label="From Folder" paletteLabel="From Folder" image="Folder-Icon" id="JIE-xx-mPN">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="XJU-P5-4EG" customClass="CDImageView">
+                                        <rect key="frame" x="12" y="14" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Folder-Icon" id="LOw-KQ-9tb"/>
+                                    </imageView>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="A3A41527-B2C2-46B7-A0AD-90C85EA4898E" label="From Library" paletteLabel="From Library" image="Photo-Library-Icon" id="E6I-PX-XZh">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="2Ie-7B-HF1" customClass="CDImageView">
+                                        <rect key="frame" x="13" y="14" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Photo-Library-Icon" id="mLg-dG-Sq5"/>
+                                    </imageView>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
-                                <toolbarItem reference="S9D-Pw-ylK"/>
-                                <toolbarItem reference="PV3-NN-l1x"/>
-                                <toolbarItem reference="898-Ld-Mwg"/>
-                                <toolbarItem reference="zTg-Vo-Xfl"/>
+                                <toolbarItem reference="KCo-ok-iHI"/>
+                                <toolbarItem reference="SIg-bn-gVA"/>
+                                <toolbarItem reference="JIE-xx-mPN"/>
+                                <toolbarItem reference="E6I-PX-XZh"/>
                                 <toolbarItem reference="yCx-WH-CJP"/>
                                 <toolbarItem reference="8Zp-Yn-iFc"/>
                             </defaultToolbarItems>
                         </toolbar>
                     </window>
                     <connections>
-                        <outlet property="BackButton" destination="S9D-Pw-ylK" id="Yhb-DQ-9hM"/>
-                        <outlet property="ForwardButton" destination="PV3-NN-l1x" id="pYk-TG-z2h"/>
+                        <outlet property="BackButtonImageView" destination="k39-Yi-PD5" id="3ly-71-cwx"/>
+                        <outlet property="ForwardButtonImageView" destination="hGF-AE-DPC" id="1i7-bZ-4rE"/>
+                        <outlet property="LoadFolderImageView" destination="XJU-P5-4EG" id="U6y-y7-n8i"/>
+                        <outlet property="LoadLibraryImageView" destination="2Ie-7B-HF1" id="exf-NM-NCJ"/>
                         <outlet property="Zoom" destination="UJY-WP-Ypz" id="WII-MV-Kh1"/>
                         <outlet property="ZoomSlider" destination="8Zp-Yn-iFc" id="w4u-Cd-xwl"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -222,7 +244,7 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="MyPhotosOnAMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="The_Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -234,9 +256,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Folder-Icon" width="66" height="66"/>
-        <image name="Left-Arrow-Icon" width="60" height="60"/>
-        <image name="Photo-Library-Icon" width="66" height="66"/>
-        <image name="Right-Arrow-Icon" width="60" height="60"/>
+        <image name="Folder-Icon" width="28" height="24"/>
+        <image name="Left-Arrow-Icon" width="14" height="28"/>
+        <image name="Photo-Library-Icon" width="28" height="23"/>
+        <image name="Right-Arrow-Icon" width="14" height="28"/>
     </resources>
 </document>

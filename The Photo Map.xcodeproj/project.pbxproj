@@ -27,6 +27,7 @@
 		CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */; };
 		CC9FC94F1CE939A100558868 /* CDStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC94E1CE939A100558868 /* CDStack.swift */; };
 		CC9FC9511CE9553200558868 /* CDMapRegionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */; };
+		CCDDFC9C1CE983EA001D324F /* CDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDDFC9B1CE983EA001D324F /* CDImageView.m */; };
 		CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		CC9FC94E1CE939A100558868 /* CDStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDStack.swift; sourceTree = "<group>"; };
 		CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDMapRegionStack.swift; sourceTree = "<group>"; };
+		CCDDFC9A1CE983EA001D324F /* CDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDImageView.h; sourceTree = "<group>"; };
+		CCDDFC9B1CE983EA001D324F /* CDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDImageView.m; sourceTree = "<group>"; };
 		CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBrowserDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +166,8 @@
 				CC1A5E2D1CE88B4500E9D494 /* CustomDistanceFormatter.h */,
 				CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */,
 				CC60C1191CC71E470029DA40 /* MyPhotosOnAMap-Bridging-Header.h */,
+				CCDDFC9A1CE983EA001D324F /* CDImageView.h */,
+				CCDDFC9B1CE983EA001D324F /* CDImageView.m */,
 			);
 			path = MyPhotosOnAMap;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
 				CC1A5E2C1CE88B2D00E9D494 /* CustomDistanceFormatter.m in Sources */,
 				CC1A5E281CE8583A00E9D494 /* CDMediaObject.swift in Sources */,
+				CCDDFC9C1CE983EA001D324F /* CDImageView.m in Sources */,
 				CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */,
 				CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */,
 				CC9FC9511CE9553200558868 /* CDMapRegionStack.swift in Sources */,

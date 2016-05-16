@@ -18,6 +18,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     var ImageBrowser: IKImageBrowserView!
     
     var LatLons : [(CLLocationCoordinate2D, CDMediaObjectWithLocation)] = [];
+    var MediaLibraryBackupLatLons : [(CLLocationCoordinate2D, CDMediaObjectWithLocation)] = [];
     var FriendsNeededToNotBeLonely : Int = Constants.MinimumPointsForCluster;
     var ClusterRadius : Double = Constants.ClusterRadius;
     var Clustering : ClusteringAlgorithm<MLMediaObject>? = nil;
@@ -99,10 +100,15 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     
     func loadMapWithLibrary() {
         
-        ProgressBar.hidden = false;
-        ProgressBar.startAnimation(self);
-        accessor.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
-        accessor.initialize();
+        if MediaLibraryBackupLatLons.count == 0 {
+            ProgressBar.hidden = false;
+            ProgressBar.startAnimation(self);
+            accessor.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
+            accessor.initialize();
+        } else {
+            LatLons = MediaLibraryBackupLatLons;
+            addPoints(LatLons);
+        }
     }
 
     override var representedObject: AnyObject? {
@@ -118,6 +124,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         let attributes = mediaObjects.map {($0.attributes, $0)}.filter {$0.0.indexForKey("latitude") != nil}.filter {$0.0.indexForKey("longitude") != nil};
         let latLons = attributes.map {(CLLocationCoordinate2DMake($0.0["latitude"] as! Double, $0.0["longitude"] as! Double), CDMediaObjectFactory.createFromMlMediaObject(withObject: $0.1))};
         LatLons = latLons;
+        MediaLibraryBackupLatLons = LatLons;
         addPoints(LatLons);
     }
     

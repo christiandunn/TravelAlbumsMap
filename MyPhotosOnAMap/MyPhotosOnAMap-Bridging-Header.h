@@ -4,3 +4,4 @@
 
 #import "MediaLibraryAccessor.h"
 #import "CustomDistanceFormatter.h"
+#import "CDImageView.h"
