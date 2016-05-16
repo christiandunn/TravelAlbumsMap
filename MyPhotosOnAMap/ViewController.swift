@@ -34,6 +34,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     var BackStack : CDMapRegionStack? = nil;
     var ForwardStack : CDMapRegionStack? = nil;
     var LastRegion : MKCoordinateRegion? = nil;
+    var NavButton : Bool = false;
     
     override func viewDidLoad() {
         
@@ -147,19 +148,20 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     
     func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
+        if LastRegion != nil && !NavButton {
+            BackStack?.push(LastRegion!);
+        }
         LastRegion = mapView.region;
     }
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
         self.setTimerForPointsRefresh();
+        NavButton = false;
     }
     
     @objc private func refreshPoints() {
         
-        if LastRegion != nil {
-            BackStack?.push(LastRegion!);
-        }
         _removeAllCoordsFromMap();
         addPoints(LatLons);
     }
@@ -343,6 +345,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         
         if let newRegion = ForwardStack?.pop() {
             BackStack?.push(MapView.region);
+            NavButton = true;
             MapView.setRegion(newRegion, animated: true);
         }
     }
@@ -351,6 +354,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         
         if let newRegion = BackStack?.pop() {
             ForwardStack?.push(MapView.region);
+            NavButton = true;
             MapView.setRegion(newRegion, animated: true);
             LastRegion = nil;
         }

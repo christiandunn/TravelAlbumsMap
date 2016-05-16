@@ -30,7 +30,11 @@ public class CDMapRegionStack {
     
     func pop() -> MKCoordinateRegion? {
         
-        return Stack.pop();
+        if Stack.count() > 1 {
+            return Stack.pop();
+        } else {
+            return nil;
+        }
     }
     
     func count() -> Int {
