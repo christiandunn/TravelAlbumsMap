@@ -22,13 +22,9 @@ public class CDStack<T> {
     }
     
     func pop() -> T? {
-        if let firstNode = StackHead {
-            let element = firstNode.Element;
-            StackHead = firstNode.Before;
-            return element;
-        } else {
-            return nil;
-        }
+        let item = peek();
+        removeStackHead();
+        return item;
     }
     
     func count() -> Int {
@@ -39,6 +35,24 @@ public class CDStack<T> {
             currentNode = node.Before;
         }
         return numItems;
+    }
+    
+    func removeAll() {        
+        while let node = StackHead {
+            StackHead = node.Before;
+        }
+    }
+    
+    func peek() -> T? {
+        if let firstNode = StackHead {
+            return firstNode.Element;
+        } else {
+            return nil;
+        }
+    }
+    
+    func removeStackHead() {
+        StackHead = StackHead?.Before;
     }
 }
 

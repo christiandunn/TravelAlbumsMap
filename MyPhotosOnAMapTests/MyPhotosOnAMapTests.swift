@@ -21,9 +21,23 @@ class MyPhotosOnAMapTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCDStack() {
+        let StackTest : CDStack<Int> = CDStack<Int>.init();
+        StackTest.push(10);
+        StackTest.push(20);
+        StackTest.push(30);
+        StackTest.push(40);
+        StackTest.push(50);
+        
+        let firstPop = StackTest.pop();
+        XCTAssert(firstPop == 50);
+        StackTest.push(51);
+        XCTAssert(StackTest.pop() == 51);
+        XCTAssert(StackTest.count() == 4);
+        XCTAssert(StackTest.pop() == 40);
+        StackTest.removeAll();
+        XCTAssert(StackTest.count() == 0);
+        XCTAssert(StackTest.pop() == nil);
     }
     
     func testPerformanceExample() {

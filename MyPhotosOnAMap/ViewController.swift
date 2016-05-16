@@ -11,7 +11,7 @@ import MapKit
 import Foundation
 import Quartz
 
-class ViewController: NSViewController, MKMapViewDelegate {
+class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDelegate {
 
     var MapView: MKMapView!
     var ProgressBar: NSProgressIndicator!
@@ -31,9 +31,9 @@ class ViewController: NSViewController, MKMapViewDelegate {
     var YellowPinView : MKPinAnnotationView? = nil;
     var scrollView : NSScrollView!;
     
-    var BackStack : CDStack<MKCoordinateRegion>? = nil;
-    var ForwardStack : CDStack<MKCoordinateRegion>? = nil;
-    var NavigatingWithBackOrForwardButtons : Bool = false;
+    var BackStack : CDMapRegionStack? = nil;
+    var ForwardStack : CDMapRegionStack? = nil;
+    var LastRegion : MKCoordinateRegion? = nil;
     
     override func viewDidLoad() {
         
@@ -41,8 +41,10 @@ class ViewController: NSViewController, MKMapViewDelegate {
         NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();        
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
         
-        BackStack = CDStack<MKCoordinateRegion>.init();
-        ForwardStack = CDStack<MKCoordinateRegion>.init();
+        BackStack = CDMapRegionStack.init();
+        ForwardStack = CDMapRegionStack.init();
+        let gestureRecognizer = NSPanGestureRecognizer.init(target: self, action: #selector(userTappedMap));
+        gestureRecognizer.delegate = self;
         
         ImageBrowser = IKImageBrowserView.init(frame: CGRectMake(0.0, 0.0, 1.0, 1.0));
         ImageBrowser.setIntercellSpacing(CGSizeMake(0.0, 0.0));
@@ -58,6 +60,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
         MapView.showsZoomControls = true;
         MapView.delegate = self;
         self.view.addSubview(MapView);
+        MapView.addGestureRecognizer(gestureRecognizer);
         
         scrollView = NSScrollView.init(frame: ImageBrowser.frame);
         scrollView.documentView = ImageBrowser;
@@ -117,27 +120,46 @@ class ViewController: NSViewController, MKMapViewDelegate {
         addPoints(LatLons);
     }
     
-    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+    func userTappedMap(gestureRecognizer : NSGestureRecognizer) {
         
-        let isRealChange = !NavigatingWithBackOrForwardButtons;
-        
-        if isRealChange {
-            BackStack?.push(mapView.region);
+        if gestureRecognizer.state == NSGestureRecognizerState.Ended {
+            self.userInitiatedMapChangeDidHappen();
         }
     }
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func gestureRecognizer(gestureRecognizer: NSGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: NSGestureRecognizer) -> Bool {
+        return true;
+    }
+    
+    func userInitiatedMapChangeDidHappen() {
+        
+        ForwardStack?.removeAll();
+    }
+    
+    func setTimerForPointsRefresh() {
         
         if Timing != nil {
             Timing?.invalidate();
             Timing = nil;
         }
         Timing = NSTimer.scheduledTimerWithTimeInterval(1.00, target: self, selector: #selector(refreshPoints), userInfo: nil, repeats: false);
-        NavigatingWithBackOrForwardButtons = false;
+    }
+    
+    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        
+        LastRegion = mapView.region;
+    }
+    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
+        self.setTimerForPointsRefresh();
     }
     
     @objc private func refreshPoints() {
         
+        if LastRegion != nil {
+            BackStack?.push(LastRegion!);
+        }
         _removeAllCoordsFromMap();
         addPoints(LatLons);
     }
@@ -320,7 +342,6 @@ class ViewController: NSViewController, MKMapViewDelegate {
     func forwardButtonPressed() {
         
         if let newRegion = ForwardStack?.pop() {
-            NavigatingWithBackOrForwardButtons = true;
             BackStack?.push(MapView.region);
             MapView.setRegion(newRegion, animated: true);
         }
@@ -329,9 +350,9 @@ class ViewController: NSViewController, MKMapViewDelegate {
     func backButtonPressed() {
         
         if let newRegion = BackStack?.pop() {
-            NavigatingWithBackOrForwardButtons = true;
             ForwardStack?.push(MapView.region);
             MapView.setRegion(newRegion, animated: true);
+            LastRegion = nil;
         }
     }
 }

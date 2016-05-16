@@ -20,18 +20,15 @@ public class WindowController : NSWindowController {
     override public func windowDidLoad() {
         
         VC = self.window!.contentViewController as! ViewController?;
+        Zoom.continuous = true;
     }
     
     @IBAction func backButtonPressed(sender: AnyObject) {
         VC?.backButtonPressed();
-        BackButton.enabled = false;
-        ForwardButton.enabled = true;
     }
     
     @IBAction func forwardButtonPressed(sender: AnyObject) {
         VC?.forwardButtonPressed();
-        ForwardButton.enabled = false;
-        BackButton.enabled = true;
     }
     
     @IBAction func sliderDidAct(sender: AnyObject) {

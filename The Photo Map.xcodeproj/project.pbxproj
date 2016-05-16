@@ -26,6 +26,7 @@
 		CC7EA0401CE90E4000200021 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7EA03F1CE90E4000200021 /* WindowController.swift */; };
 		CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */; };
 		CC9FC94F1CE939A100558868 /* CDStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC94E1CE939A100558868 /* CDStack.swift */; };
+		CC9FC9511CE9553200558868 /* CDMapRegionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */; };
 		CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		CC7EA03F1CE90E4000200021 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		CC9FC94E1CE939A100558868 /* CDStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDStack.swift; sourceTree = "<group>"; };
+		CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDMapRegionStack.swift; sourceTree = "<group>"; };
 		CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBrowserDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9FC94E1CE939A100558868 /* CDStack.swift */,
+				CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */,
 			);
 			name = "Data Structures";
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				CC1A5E281CE8583A00E9D494 /* CDMediaObject.swift in Sources */,
 				CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */,
 				CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */,
+				CC9FC9511CE9553200558868 /* CDMapRegionStack.swift in Sources */,
 				CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */,
 				CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */,
 				CC24AA861CDF14E300E6D529 /* Constants.swift in Sources */,
