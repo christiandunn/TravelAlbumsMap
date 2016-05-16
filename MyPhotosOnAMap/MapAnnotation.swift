@@ -15,19 +15,23 @@ public class MapAnnotation {
     
     public var Objects : [CDMediaObjectWithLocation] = [];
     public var Center : CLLocationCoordinate2D? = nil;
-    public var Coords : [CLLocationCoordinate2D] = [];
     
     init(withMediaObject object: CDMediaObjectWithLocation, andCoord: CLLocationCoordinate2D) {
         Objects.append(object);
-        Coords.append(andCoord);
         Center = andCoord;
     }
     
     init(withMediaObjects objects: [CDMediaObjectWithLocation], andCluster cluster: ClusterOfCoordinates) {
-        let coords = cluster.Points;
         Objects.appendContentsOf(objects);
-        Coords.appendContentsOf(coords);
         Center = cluster.Center;
+    }
+    
+    public func sortByDate() {
+        Objects.sortInPlace({ $0.Date.timeIntervalSince1970 < $1.Date.timeIntervalSince1970 });
+    }
+    
+    public func Coords(withIndex: Int) -> CLLocationCoordinate2D? {
+        return Objects[withIndex].Location;
     }
 }
 
@@ -65,7 +69,7 @@ public class ModifiedClusterAnnotation : MKPointAnnotation, ModifiedAnnotation {
     }
     
     public func enclosingRegion() -> MKCoordinateRegion {
-        let coords : [CLLocationCoordinate2D] = DataLoad.Coords;
+        let coords : [CLLocationCoordinate2D] = DataLoad.Objects.map {$0.Location!};
         let minLat = coords.reduce(9999999, combine: {min($0, $1.latitude)});
         let minLon = coords.reduce(9999999, combine: {min($0, $1.longitude)});
         let maxLat = coords.reduce(-9999999, combine: {max($0, $1.latitude)});
@@ -110,6 +114,9 @@ public class ImageRep {
         let dateFormat : String = "yyyy:MM:dd HH:mm:ss";
         dateFormatter.dateFormat = dateFormat;
         dateFormatter.formatterBehavior = NSDateFormatterBehavior.Behavior10_4;
+        if dateString == nil {
+            return "";
+        }
         let date = dateFormatter.dateFromString(dateString);
         
         let currentDateFormatter : NSDateFormatter = NSDateFormatter.init();

@@ -81,9 +81,9 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Library" id="hCn-X0-uqg">
+                            <menuItem title="View" id="hCn-X0-uqg">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Library" id="9Cm-Zc-Oyq">
+                                <menu key="submenu" title="View" id="9Cm-Zc-Oyq">
                                     <items>
                                         <menuItem title="Open Containing Folder" id="8lP-L3-nAf">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -186,10 +186,22 @@
                                         </connections>
                                     </slider>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="C35A9D9F-F2DE-4DDB-B9ED-C90DDD7D9F77" label="From Folder" paletteLabel="From Folder" tag="-1" image="Folder-Icon" id="898-Ld-Mwg">
+                                    <connections>
+                                        <action selector="openFolder:" target="B8D-0N-5wS" id="tT0-ba-eOr"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="D9E1EE43-2156-4D90-B06B-49167B1207F5" label="From Library" paletteLabel="From Library" tag="-1" image="Photo-Library-Icon" id="zTg-Vo-Xfl">
+                                    <connections>
+                                        <action selector="openLibrary:" target="B8D-0N-5wS" id="gzi-Ga-2aA"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="S9D-Pw-ylK"/>
                                 <toolbarItem reference="PV3-NN-l1x"/>
+                                <toolbarItem reference="898-Ld-Mwg"/>
+                                <toolbarItem reference="zTg-Vo-Xfl"/>
                                 <toolbarItem reference="yCx-WH-CJP"/>
                                 <toolbarItem reference="8Zp-Yn-iFc"/>
                             </defaultToolbarItems>
@@ -222,7 +234,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Folder-Icon" width="66" height="66"/>
         <image name="Left-Arrow-Icon" width="60" height="60"/>
+        <image name="Photo-Library-Icon" width="66" height="66"/>
         <image name="Right-Arrow-Icon" width="60" height="60"/>
     </resources>
 </document>

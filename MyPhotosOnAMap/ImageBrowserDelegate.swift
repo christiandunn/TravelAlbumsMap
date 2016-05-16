@@ -40,7 +40,7 @@ public class ImageBrowserDelegate {
             if newSelectionSet!.firstIndex != (SelectionSet?.firstIndex ?? -1) {
                 let index = newSelectionSet!.firstIndex;
                 Delegate.highlightPoint(CLLocationCoordinate2DMake(0.0, 0.0), yes: false);
-                Delegate.highlightPoint((CurrentAnno?.DataLoad.Coords[index])!, yes: true);
+                Delegate.highlightPoint((CurrentAnno?.DataLoad.Coords(index))!, yes: true);
             }
         }
         
@@ -69,6 +69,7 @@ public class ImageBrowserDelegate {
         view.setSelected(true, animated: true);
         
         if let anno = annotation as? ModifiedPinAnnotation {
+            anno.DataLoad.sortByDate();
             CurrentAnno = anno;
             ImageBrowser.reloadData();
             
@@ -76,6 +77,7 @@ public class ImageBrowserDelegate {
         }
         
         if let anno = annotation as? ModifiedClusterAnnotation {
+            anno.DataLoad.sortByDate();
             CurrentAnno = anno;
             ImageBrowser.reloadData();
             

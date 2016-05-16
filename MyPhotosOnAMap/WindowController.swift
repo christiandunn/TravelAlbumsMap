@@ -34,4 +34,13 @@ public class WindowController : NSWindowController {
     @IBAction func sliderDidAct(sender: AnyObject) {
         VC?.setImageBrowserZoom(Float(Zoom.doubleValue/100.0));
     }
+    
+    @IBAction func openFolder(sender: AnyObject) {
+        let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: VC!);
+        itemLoader.loadItemsFromDirectory();
+    }
+    
+    @IBAction func openLibrary(sender: AnyObject) {
+        VC?.loadMapWithLibrary();
+    }
 }
