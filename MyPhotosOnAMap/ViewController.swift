@@ -417,6 +417,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
             let mapViewPoints = LatLons.map {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter {CGRectContainsPoint(MapView.frame, $0.0)};
             objects = mapViewPoints.map {$0.1};
         }
+        objects = objects.filter {!DateFilterUse || ($0.Date.isLessThanDate(DateFilterFinish) && $0.Date.isGreaterThan(DateFilterStart))};
         
         let exporter = CDCsvExporter.init(withPath: path, andItems: objects);
         let result = exporter.export();
