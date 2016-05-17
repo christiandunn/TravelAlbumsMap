@@ -165,6 +165,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="800" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="800" height="600"/>
                         <toolbar key="toolbar" implicitIdentifier="D96BEB05-65F8-4971-B7F2-D9B6A2DD1FE2" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="StA-lN-dUP">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="vgq-p2-vlR"/>
@@ -222,19 +223,57 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Photo-Library-Icon" id="mLg-dG-Sq5"/>
                                     </imageView>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="A926E5F5-1445-4803-885E-B4F4FDFD5BA6" label="Date Filter" paletteLabel="Date Filter" image="Calendar-Icon" id="EBQ-ar-le6">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="pJi-de-CyJ" customClass="CDImageView">
+                                        <rect key="frame" x="7" y="14" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Calendar-Icon" id="Qnl-06-Pa8"/>
+                                        <connections>
+                                            <segue destination="hut-oK-E24" kind="show" identifier="ShowDateFilterWindow" id="Tmo-jT-9EQ"/>
+                                        </connections>
+                                    </imageView>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="146E2E08-B041-4723-8AFE-66F1B716C921" label="Connect Points" paletteLabel="Connect Points" image="Connected-Dots-Icon" id="AcC-xL-UBu">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="WNU-vg-XFA" customClass="CDImageView">
+                                        <rect key="frame" x="20" y="14" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Connected-Dots-Icon" id="G9K-yl-gaO"/>
+                                    </imageView>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="6BF1F6F0-0D3E-4D8A-B8FB-804BAAF31DE2" label="Preview" paletteLabel="Preview" image="Eye-Icon" id="yoi-vT-9yz">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="kR1-2J-JSa" customClass="CDImageView">
+                                        <rect key="frame" x="1" y="14" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Eye-Icon" id="WAV-5T-fdD"/>
+                                    </imageView>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="KCo-ok-iHI"/>
                                 <toolbarItem reference="SIg-bn-gVA"/>
                                 <toolbarItem reference="JIE-xx-mPN"/>
                                 <toolbarItem reference="E6I-PX-XZh"/>
+                                <toolbarItem reference="EBQ-ar-le6"/>
+                                <toolbarItem reference="AcC-xL-UBu"/>
                                 <toolbarItem reference="yCx-WH-CJP"/>
                                 <toolbarItem reference="8Zp-Yn-iFc"/>
+                                <toolbarItem reference="yoi-vT-9yz"/>
                             </defaultToolbarItems>
                         </toolbar>
                     </window>
                     <connections>
                         <outlet property="BackButtonImageView" destination="k39-Yi-PD5" id="3ly-71-cwx"/>
+                        <outlet property="ConnectPointsImageView" destination="WNU-vg-XFA" id="dYk-4D-JyU"/>
+                        <outlet property="DateFilterImageView" destination="pJi-de-CyJ" id="bCP-dF-kHh"/>
                         <outlet property="ForwardButtonImageView" destination="hGF-AE-DPC" id="1i7-bZ-4rE"/>
                         <outlet property="LoadFolderImageView" destination="XJU-P5-4EG" id="U6y-y7-n8i"/>
                         <outlet property="LoadLibraryImageView" destination="2Ie-7B-HF1" id="exf-NM-NCJ"/>
@@ -260,8 +299,142 @@
             </objects>
             <point key="canvasLocation" x="75" y="1006"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="ga9-Ls-wRc">
+            <objects>
+                <windowController showSeguePresentationStyle="single" id="hut-oK-E24" customClass="DateFilterWindowController" customModule="The_Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Filter by Date and Time" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="Filter by Date and Time" animationBehavior="default" id="iKc-HH-0Jf">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="300" y="300" width="480" height="200"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+                        <value key="minSize" type="size" width="480" height="200"/>
+                        <value key="maxSize" type="size" width="480" height="200"/>
+                        <value key="minFullScreenContentSize" type="size" width="480" height="200"/>
+                        <value key="maxFullScreenContentSize" type="size" width="480" height="200"/>
+                    </window>
+                    <connections>
+                        <segue destination="84o-jA-EPu" kind="relationship" relationship="window.shadowedContentViewController" id="xYV-nO-f5e"/>
+                    </connections>
+                </windowController>
+                <customObject id="Hfv-kr-BGL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="831" y="272"/>
+        </scene>
+        <!--Date Filter View Controller-->
+        <scene sceneID="o3c-l4-hEk">
+            <objects>
+                <viewController id="84o-jA-EPu" customClass="DateFilterViewController" customModule="The_Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="1aq-X3-yOI">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FHp-xp-OMX">
+                                <rect key="frame" x="20" y="110" width="205" height="27"/>
+                                <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="v5B-Fr-F8m">
+                                    <font key="font" metaFont="system"/>
+                                    <date key="date" timeIntervalSinceReferenceDate="-978307200">
+                                        <!--1970-01-01 00:00:00 +0000-->
+                                    </date>
+                                    <date key="minDate" timeIntervalSinceReferenceDate="-978307200">
+                                        <!--1970-01-01 00:00:00 +0000-->
+                                    </date>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
+                                </datePickerCell>
+                            </datePicker>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a9Z-yl-E4P">
+                                <rect key="frame" x="18" y="141" width="226" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Earliest Date and Time" placeholderString="Earliest Date and Time" id="qTT-9v-osF">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="03J-7e-aoG">
+                                <rect key="frame" x="256" y="141" width="226" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Latest Date and Time" placeholderString="Latest Date and Time" id="jRx-Gi-3vE">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7oA-Wr-cU7">
+                                <rect key="frame" x="258" y="110" width="205" height="27"/>
+                                <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="bSQ-aG-EBa">
+                                    <font key="font" metaFont="system"/>
+                                    <date key="date" timeIntervalSinceReferenceDate="6279811200">
+                                        <!--2200-01-01 00:00:00 +0000-->
+                                    </date>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
+                                </datePickerCell>
+                            </datePicker>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-Y8-2L4">
+                                <rect key="frame" x="14" y="73" width="80" height="31"/>
+                                <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XKH-AJ-SJh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="applyButtonPressed:" target="84o-jA-EPu" id="An3-fK-Omk"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XZA-YJ-a1r">
+                                <rect key="frame" x="91" y="73" width="80" height="31"/>
+                                <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xiN-4s-WRq">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="resetButtonPressed:" target="84o-jA-EPu" id="PY4-fB-46z"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s4D-tK-rDS">
+                                <rect key="frame" x="18" y="170" width="206" height="18"/>
+                                <buttonCell key="cell" type="check" title="Use Date and Time Filter" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="XFF-zg-pwU">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkboxChanged:" target="84o-jA-EPu" id="Zxq-5Q-iZg"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MVB-Cg-EDG">
+                                <rect key="frame" x="18" y="20" width="444" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Files with no date and time metadata may be excluded when filtering." id="K6K-cL-GC6">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CmH-a3-Cvw">
+                                <rect key="frame" x="18" y="45" width="444" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Date and time used when filtering is based on image file metadata." id="qWJ-iT-Ztd">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="CheckBox" destination="s4D-tK-rDS" id="jP9-Do-96I"/>
+                        <outlet property="FinishDatePicker" destination="7oA-Wr-cU7" id="Xyl-Gd-iA2"/>
+                        <outlet property="StartDatePicker" destination="FHp-xp-OMX" id="6Vp-UP-vYp"/>
+                    </connections>
+                </viewController>
+                <customObject id="cHm-Uq-K6M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="774" y="820"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="Calendar-Icon" width="28" height="28"/>
+        <image name="Connected-Dots-Icon" width="28" height="14"/>
+        <image name="Eye-Icon" width="28" height="15"/>
         <image name="Folder-Icon" width="28" height="24"/>
         <image name="Left-Arrow-Icon" width="14" height="28"/>
         <image name="Photo-Library-Icon" width="28" height="23"/>

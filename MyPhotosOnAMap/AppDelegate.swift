@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidBecomeActive(notification: NSNotification) {
         
-        VC = NSApplication.sharedApplication().mainWindow?.contentViewController as! ViewController?;
+        VC = ViewController.getMainViewController();
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

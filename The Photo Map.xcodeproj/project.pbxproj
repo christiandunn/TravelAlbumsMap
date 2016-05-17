@@ -27,6 +27,8 @@
 		CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */; };
 		CC9FC94F1CE939A100558868 /* CDStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC94E1CE939A100558868 /* CDStack.swift */; };
 		CC9FC9511CE9553200558868 /* CDMapRegionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */; };
+		CCC6BB7C1CEAB15A002A2FB1 /* DateFilterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC6BB7B1CEAB15A002A2FB1 /* DateFilterWindowController.swift */; };
+		CCC6BB7E1CEAB97D002A2FB1 /* DateFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC6BB7D1CEAB97D002A2FB1 /* DateFilterViewController.swift */; };
 		CCDDFC9C1CE983EA001D324F /* CDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDDFC9B1CE983EA001D324F /* CDImageView.m */; };
 		CCDDFC9E1CE9935E001D324F /* SaveDialogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDDFC9D1CE9935E001D324F /* SaveDialogService.swift */; };
 		CCDDFCA01CE99656001D324F /* CDCsvExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDDFC9F1CE99656001D324F /* CDCsvExporter.swift */; };
@@ -81,6 +83,8 @@
 		CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		CC9FC94E1CE939A100558868 /* CDStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDStack.swift; sourceTree = "<group>"; };
 		CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDMapRegionStack.swift; sourceTree = "<group>"; };
+		CCC6BB7B1CEAB15A002A2FB1 /* DateFilterWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFilterWindowController.swift; sourceTree = "<group>"; };
+		CCC6BB7D1CEAB97D002A2FB1 /* DateFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFilterViewController.swift; sourceTree = "<group>"; };
 		CCDDFC9A1CE983EA001D324F /* CDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDImageView.h; sourceTree = "<group>"; };
 		CCDDFC9B1CE983EA001D324F /* CDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDImageView.m; sourceTree = "<group>"; };
 		CCDDFC9D1CE9935E001D324F /* SaveDialogService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveDialogService.swift; sourceTree = "<group>"; };
@@ -154,26 +158,15 @@
 		CC60C0E91CC718A90029DA40 /* MyPhotosOnAMap */ = {
 			isa = PBXGroup;
 			children = (
+				CCC6BB7F1CEACC1C002A2FB1 /* Infrastructure */,
+				CCC6BB7A1CEAB13B002A2FB1 /* VIew and Window Controllers */,
 				CC9FC94D1CE9399200558868 /* Data Structures */,
 				CC1A5E221CE83C4D00E9D494 /* File Enumeration */,
 				CC1024B01CE01DF800373DAB /* MyPhotosOnAMap.entitlements */,
-				CC24AA851CDF14E300E6D529 /* Constants.swift */,
-				CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */,
-				CC60C0EC1CC718A90029DA40 /* ViewController.swift */,
-				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
-				CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */,
-				CC7EA03F1CE90E4000200021 /* WindowController.swift */,
-				CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */,
 				CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */,
 				CC60C0F01CC718AA0029DA40 /* Main.storyboard */,
 				CC60C0F31CC718AA0029DA40 /* Info.plist */,
-				CC60C11A1CC71E470029DA40 /* MediaLibraryAccessor.h */,
-				CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */,
-				CC1A5E2D1CE88B4500E9D494 /* CustomDistanceFormatter.h */,
-				CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */,
 				CC60C1191CC71E470029DA40 /* MyPhotosOnAMap-Bridging-Header.h */,
-				CCDDFC9A1CE983EA001D324F /* CDImageView.h */,
-				CCDDFC9B1CE983EA001D324F /* CDImageView.m */,
 			);
 			path = MyPhotosOnAMap;
 			sourceTree = "<group>";
@@ -203,6 +196,35 @@
 				CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */,
 			);
 			name = "Data Structures";
+			sourceTree = "<group>";
+		};
+		CCC6BB7A1CEAB13B002A2FB1 /* VIew and Window Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */,
+				CC60C0EC1CC718A90029DA40 /* ViewController.swift */,
+				CC7EA03F1CE90E4000200021 /* WindowController.swift */,
+				CCC6BB7B1CEAB15A002A2FB1 /* DateFilterWindowController.swift */,
+				CCC6BB7D1CEAB97D002A2FB1 /* DateFilterViewController.swift */,
+				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
+			);
+			name = "VIew and Window Controllers";
+			sourceTree = "<group>";
+		};
+		CCC6BB7F1CEACC1C002A2FB1 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				CC24AA851CDF14E300E6D529 /* Constants.swift */,
+				CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */,
+				CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */,
+				CC60C11A1CC71E470029DA40 /* MediaLibraryAccessor.h */,
+				CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */,
+				CC1A5E2D1CE88B4500E9D494 /* CustomDistanceFormatter.h */,
+				CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */,
+				CCDDFC9A1CE983EA001D324F /* CDImageView.h */,
+				CCDDFC9B1CE983EA001D324F /* CDImageView.m */,
+			);
+			name = Infrastructure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +367,7 @@
 				CC7EA0401CE90E4000200021 /* WindowController.swift in Sources */,
 				CCDDFC9E1CE9935E001D324F /* SaveDialogService.swift in Sources */,
 				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
+				CCC6BB7C1CEAB15A002A2FB1 /* DateFilterWindowController.swift in Sources */,
 				CC9FC94F1CE939A100558868 /* CDStack.swift in Sources */,
 				CC1A5E241CE83C6400E9D494 /* FileEnumerator.swift in Sources */,
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
@@ -353,6 +376,7 @@
 				CCDDFCA01CE99656001D324F /* CDCsvExporter.swift in Sources */,
 				CCDDFC9C1CE983EA001D324F /* CDImageView.m in Sources */,
 				CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */,
+				CCC6BB7E1CEAB97D002A2FB1 /* DateFilterViewController.swift in Sources */,
 				CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */,
 				CC9FC9511CE9553200558868 /* CDMapRegionStack.swift in Sources */,
 				CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */,

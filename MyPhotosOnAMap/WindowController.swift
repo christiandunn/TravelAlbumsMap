@@ -16,26 +16,31 @@ public class WindowController : NSWindowController {
     @IBOutlet weak var ForwardButtonImageView: CDImageView!
     @IBOutlet weak var LoadFolderImageView: CDImageView!
     @IBOutlet weak var LoadLibraryImageView: CDImageView!
+    @IBOutlet weak var DateFilterImageView: CDImageView!
+    @IBOutlet weak var ConnectPointsImageView: CDImageView!
     
     @IBOutlet weak var ZoomSlider: NSToolbarItem!
     @IBOutlet weak var Zoom: NSSlider!
     
     override public func windowDidLoad() {
         
-        VC = self.window!.contentViewController as! ViewController?;
+        VC = ViewController.getMainViewController();
         Zoom.continuous = true;
         
         BackButtonImageView.target = self;
-        BackButtonImageView.clickAction = #selector(backButtonPressed);
+        BackButtonImageView.action = #selector(backButtonPressed);
         
         ForwardButtonImageView.target = self;
-        ForwardButtonImageView.clickAction = #selector(forwardButtonPressed);
+        ForwardButtonImageView.action = #selector(forwardButtonPressed);
         
         LoadFolderImageView.target = self;
-        LoadFolderImageView.clickAction = #selector(openFolder);
+        LoadFolderImageView.action = #selector(openFolder);
         
         LoadLibraryImageView.target = self;
-        LoadLibraryImageView.clickAction = #selector(openLibrary);
+        LoadLibraryImageView.action = #selector(openLibrary);
+        
+        ConnectPointsImageView.target = self;
+        ConnectPointsImageView.action = #selector(connectPoints);
     }
     
     func backButtonPressed() {
@@ -57,5 +62,13 @@ public class WindowController : NSWindowController {
     
     func openLibrary(sender: AnyObject) {
         VC?.loadMapWithLibrary();
+    }
+    
+    func dateFilter(sender: AnyObject) {
+        
+    }
+    
+    func connectPoints(sender: AnyObject) {
+        print("ConnectPoints");
     }
 }

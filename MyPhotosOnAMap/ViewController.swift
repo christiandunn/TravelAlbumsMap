@@ -37,6 +37,38 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     var LastRegion : MKCoordinateRegion? = nil;
     var NavButton : Bool = false;
     
+    var DateFilterStart : NSDate;
+    var DateFilterFinish : NSDate;
+    var DateFilterUse : Bool = false;
+    
+    static var VC : ViewController?;
+    
+    static func getMainViewController() -> ViewController? {
+        
+        return VC;
+    }
+    
+    required init?(coder: NSCoder) {
+        
+        DateFilterStart = Constants.DateFilterStartDefault;
+        DateFilterFinish = Constants.DateFilterFinishDefault;
+        super.init(coder: coder);
+        initialization();
+    }
+    
+    override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        
+        DateFilterStart = Constants.DateFilterStartDefault;
+        DateFilterFinish = Constants.DateFilterFinishDefault;
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil);
+        initialization();
+    }
+    
+    func initialization() {
+        
+        ViewController.VC = self;
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -175,7 +207,10 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
 
     private func addPoints(points: [(CLLocationCoordinate2D, CDMediaObjectWithLocation)]) {
         
-        let mapViewPoints = points.map {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter {CGRectContainsPoint(MapView.frame, $0.0)};
+        let mapViewPoints = points.map
+            {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter
+            {CGRectContainsPoint(MapView.frame, $0.0)}.filter
+            {!DateFilterUse || ($0.1.Date.isLessThanDate(DateFilterFinish) && $0.1.Date.isGreaterThan(DateFilterStart))}
         let mapViewCGPoints = mapViewPoints.map {$0.0};
         if mapViewPoints.count == 0 {
             return;
@@ -384,6 +419,14 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         let alert = NSAlert.init();
         alert.messageText = resultText;
         alert.runModal();
+    }
+    
+    func updateDateFilter(withEarliestDate earliest : NSDate, andFuturemostDate latest : NSDate, useDateFilter : Bool) {
+        
+        DateFilterStart = earliest;
+        DateFilterFinish = latest;
+        DateFilterUse = useDateFilter;
+        refreshPoints();
     }
 }
 

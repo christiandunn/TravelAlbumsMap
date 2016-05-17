@@ -8,8 +8,8 @@
 
 #define METERS_TO_FEET  3.2808399
 #define METERS_TO_MILES 0.000621371192
-#define METERS_CUTOFF   1000
-#define FEET_CUTOFF     3281
+#define METERS_CUTOFF   10000
+#define FEET_CUTOFF     30000
 #define FEET_IN_MILES   5280
 
 @interface CustomDistanceFormatter : NSObject {

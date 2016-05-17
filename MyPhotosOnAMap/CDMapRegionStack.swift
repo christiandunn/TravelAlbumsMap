@@ -47,7 +47,7 @@ public class CDMapRegionStack {
         Stack.removeAll();
     }
     
-    private func regionsAreSimilar(region1: MKCoordinateRegion, region2: MKCoordinateRegion) -> Bool {
+    public func regionsAreSimilar(region1: MKCoordinateRegion, region2: MKCoordinateRegion) -> Bool {
         
         let span1 = region1.span;
         

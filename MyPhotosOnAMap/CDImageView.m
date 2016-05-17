@@ -24,7 +24,7 @@
     if (theEvent.type == NSLeftMouseUp) {
         NSPoint pt = [self convertPoint:[theEvent locationInWindow] fromView:nil];
         if (NSPointInRect(pt, self.bounds)) {
-            [NSApp sendAction:self.clickAction to:self.target from:self];
+            [NSApp sendAction:self.action to:self.target from:self];
         }
     } else {
         // this should never be called, but...

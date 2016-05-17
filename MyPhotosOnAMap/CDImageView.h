@@ -13,6 +13,4 @@
     
 }
 
-@property SEL clickAction;
-
 @end
