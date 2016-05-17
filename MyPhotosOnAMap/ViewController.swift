@@ -31,6 +31,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     let accessor = MediaLibraryAccessor();
     var YellowPinView : MKPinAnnotationView? = nil;
     var scrollView : NSScrollView!;
+    var LastRegionRefreshed : MKCoordinateRegion? = nil;
     
     var BackStack : CDMapRegionStack? = nil;
     var ForwardStack : CDMapRegionStack? = nil;
@@ -195,7 +196,10 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
-        self.setTimerForPointsRefresh();
+        if LatLons.count > 0 && (LastRegionRefreshed == nil || !CDMapRegionStack.regionsAreSimilarIntolerant(LastRegionRefreshed!, region2: mapView.region)) {
+            
+            self.setTimerForPointsRefresh();
+        }
         NavButton = false;
     }
     
@@ -203,6 +207,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         
         _removeAllCoordsFromMap();
         addPoints(LatLons);
+        LastRegionRefreshed = MapView.region;
     }
 
     private func addPoints(points: [(CLLocationCoordinate2D, CDMediaObjectWithLocation)]) {

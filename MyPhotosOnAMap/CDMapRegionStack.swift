@@ -23,7 +23,7 @@ public class CDMapRegionStack {
             Stack.push(element);
             return;
         }
-        if !regionsAreSimilar(top!, region2: element) {
+        if !CDMapRegionStack.regionsAreSimilar(top!, region2: element) {
             Stack.push(element);
         }
     }
@@ -47,29 +47,39 @@ public class CDMapRegionStack {
         Stack.removeAll();
     }
     
-    public func regionsAreSimilar(region1: MKCoordinateRegion, region2: MKCoordinateRegion) -> Bool {
+    public static func regionsAreSimilar(region1: MKCoordinateRegion, region2: MKCoordinateRegion) -> Bool {
+        
+        return CDMapRegionStack._regionsAreSimilar(region1, region2: region2, latDeltaFactor: 0.25, zoomDeltaFactorConstant: 0.25);
+    }
+    
+    public static func regionsAreSimilarIntolerant(region1: MKCoordinateRegion, region2: MKCoordinateRegion) -> Bool {
+        
+        return CDMapRegionStack._regionsAreSimilar(region1, region2: region2, latDeltaFactor: 0.02, zoomDeltaFactorConstant: 0.02);
+    }
+    
+    private static func _regionsAreSimilar(region1: MKCoordinateRegion, region2: MKCoordinateRegion, latDeltaFactor: Double, zoomDeltaFactorConstant: Double) -> Bool {
         
         let span1 = region1.span;
         
         let center1 = region1.center;
         let center2 = region2.center;
         
-        let movedLongitudinally = abs(Double(center2.longitude - center1.longitude)) > span1.longitudeDelta * 0.25;
+        let movedLongitudinally = abs(Double(center2.longitude - center1.longitude)) > span1.longitudeDelta * latDeltaFactor;
         if movedLongitudinally {
             return false;
         }
         
-        let movedLatitudinally = abs(Double(center2.latitude - center1.latitude)) > span1.latitudeDelta * 0.25;
+        let movedLatitudinally = abs(Double(center2.latitude - center1.latitude)) > span1.latitudeDelta * latDeltaFactor;
         if movedLatitudinally {
             return false;
         }
         
         let latitudeDeltaCompare = region2.span.latitudeDelta / region1.span.latitudeDelta;
         let longitudeDeltaCompare = region2.span.longitudeDelta / region1.span.longitudeDelta;
-        if latitudeDeltaCompare < 0.75 || latitudeDeltaCompare > 1.25 {
+        if latitudeDeltaCompare < (1 - zoomDeltaFactorConstant) || latitudeDeltaCompare > (1 + zoomDeltaFactorConstant) {
             return false;
         }
-        if longitudeDeltaCompare < 0.75 || latitudeDeltaCompare > 1.25 {
+        if longitudeDeltaCompare < (1 - zoomDeltaFactorConstant) || latitudeDeltaCompare > (1 + zoomDeltaFactorConstant) {
             return false;
         }
         
