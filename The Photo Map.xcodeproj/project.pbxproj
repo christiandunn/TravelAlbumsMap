@@ -300,6 +300,9 @@
 							com.apple.Maps.Mac = {
 								enabled = 1;
 							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
 						};
 					};
 					CC60C0F71CC718AB0029DA40 = {
