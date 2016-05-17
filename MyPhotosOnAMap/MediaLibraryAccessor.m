@@ -49,7 +49,7 @@
     }
     else if (context == (__bridge void *)@"rootMediaGroupLoaded")
     {
-        MLMediaGroup *albums = [mediaSource mediaGroupForIdentifier:@"TopLevelAlbums"];
+        albums = [mediaSource mediaGroupForIdentifier:@"TopLevelAlbums"];
         
         for (MLMediaGroup *album in albums.childGroups)
         {
@@ -86,6 +86,8 @@
         IMP imp = [Delegate methodForSelector:selector];
         void (*func)(id, SEL) = (void *)imp;
         func(Delegate, selector);
+        
+        [self.allPhotosAlbum removeObserver:self forKeyPath:@"mediaObjects" context:@"mediaObjects"];
     }
 }
 

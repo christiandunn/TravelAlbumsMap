@@ -256,6 +256,16 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Eye-Icon" id="WAV-5T-fdD"/>
                                     </imageView>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="F1713D40-6041-4107-995B-FC8B96121D44" label="Select Points" paletteLabel="Select Points" image="Mouse-Cursor-Icon" id="aRr-sb-Nqu">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="48" height="48"/>
+                                    <size key="maxSize" width="48" height="48"/>
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="b8J-Mx-aA2">
+                                        <rect key="frame" x="14" y="14" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Mouse-Cursor-Icon" id="jhN-D5-NEo"/>
+                                    </imageView>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="KCo-ok-iHI"/>
@@ -263,6 +273,7 @@
                                 <toolbarItem reference="JIE-xx-mPN"/>
                                 <toolbarItem reference="E6I-PX-XZh"/>
                                 <toolbarItem reference="EBQ-ar-le6"/>
+                                <toolbarItem reference="aRr-sb-Nqu"/>
                                 <toolbarItem reference="AcC-xL-UBu"/>
                                 <toolbarItem reference="yCx-WH-CJP"/>
                                 <toolbarItem reference="8Zp-Yn-iFc"/>
@@ -373,7 +384,7 @@
                                 </datePickerCell>
                             </datePicker>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hFd-Y8-2L4">
-                                <rect key="frame" x="14" y="73" width="80" height="31"/>
+                                <rect key="frame" x="14" y="73" width="80" height="32"/>
                                 <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XKH-AJ-SJh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -383,7 +394,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XZA-YJ-a1r">
-                                <rect key="frame" x="91" y="73" width="80" height="31"/>
+                                <rect key="frame" x="91" y="73" width="80" height="32"/>
                                 <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xiN-4s-WRq">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -437,6 +448,7 @@
         <image name="Eye-Icon" width="28" height="15"/>
         <image name="Folder-Icon" width="28" height="24"/>
         <image name="Left-Arrow-Icon" width="14" height="28"/>
+        <image name="Mouse-Cursor-Icon" width="19" height="28"/>
         <image name="Photo-Library-Icon" width="28" height="23"/>
         <image name="Right-Arrow-Icon" width="14" height="28"/>
     </resources>

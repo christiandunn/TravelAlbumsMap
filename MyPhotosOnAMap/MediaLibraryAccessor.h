@@ -12,6 +12,7 @@
 
 @interface MediaLibraryAccessor : NSObject {
     NSMutableArray *MediaObjects;
+    MLMediaGroup *albums;
     bool Finished;
     
     id Delegate;
