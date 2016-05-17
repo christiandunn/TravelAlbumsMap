@@ -87,27 +87,6 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="View" id="hCn-X0-uqg">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="View" id="9Cm-Zc-Oyq">
-                                    <items>
-                                        <menuItem title="Open Containing Folder" id="8lP-L3-nAf">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="Nek-74-5Rm"/>
-                                        <menuItem title="Navigate To" id="TZS-tR-2pE">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Navigate To" id="2MA-et-ipZ">
-                                                <items>
-                                                    <menuItem title="Country Name" id="1bd-dN-w2r">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -135,15 +114,6 @@
                             </menuItem>
                             <menuItem title="Help" id="wpr-3q-Mcd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
-                                    <items>
-                                        <menuItem title="The Photo Map Help" keyEquivalent="?" id="FKE-Sm-Kum">
-                                            <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
                             </menuItem>
                         </items>
                     </menu>
@@ -273,11 +243,8 @@
                                 <toolbarItem reference="JIE-xx-mPN"/>
                                 <toolbarItem reference="E6I-PX-XZh"/>
                                 <toolbarItem reference="EBQ-ar-le6"/>
-                                <toolbarItem reference="aRr-sb-Nqu"/>
-                                <toolbarItem reference="AcC-xL-UBu"/>
                                 <toolbarItem reference="yCx-WH-CJP"/>
                                 <toolbarItem reference="8Zp-Yn-iFc"/>
-                                <toolbarItem reference="yoi-vT-9yz"/>
                             </defaultToolbarItems>
                         </toolbar>
                     </window>
@@ -423,7 +390,7 @@
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CmH-a3-Cvw">
                                 <rect key="frame" x="18" y="45" width="444" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Date and time used when filtering is based on image file metadata." id="qWJ-iT-Ztd">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Image file metadata is used for date and time filtering." id="qWJ-iT-Ztd">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
