@@ -27,6 +27,8 @@
 		CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */; };
 		CC9FC94F1CE939A100558868 /* CDStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC94E1CE939A100558868 /* CDStack.swift */; };
 		CC9FC9511CE9553200558868 /* CDMapRegionStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */; };
+		CCB3538E1CEC3EAA00690A5B /* DirectoryLoaderWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB3538D1CEC3EAA00690A5B /* DirectoryLoaderWindowController.swift */; };
+		CCB353901CEC3EDA00690A5B /* DirectoryLoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB3538F1CEC3EDA00690A5B /* DirectoryLoaderViewController.swift */; };
 		CCC6BB7C1CEAB15A002A2FB1 /* DateFilterWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC6BB7B1CEAB15A002A2FB1 /* DateFilterWindowController.swift */; };
 		CCC6BB7E1CEAB97D002A2FB1 /* DateFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC6BB7D1CEAB97D002A2FB1 /* DateFilterViewController.swift */; };
 		CCDDFC9C1CE983EA001D324F /* CDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDDFC9B1CE983EA001D324F /* CDImageView.m */; };
@@ -83,6 +85,8 @@
 		CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		CC9FC94E1CE939A100558868 /* CDStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDStack.swift; sourceTree = "<group>"; };
 		CC9FC9501CE9553200558868 /* CDMapRegionStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDMapRegionStack.swift; sourceTree = "<group>"; };
+		CCB3538D1CEC3EAA00690A5B /* DirectoryLoaderWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryLoaderWindowController.swift; sourceTree = "<group>"; };
+		CCB3538F1CEC3EDA00690A5B /* DirectoryLoaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryLoaderViewController.swift; sourceTree = "<group>"; };
 		CCC6BB7B1CEAB15A002A2FB1 /* DateFilterWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFilterWindowController.swift; sourceTree = "<group>"; };
 		CCC6BB7D1CEAB97D002A2FB1 /* DateFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFilterViewController.swift; sourceTree = "<group>"; };
 		CCDDFC9A1CE983EA001D324F /* CDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDImageView.h; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				CC7EA03F1CE90E4000200021 /* WindowController.swift */,
 				CCC6BB7B1CEAB15A002A2FB1 /* DateFilterWindowController.swift */,
 				CCC6BB7D1CEAB97D002A2FB1 /* DateFilterViewController.swift */,
+				CCB3538D1CEC3EAA00690A5B /* DirectoryLoaderWindowController.swift */,
+				CCB3538F1CEC3EDA00690A5B /* DirectoryLoaderViewController.swift */,
 				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
 			);
 			name = "View and Window Controllers";
@@ -368,6 +374,7 @@
 			files = (
 				CC1A5E261CE83F8100E9D494 /* ItemsInDirectoryLoader.swift in Sources */,
 				CC7EA0401CE90E4000200021 /* WindowController.swift in Sources */,
+				CCB353901CEC3EDA00690A5B /* DirectoryLoaderViewController.swift in Sources */,
 				CCDDFC9E1CE9935E001D324F /* SaveDialogService.swift in Sources */,
 				CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */,
 				CCC6BB7C1CEAB15A002A2FB1 /* DateFilterWindowController.swift in Sources */,
@@ -382,6 +389,7 @@
 				CCC6BB7E1CEAB97D002A2FB1 /* DateFilterViewController.swift in Sources */,
 				CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */,
 				CC9FC9511CE9553200558868 /* CDMapRegionStack.swift in Sources */,
+				CCB3538E1CEC3EAA00690A5B /* DirectoryLoaderWindowController.swift in Sources */,
 				CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */,
 				CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */,
 				CC24AA861CDF14E300E6D529 /* Constants.swift in Sources */,

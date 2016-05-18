@@ -13,24 +13,56 @@ public class FileEnumerator {
     var FileManager : NSFileManager;
     var DirectoryEnumerator : NSDirectoryEnumerator?;
     
+    var VC : ViewController? = nil;
+    var DLWC : DirectoryLoaderWindowController? = nil;
+    
+    var StopFlag : Bool = false;
+    
     init(withPath path : NSURL) {
         
         FileManager = NSFileManager.defaultManager();
-        let options: NSDirectoryEnumerationOptions = [.SkipsHiddenFiles, .SkipsPackageDescendants];
+        let options: NSDirectoryEnumerationOptions = [NSDirectoryEnumerationOptions.SkipsHiddenFiles, NSDirectoryEnumerationOptions.SkipsPackageDescendants];
         DirectoryEnumerator = FileManager.enumeratorAtURL(path, includingPropertiesForKeys: nil, options: options, errorHandler: nil);
     }
     
-    public func getAllImageFiles() -> [NSURL] {
+    internal func getAllImageFiles(vc : ViewController, dlwc : DirectoryLoaderWindowController) {
         
-        let allObjects = getAllObjects();
-        let imageObjects = allObjects.filter({(URL : NSURL) -> Bool in hasImageSuffix(URL)});
-        return imageObjects;
+        VC = vc;
+        DLWC = dlwc;
+        getAllObjects();
     }
     
-    private func getAllObjects() -> [NSURL] {
+    private func getAllObjects() {
         
-        let allObjects = DirectoryEnumerator?.allObjects as! [NSURL];
-        return allObjects;
+        var allObjects : [NSURL] = [];
+        DLWC?.VC?.setEnumerator(self);
+        
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            while let element = self.DirectoryEnumerator?.nextObject() as! NSURL? {
+                allObjects.append(element);
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.DLWC!.VC?.updateLabel(element.absoluteString);
+                }
+                usleep(1000);
+                if self.StopFlag {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.DLWC?.close();
+                    });
+                    break;
+                }
+            }
+            allObjects = allObjects.filter({(URL : NSURL) -> Bool in self.hasImageSuffix(URL)});
+            dispatch_async(dispatch_get_main_queue()) {
+                self.DLWC?.close();
+                self.VC?.loadMapWithFilePaths(allObjects);
+            }
+        }
+    }
+    
+    public func stopEnumerating() {
+    
+        StopFlag = true;
     }
     
     private func hasImageSuffix(URL : NSURL) -> Bool {

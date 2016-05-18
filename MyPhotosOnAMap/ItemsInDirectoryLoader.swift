@@ -12,6 +12,7 @@ import AppKit
 public class ItemsInDirectoryLoader {
     
     var VC : ViewController;
+    var DLWC : DirectoryLoaderWindowController? = nil;
     
     init(withViewController viewController : ViewController) {
         
@@ -41,7 +42,10 @@ public class ItemsInDirectoryLoader {
     private func _loadItemsFromDirectory(withPath path: NSURL) {
         
         let fileEnumerator : FileEnumerator = FileEnumerator.init(withPath: path);
-        let imageFilePaths = fileEnumerator.getAllImageFiles();
-        VC.loadMapWithFilePaths(imageFilePaths);
+        
+        let storyboard : NSStoryboard = NSStoryboard.init(name: "Main", bundle: nil);
+        DLWC = storyboard.instantiateControllerWithIdentifier("DateFilterWindowController") as? DirectoryLoaderWindowController;
+        DLWC?.showWindow(nil);
+        fileEnumerator.getAllImageFiles(VC, dlwc: DLWC!);
     }
 }

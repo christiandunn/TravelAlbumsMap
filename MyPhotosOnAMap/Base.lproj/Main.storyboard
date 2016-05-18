@@ -408,6 +408,68 @@
             </objects>
             <point key="canvasLocation" x="774" y="820"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="Xiz-0L-6Wf">
+            <objects>
+                <windowController storyboardIdentifier="DateFilterWindowController" id="KyN-2W-VbS" customClass="DirectoryLoaderWindowController" customModule="The_Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Finding Files" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="0ch-eM-nJs">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="294" y="313" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+                        <value key="minSize" type="size" width="480" height="270"/>
+                        <value key="maxSize" type="size" width="480" height="270"/>
+                        <value key="minFullScreenContentSize" type="size" width="480" height="270"/>
+                        <value key="maxFullScreenContentSize" type="size" width="480" height="270"/>
+                    </window>
+                    <connections>
+                        <segue destination="pxq-DW-QjQ" kind="relationship" relationship="window.shadowedContentViewController" id="VWF-Re-xbg"/>
+                    </connections>
+                </windowController>
+                <customObject id="NfP-Ou-FIn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="774" y="1144"/>
+        </scene>
+        <!--Directory Loader View Controller-->
+        <scene sceneID="J1G-Aa-5Q5">
+            <objects>
+                <viewController id="pxq-DW-QjQ" customClass="DirectoryLoaderViewController" customModule="The_Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="WHY-wI-FTH">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="wvI-AW-mQH">
+                                <rect key="frame" x="20" y="125" width="440" height="20"/>
+                            </progressIndicator>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-iX-CYi">
+                                <rect key="frame" x="18" y="152" width="444" height="98"/>
+                                <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="File Name" id="fLn-Ms-qvt">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="35x-gE-x8s">
+                                <rect key="frame" x="181" y="13" width="118" height="32"/>
+                                <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U1Y-uf-98E">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="stopButtonPressed:" target="pxq-DW-QjQ" id="GRv-Or-mX0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="Label" destination="wkA-iX-CYi" id="Jch-z5-6RA"/>
+                        <outlet property="ProgressBar" destination="wvI-AW-mQH" id="8cB-tN-kaM"/>
+                    </connections>
+                </viewController>
+                <customObject id="BZe-R6-WtR" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="770" y="1474"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Calendar-Icon" width="28" height="28"/>
