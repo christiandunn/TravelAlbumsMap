@@ -160,7 +160,6 @@
 			children = (
 				CCC6BB7F1CEACC1C002A2FB1 /* Infrastructure */,
 				CCC6BB7A1CEAB13B002A2FB1 /* View and Window Controllers */,
-				CC1A5E221CE83C4D00E9D494 /* File Enumeration */,
 				CC1024B01CE01DF800373DAB /* MyPhotosOnAMap.entitlements */,
 				CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */,
 				CC60C0F01CC718AA0029DA40 /* Main.storyboard */,
@@ -213,6 +212,7 @@
 		CCC6BB7F1CEACC1C002A2FB1 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				CC1A5E221CE83C4D00E9D494 /* File Enumeration */,
 				CC9FC94D1CE9399200558868 /* Data Structures */,
 				CC24AA851CDF14E300E6D529 /* Constants.swift */,
 				CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */,

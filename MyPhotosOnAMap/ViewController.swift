@@ -125,7 +125,6 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     
     func loadMapWithFilePaths(paths: [NSURL]) {
         
-        ProgressBar.hidden = false;
         let mediaObjectsWithLocation = paths.map {CDMediaObjectFactory.createMediaObject(withUrl: $0)}.filter {$0.Location != nil};
         LatLons = mediaObjectsWithLocation.map {($0.Location!, $0)};
         refreshPoints();
