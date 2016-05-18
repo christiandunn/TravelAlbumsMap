@@ -191,7 +191,7 @@
 - (void)reportErrorFindingMedia {
     
     ErrorState = YES;
-    ErrorMessage = @"Unable to load photos from the main photo library. Please ensure the library exists and you can access it on this computer if you would like to be able to load it here.";
+    ErrorMessage = @"Unable to load photos from the main photo library. Please ensure the library exists with photos and can be accessed if you would like to be able to load it here. Refreshing the photo library after it changes requires restarting the app.";
     [self callDelegateAndExit];
 }
 
