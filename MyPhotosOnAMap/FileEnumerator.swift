@@ -39,8 +39,10 @@ public class FileEnumerator {
         return stringValue.hasSuffix("jpeg") ||
             stringValue.hasSuffix("jpg") ||
             stringValue.hasSuffix("bmp") ||
+            stringValue.hasSuffix("png") ||
             stringValue.hasSuffix("tiff") ||
             stringValue.hasSuffix("tif") ||
+            stringValue.hasSuffix("jpe") ||
             stringValue.hasSuffix("gif");
     }
 }
