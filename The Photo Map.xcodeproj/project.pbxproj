@@ -159,8 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				CCC6BB7F1CEACC1C002A2FB1 /* Infrastructure */,
-				CCC6BB7A1CEAB13B002A2FB1 /* VIew and Window Controllers */,
-				CC9FC94D1CE9399200558868 /* Data Structures */,
+				CCC6BB7A1CEAB13B002A2FB1 /* View and Window Controllers */,
 				CC1A5E221CE83C4D00E9D494 /* File Enumeration */,
 				CC1024B01CE01DF800373DAB /* MyPhotosOnAMap.entitlements */,
 				CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */,
@@ -198,7 +197,7 @@
 			name = "Data Structures";
 			sourceTree = "<group>";
 		};
-		CCC6BB7A1CEAB13B002A2FB1 /* VIew and Window Controllers */ = {
+		CCC6BB7A1CEAB13B002A2FB1 /* View and Window Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */,
@@ -208,12 +207,13 @@
 				CCC6BB7D1CEAB97D002A2FB1 /* DateFilterViewController.swift */,
 				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
 			);
-			name = "VIew and Window Controllers";
+			name = "View and Window Controllers";
 			sourceTree = "<group>";
 		};
 		CCC6BB7F1CEACC1C002A2FB1 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				CC9FC94D1CE9399200558868 /* Data Structures */,
 				CC24AA851CDF14E300E6D529 /* Constants.swift */,
 				CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */,
 				CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */,

@@ -34,7 +34,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     var LastRegionRefreshed : MKCoordinateRegion? = nil;
     
     var BackStack : CDMapRegionStack? = nil;
-    var ForwardStack : CDMapRegionStack? = nil;
+    var ForwardStack : CDStack<MKCoordinateRegion>? = nil;
     var LastRegion : MKCoordinateRegion? = nil;
     var NavButton : Bool = false;
     
@@ -77,7 +77,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
         
         BackStack = CDMapRegionStack.init();
-        ForwardStack = CDMapRegionStack.init();
+        ForwardStack = CDStack<MKCoordinateRegion>.init();
         let gestureRecognizer = NSPanGestureRecognizer.init(target: self, action: #selector(userTappedMap));
         gestureRecognizer.delegate = self;
         
