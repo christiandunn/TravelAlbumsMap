@@ -28,7 +28,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     var ImageBrowserDel : ImageBrowserDelegate? = nil;
     var verticalScroller : NSScroller? = nil;
     var HighlitPoint : MKPointAnnotation? = nil;
-    let accessor = MediaLibraryAccessor();
+    var accessor : MediaLibraryAccessor? = nil;
     var YellowPinView : MKPinAnnotationView? = nil;
     var scrollView : NSScrollView!;
     var LastRegionRefreshed : MKCoordinateRegion? = nil;
@@ -136,8 +136,13 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         if MediaLibraryBackupLatLons.count == 0 {
             ProgressBar.hidden = false;
             ProgressBar.startAnimation(self);
-            accessor.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
-            accessor.initialize();
+            if accessor == nil {
+                accessor = MediaLibraryAccessor();
+            } else {
+                accessor?.removeObserverFromMediaLibrary();
+            }
+            accessor!.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
+            accessor!.initialize();
         } else {
             LatLons = MediaLibraryBackupLatLons;
             addPoints(LatLons);
@@ -153,7 +158,16 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     func mediaAccessorDidFinishLoadingAlbums() {
         
         ProgressBar.hidden = true;
-        let mediaObjects: Array<MLMediaObject> = accessor.getMediaObjects() as NSArray as! [MLMediaObject];
+        if accessor!.ErrorState {
+            Constants.MessageBox(accessor!.ErrorMessage);
+            return;
+        }        
+        
+        let mediaObjects: Array<MLMediaObject> = accessor!.getMediaObjects() as NSArray as! [MLMediaObject];
+        if mediaObjects.count == 0 {
+            Constants.MessageBox("It appears that no images could be loaded from the library on this computer.");
+        }
+        
         let attributes = mediaObjects.map {($0.attributes, $0)}.filter {$0.0.indexForKey("latitude") != nil}.filter {$0.0.indexForKey("longitude") != nil};
         let latLons = attributes.map {(CLLocationCoordinate2DMake($0.0["latitude"] as! Double, $0.0["longitude"] as! Double), CDMediaObjectFactory.createFromMlMediaObject(withObject: $0.1))};
         LatLons = latLons;

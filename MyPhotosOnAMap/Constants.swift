@@ -26,6 +26,13 @@ public class Constants {
         components.year = year;
         return calendar.dateFromComponents(components)!;
     }
+    
+    public static func MessageBox(message : String) {
+        
+        let alert = NSAlert.init();
+        alert.messageText = message;
+        alert.runModal();
+    }
 }
 
 public extension NSDate {

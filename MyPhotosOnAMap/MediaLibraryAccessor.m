@@ -12,9 +12,15 @@
 
 @implementation MediaLibraryAccessor
 
+@synthesize ErrorState;
+@synthesize ErrorMessage;
+
 - (void)initialize {
     
     Finished = FALSE;
+    ErrorState = FALSE;
+    ErrorMessage = @"";
+    KVO_Observers = [[NSMutableArray alloc] initWithCapacity:100];
     MediaObjects = [NSMutableArray arrayWithCapacity:1000];
     
     NSDictionary *options = @{
@@ -24,11 +30,15 @@
     
     self.mediaLibrary = [[MLMediaLibrary alloc] initWithOptions:options];
     
+    MediaObjectsLoadedMessenger *firstMessage = [MediaObjectsLoadedMessenger new];
+    firstMessage.Message = MediaLibraryLoaded;
+    CFBridgingRetain(firstMessage);
     [self.mediaLibrary addObserver:self
                         forKeyPath:@"mediaSources"
                            options:0
-                           context:(__bridge void *)@"mediaLibraryLoaded"];
-    
+                           context:(__bridge void *)firstMessage];
+    KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:self.mediaLibrary andKeyPath:@"mediaSources" andObserver:self];
+    [KVO_Observers addObject:observer];
     [self.mediaLibrary.mediaSources objectForKey:MLMediaSourcePhotosIdentifier];
 }
 
@@ -36,59 +46,153 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                         change:(NSDictionary *)change context:(void *)context
 {
+    MediaObjectsLoadedMessenger *messageContainer = (__bridge MediaObjectsLoadedMessenger *)context;
+    MediaLoadingMessage message = messageContainer.Message;
     MLMediaSource *mediaSource = [self.mediaLibrary.mediaSources objectForKey:MLMediaSourcePhotosIdentifier];
+    if (mediaSource == nil) {
+        [self reportErrorFindingMedia];
+        return;
+    }
     
-    if (context == (__bridge void *)@"mediaLibraryLoaded")
+    if (message == MediaLibraryLoaded)
     {
+        MediaObjectsLoadedMessenger *msg = [MediaObjectsLoadedMessenger new];
+        msg.Message = RootMediaGroupLoaded;
+        CFBridgingRetain(msg);
         [mediaSource addObserver:self
                       forKeyPath:@"rootMediaGroup"
                          options:0
-                         context:(__bridge void *)@"rootMediaGroupLoaded"];
-        
+                         context:(__bridge void *)msg];
+        KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:mediaSource andKeyPath:@"rootMediaGroup" andObserver:self];
+        [KVO_Observers addObject:observer];
         [mediaSource rootMediaGroup];
     }
-    else if (context == (__bridge void *)@"rootMediaGroupLoaded")
+    else if (message == RootMediaGroupLoaded)
     {
         albums = [mediaSource mediaGroupForIdentifier:@"TopLevelAlbums"];
+        bool useAllPhotosAlbum = true;
+        if (albums.childGroups.count == 0) {
+            albums = nil;
+        }
+        
+        if (albums == nil) {
+            albums = [mediaSource mediaGroupForIdentifier:@"AllMomentsGroup"];
+            useAllPhotosAlbum = false;
+            if (albums.childGroups.count == 0) {
+                albums = nil;
+            }
+        }
+        
+        if (albums == nil) {
+            albums = [mediaSource mediaGroupForIdentifier:@"AllCollectionsGroup"];
+            useAllPhotosAlbum = false;
+            if (albums.childGroups.count == 0) {
+                albums = nil;
+            }
+        }
+        
+        if (albums == nil) {
+            albums = [mediaSource mediaGroupForIdentifier:@"AllYearsGroup"];
+            useAllPhotosAlbum = false;
+            if (albums.childGroups.count == 0) {
+                albums = nil;
+            }
+        }
+        
+        /* This one is a recursively layered media group that has location info in it */
+        //        if (albums == nil) {
+        //            albums = [mediaSource mediaGroupForIdentifier:@"allPlacedPhotosAlbum"];
+        //            useAllPhotosAlbum = false;
+        //            if (albums.childGroups.count == 0) {
+        //                albums = nil;
+        //            }
+        //        }
+        
+        if (albums == nil) {
+            [self reportErrorFindingMedia];
+        }
+        
+        AlbumsToLoad = 0;
+        AlbumsLoaded = 0;
         
         for (MLMediaGroup *album in albums.childGroups)
         {
             NSString *albumIdentifier = [album.attributes objectForKey:@"identifier"];
+            AlbumsToLoad++;
             
-            if ([albumIdentifier isEqualTo:@"allPhotosAlbum"])
+            if (!useAllPhotosAlbum || (useAllPhotosAlbum && [albumIdentifier isEqualTo:@"allPhotosAlbum"]))
             {
-                self.allPhotosAlbum = album;
+                MediaObjectsLoadedMessenger *msg = [MediaObjectsLoadedMessenger new];
+                msg.Message = MediaObjectsLoaded;
+                msg.MediaGroup = album;
+                CFBridgingRetain(msg);
                 
                 [album addObserver:self
                         forKeyPath:@"mediaObjects"
                            options:0
-                           context:@"mediaObjects"];
-                
+                           context:(__bridge void *)msg];
+                KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:album andKeyPath:@"mediaObjects" andObserver:self];
+                [KVO_Observers addObject:observer];
                 [album mediaObjects];
                 
-                break;
+                if (useAllPhotosAlbum) {
+                    break;
+                }
             }
         }
     }
-    else if (context == (__bridge void *)@"mediaObjects")
+    else if (message == SubMediaGroupLoaded)
     {
-        NSArray * mediaObjects = self.allPhotosAlbum.mediaObjects;
+        NSLog(@"Sub-Media Group Loaded");
+    }
+    else if (message == MediaObjectsLoaded)
+    {
+        NSArray * mediaObjects = messageContainer.MediaGroup.mediaObjects;
         
         for (MLMediaObject * mediaObject in mediaObjects)
         {
             [MediaObjects addObject:mediaObject];
         }
         
-        Finished = TRUE;
-        
-        if (!Delegate) { return; }
-        SEL selector = NSSelectorFromString(Selector);
-        IMP imp = [Delegate methodForSelector:selector];
-        void (*func)(id, SEL) = (void *)imp;
-        func(Delegate, selector);
-        
-        [self.allPhotosAlbum removeObserver:self forKeyPath:@"mediaObjects" context:@"mediaObjects"];
+        AlbumsLoaded++;
+        if (AlbumsLoaded >= AlbumsToLoad) {
+            
+            Finished = TRUE;
+            [self callDelegateAndExit];
+        }
     }
+    
+    CFBridgingRelease(context);
+}
+
+- (void)callDelegateAndExit {
+    
+    //Remove observer from the media library
+    [self removeObserverFromMediaLibrary];
+    
+    if (!Delegate) { return; }
+    SEL selector = NSSelectorFromString(Selector);
+    IMP imp = [Delegate methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(Delegate, selector);
+}
+
+- (void)removeObserverFromMediaLibrary {
+    
+    for (KVO_Observer * observer in KVO_Observers) {
+        id observee = observer.Observee;
+        id Observer = observer.Observer;
+        NSString *keyPath = observer.KeyPath;
+        [observee removeObserver:Observer forKeyPath:keyPath];
+    }
+    [KVO_Observers removeAllObjects];
+}
+
+- (void)reportErrorFindingMedia {
+    
+    ErrorState = YES;
+    ErrorMessage = @"Unable to load photos from the main photo library. Please ensure the library exists with photos and can be accessed if you would like to be able to load it here. Refreshing the photo library after it changes requires restarting the app.";
+    [self callDelegateAndExit];
 }
 
 - (void)setDelegate:(id)del withSelector:(NSString *)sel {
@@ -154,6 +258,30 @@
     double lat = latitude.doubleValue * ([latitudeRef compare:@"S"] == NSOrderedSame ? -1 : 1);
     double lon = longitude.doubleValue * ([longitudeRef compare:@"W"] == NSOrderedSame ? -1 : 1);
     return CLLocationCoordinate2DMake(lat, lon);
+}
+
+@end
+
+@implementation MediaObjectsLoadedMessenger
+
+@synthesize MediaGroup;
+@synthesize Message;
+
+@end
+
+@implementation KVO_Observer
+
+@synthesize Observee;
+@synthesize Observer;
+@synthesize KeyPath;
+
+- (id)initWithObservee:(id)observee andKeyPath:(NSString *)keyPath andObserver:(id)observer {
+    
+    self = [super init];
+    self.Observee = observee;
+    self.Observer = observer;
+    self.KeyPath = keyPath;
+    return self;
 }
 
 @end
