@@ -99,6 +99,15 @@
             }
         }
         
+        /* This one is a recursively layered media group that has location info in it */
+        //        if (albums == nil) {
+        //            albums = [mediaSource mediaGroupForIdentifier:@"allPlacedPhotosAlbum"];
+        //            useAllPhotosAlbum = false;
+        //            if (albums.childGroups.count == 0) {
+        //                albums = nil;
+        //            }
+        //        }
+        
         if (albums == nil) {
             [self reportErrorFindingMedia];
         }
