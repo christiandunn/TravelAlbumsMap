@@ -135,7 +135,9 @@
                 [KVO_Observers addObject:observer];
                 [album mediaObjects];
                 
-                break;
+                if (useAllPhotosAlbum) {
+                    break;
+                }
             }
         }
     }
