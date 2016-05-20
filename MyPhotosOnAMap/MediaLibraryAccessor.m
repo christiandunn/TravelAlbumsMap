@@ -53,9 +53,11 @@
         [self reportErrorFindingMedia];
         return;
     }
+    bool validMessage = false;
     
     if (message == MediaLibraryLoaded)
     {
+        validMessage = true;
         MediaObjectsLoadedMessenger *msg = [MediaObjectsLoadedMessenger new];
         msg.Message = RootMediaGroupLoaded;
         CFBridgingRetain(msg);
@@ -69,6 +71,7 @@
     }
     else if (message == RootMediaGroupLoaded)
     {
+        validMessage = true;
         albums = [mediaSource mediaGroupForIdentifier:@"TopLevelAlbums"];
         bool useAllPhotosAlbum = true;
         if (albums.childGroups.count == 0) {
@@ -115,10 +118,19 @@
         AlbumsToLoad = 0;
         AlbumsLoaded = 0;
         
+        if (useAllPhotosAlbum) {
+            useAllPhotosAlbum = false;
+            for (MLMediaGroup *album in albums.childGroups) {
+                NSString *albumIdentifier = [album.attributes objectForKey:@"identifier"];
+                if ([albumIdentifier isEqualToString:@"allPhotosAlbum"]) {
+                    useAllPhotosAlbum = true;
+                }
+            }
+        }
+        
         for (MLMediaGroup *album in albums.childGroups)
         {
             NSString *albumIdentifier = [album.attributes objectForKey:@"identifier"];
-            AlbumsToLoad++;
             
             if (!useAllPhotosAlbum || (useAllPhotosAlbum && [albumIdentifier isEqualTo:@"allPhotosAlbum"]))
             {
@@ -131,6 +143,7 @@
                         forKeyPath:@"mediaObjects"
                            options:0
                            context:(__bridge void *)msg];
+                AlbumsToLoad++;
                 KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:album andKeyPath:@"mediaObjects" andObserver:self];
                 [KVO_Observers addObject:observer];
                 [album mediaObjects];
@@ -140,6 +153,10 @@
                 }
             }
         }
+        
+        if (AlbumsToLoad == 0) {
+            [self reportErrorFindingMedia];
+        }
     }
     else if (message == SubMediaGroupLoaded)
     {
@@ -147,6 +164,7 @@
     }
     else if (message == MediaObjectsLoaded)
     {
+        validMessage = true;
         NSArray * mediaObjects = messageContainer.MediaGroup.mediaObjects;
         
         for (MLMediaObject * mediaObject in mediaObjects)
@@ -163,6 +181,9 @@
     }
     
     CFBridgingRelease(context);
+    if (!validMessage) {
+        [self reportErrorFindingMedia];
+    }
 }
 
 - (void)callDelegateAndExit {
@@ -191,8 +212,13 @@
 - (void)reportErrorFindingMedia {
     
     ErrorState = YES;
-    ErrorMessage = @"Unable to load photos from the main photo library. Please ensure the library exists with photos and can be accessed if you would like to be able to load it here. Refreshing the photo library after it changes requires restarting the app.";
+    ErrorMessage = [self getErrorLoadingPhotosMessage];
     [self callDelegateAndExit];
+}
+
+- (NSString *)getErrorLoadingPhotosMessage {
+    
+    return @"Unable to load the system photo library. Please ensure the library exists with photos and can be accessed if you would like to be able to load it here. Also please ensure the photo library is set to 'Use as System Photo Library' in the Photos app Preferences.";
 }
 
 - (void)setDelegate:(id)del withSelector:(NSString *)sel {

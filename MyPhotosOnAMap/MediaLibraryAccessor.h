@@ -49,6 +49,7 @@ typedef enum    {
 - (void)callDelegateAndExit;
 - (void)removeObserverFromMediaLibrary;
 - (void)reportErrorFindingMedia;
+- (NSString *)getErrorLoadingPhotosMessage;
 
 + (NSDictionary *)getImagePropertiesDictionary:(NSURL *)path;
 + (NSString *)getExifDateTimeOriginal:(NSURL *)path;

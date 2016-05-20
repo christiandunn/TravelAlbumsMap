@@ -164,7 +164,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         
         let mediaObjects: Array<MLMediaObject> = accessor!.getMediaObjects() as NSArray as! [MLMediaObject];
         if mediaObjects.count == 0 {
-            Constants.MessageBox("It appears that no images could be loaded from the library on this computer.");
+            Constants.MessageBox((accessor?.getErrorLoadingPhotosMessage())!);
         }
         
         let attributes = mediaObjects.map {($0.attributes, $0)}.filter {$0.0.indexForKey("latitude") != nil}.filter {$0.0.indexForKey("longitude") != nil};
