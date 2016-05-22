@@ -59,7 +59,7 @@ public class FileEnumerator {
                 }
                 dispatch_async(dispatch_get_main_queue()) {
                     autoreleasepool {
-                        self.DLWC!.VC?.updateLabel(element.absoluteString);
+                        self.DLWC!.VC?.updateLabel(element.absoluteString.stringByReplacingOccurrencesOfString("file:///", withString: "/"));
                     }
                 }
                 usleep(1000);
