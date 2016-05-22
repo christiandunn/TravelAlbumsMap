@@ -14,6 +14,7 @@
 		CC1A5E2C1CE88B2D00E9D494 /* CustomDistanceFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */; };
 		CC2400A41CDC3B4C00974E2D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2400A31CDC3B4C00974E2D /* Quartz.framework */; };
 		CC24AA861CDF14E300E6D529 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC24AA851CDF14E300E6D529 /* Constants.swift */; };
+		CC4FB0331CF14F2D00123AB4 /* ImageFileDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4FB0321CF14F2D00123AB4 /* ImageFileDetails.m */; };
 		CC530D091CDDA91F00378245 /* ClusteringAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */; };
 		CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */; };
 		CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EC1CC718A90029DA40 /* ViewController.swift */; };
@@ -64,6 +65,8 @@
 		CC1A5E2D1CE88B4500E9D494 /* CustomDistanceFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDistanceFormatter.h; sourceTree = "<group>"; };
 		CC2400A31CDC3B4C00974E2D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		CC24AA851CDF14E300E6D529 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CC4FB0311CF14F2D00123AB4 /* ImageFileDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFileDetails.h; sourceTree = "<group>"; };
+		CC4FB0321CF14F2D00123AB4 /* ImageFileDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFileDetails.m; sourceTree = "<group>"; };
 		CC530D081CDDA91F00378245 /* ClusteringAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusteringAlgorithm.swift; sourceTree = "<group>"; };
 		CC60C0E71CC718A90029DA40 /* The Photo Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Photo Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC60C0EA1CC718A90029DA40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 				CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */,
 				CCDDFC9A1CE983EA001D324F /* CDImageView.h */,
 				CCDDFC9B1CE983EA001D324F /* CDImageView.m */,
+				CC4FB0311CF14F2D00123AB4 /* ImageFileDetails.h */,
+				CC4FB0321CF14F2D00123AB4 /* ImageFileDetails.m */,
 			);
 			name = Infrastructure;
 			sourceTree = "<group>";
@@ -382,6 +387,7 @@
 				CC1A5E241CE83C6400E9D494 /* FileEnumerator.swift in Sources */,
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
 				CC1A5E2C1CE88B2D00E9D494 /* CustomDistanceFormatter.m in Sources */,
+				CC4FB0331CF14F2D00123AB4 /* ImageFileDetails.m in Sources */,
 				CC1A5E281CE8583A00E9D494 /* CDMediaObject.swift in Sources */,
 				CCDDFCA01CE99656001D324F /* CDCsvExporter.swift in Sources */,
 				CCDDFC9C1CE983EA001D324F /* CDImageView.m in Sources */,

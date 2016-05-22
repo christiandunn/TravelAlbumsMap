@@ -54,12 +54,7 @@ typedef enum    {
 - (void)removeObserverFromMediaLibrary;
 - (void)reportErrorFindingMedia;
 - (NSString *)getErrorLoadingPhotosMessage;
-
-+ (NSDictionary *)getImagePropertiesDictionary:(NSURL *)path;
-+ (NSString *)getExifDateTimeOriginal:(NSURL *)path;
-+ (NSNumber *)getGpsAltitude:(NSURL *)path;
-+ (NSNumber *)getGpsSpeed:(NSURL *)path;
-+ (CLLocationCoordinate2D)getLocation:(NSURL *)path;
+- (void)reportStatus:(NSString *)status;
 
 @end
 

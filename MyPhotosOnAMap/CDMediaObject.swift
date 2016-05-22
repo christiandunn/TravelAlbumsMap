@@ -47,8 +47,9 @@ public class CDMediaObjectFactory {
     
     public static func createMediaObject(withUrl Url : NSURL) -> CDMediaObjectWithLocation {
         
-        let location = MediaLibraryAccessor.getLocation(Url);
-        let date = MediaLibraryAccessor.getExifDateTimeOriginal(Url);
+        let imageFileDetails = ImageFileDetails.init(path: Url);
+        let location = imageFileDetails.getLocation();
+        let date = imageFileDetails.getExifDateTimeOriginal();
         
         if (CLLocationCoordinate2DIsValid(location)) {
             return CDMediaObjectWithLocation.init(withURL: Url, andLocation: location, andDate: date);

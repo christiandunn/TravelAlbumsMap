@@ -109,7 +109,8 @@ public class ImageRep {
     }
     
     @objc public func imageTitle() -> String! {
-        let dateString : String! = MediaLibraryAccessor.getExifDateTimeOriginal(MediaObject.URL);
+        let imageFileDetails = ImageFileDetails.init(path: MediaObject.URL);
+        let dateString : String! = imageFileDetails.getExifDateTimeOriginal();
         let dateFormatter : NSDateFormatter = NSDateFormatter.init();
         let dateFormat : String = "yyyy:MM:dd HH:mm:ss";
         dateFormatter.dateFormat = dateFormat;
@@ -129,7 +130,8 @@ public class ImageRep {
     }
     
     @objc public func imageSubtitle() -> String! {
-        let altitude = MediaLibraryAccessor.getGpsAltitude(MediaObject.URL);
+        let imageFileDetails = ImageFileDetails.init(path: MediaObject.URL);
+        let altitude = imageFileDetails.getGpsAltitude();
         if altitude != nil {
             let alt = altitude.doubleValue;
             return CustomDistanceFormatter.init().stringWithDistance(alt);
