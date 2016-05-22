@@ -16,6 +16,11 @@ public class DirectoryLoaderViewController : NSViewController {
     var Enumerator : FileEnumerator? = nil;
     var VC : ViewController? = nil;
     
+    public override func viewDidLoad() {
+        super.viewDidLoad();
+        ProgressBar.startAnimation(self);
+    }
+    
     @IBAction func stopButtonPressed(sender: AnyObject) {
         
         Enumerator?.stopEnumerating();

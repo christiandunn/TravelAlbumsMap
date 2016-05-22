@@ -40,7 +40,7 @@
                            context:(__bridge void *)firstMessage];
     KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:self.mediaLibrary andKeyPath:@"mediaSources" andObserver:self];
     [KVO_Observers addObject:observer];
-    [self reportStatus:@"Attempting to load system root media library..."];
+    [self reportStatus:@"Loading photo library..."];
     [self.mediaLibrary.mediaSources objectForKey:MLMediaSourcePhotosIdentifier];
 }
 
@@ -69,7 +69,7 @@
                          context:(__bridge void *)msg];
         KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:mediaSource andKeyPath:@"rootMediaGroup" andObserver:self];
         [KVO_Observers addObject:observer];
-        [self reportStatus:@"Attempting to load system root media group..."];
+        [self reportStatus:@"Loading photo library top level album information..."];
         [mediaSource rootMediaGroup];
     }
     else if (message == RootMediaGroupLoaded)
