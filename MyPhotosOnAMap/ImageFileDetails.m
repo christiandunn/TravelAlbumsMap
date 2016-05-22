@@ -14,7 +14,6 @@
     self = [super init];
     path = _path;
     dictionaryRef = [self getImagePropertiesDictionary];
-    CFRetain(dictionaryRef);
     return self;
 }
 
@@ -34,9 +33,7 @@
     
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{Exif}"];
-    NSString *result = [[dictionary valueForKey:@"DateTimeOriginal"] copy];
-    CFBridgingRelease(dictionaryRef);
-    CFBridgingRelease((__bridge CFTypeRef _Nullable)(dictionary));
+    NSString *result = [dictionary valueForKey:@"DateTimeOriginal"];
     return result;
 }
 
@@ -45,8 +42,6 @@
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     NSNumber *result = (NSNumber *)[dictionary valueForKey:@"Altitude"];
-    CFBridgingRelease(dictionaryRef);
-    CFBridgingRelease((__bridge CFTypeRef _Nullable)(dictionary));
     return result;
 }
 
@@ -55,8 +50,6 @@
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     NSNumber *result = (NSNumber *)[dictionary valueForKey:@"Speed"];
-    CFBridgingRelease(dictionaryRef);
-    CFBridgingRelease((__bridge CFTypeRef _Nullable)(dictionary));
     return result;
 }
 
@@ -70,9 +63,13 @@
     NSString *longitudeRef = (NSString *)[dictionary valueForKey:@"LongitudeRef"];
     double lat = latitude.doubleValue * ([latitudeRef compare:@"S"] == NSOrderedSame ? -1 : 1);
     double lon = longitude.doubleValue * ([longitudeRef compare:@"W"] == NSOrderedSame ? -1 : 1);
-    CFBridgingRelease(dictionaryRef);
-    CFBridgingRelease((__bridge CFTypeRef _Nullable)(dictionary));
     return CLLocationCoordinate2DMake(lat, lon);
+}
+
+- (void)dealloc {
+    
+    CFRelease(dictionaryRef);
+    CFRelease(myImageSource);
 }
 
 @end

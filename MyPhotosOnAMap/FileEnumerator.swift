@@ -58,7 +58,9 @@ public class FileEnumerator {
                     continue;
                 }
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.DLWC!.VC?.updateLabel(element.absoluteString);
+                    autoreleasepool {
+                        self.DLWC!.VC?.updateLabel(element.absoluteString);
+                    }
                 }
                 usleep(1000);
                 if self.StopFlag {
