@@ -37,6 +37,13 @@
     return result;
 }
 
+- (bool)containsGpsMetadata {
+    
+    NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
+    NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
+    return dictionary != nil;
+}
+
 - (NSNumber *)getGpsAltitude {
     
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);

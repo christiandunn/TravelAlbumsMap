@@ -51,11 +51,16 @@ public class CDMediaObjectFactory {
         let location = imageFileDetails.getLocation();
         let date = imageFileDetails.getExifDateTimeOriginal();
         
-        if (CLLocationCoordinate2DIsValid(location)) {
+        if (imageFileDetails.containsGpsMetadata() && CDMediaObjectFactory.locationIsLikely(location)) {
             return CDMediaObjectWithLocation.init(withURL: Url, andLocation: location, andDate: date);
         } else {
             return CDMediaObjectWithLocation.init(withURL: Url, andLocation: nil, andDate: date);
         }
+    }
+    
+    private static func locationIsLikely(location : CLLocationCoordinate2D) -> Bool {
+        
+        return CLLocationCoordinate2DIsValid(location) && !(fabs(location.latitude) < 0.01 && fabs(location.longitude) < 0.01);
     }
     
     public static func createFromMlMediaObject(withObject object : MLMediaObject) -> CDMediaObjectWithLocation {

@@ -20,6 +20,7 @@
 
 - (CFDictionaryRef)getImagePropertiesDictionary;
 - (NSString *)getExifDateTimeOriginal;
+- (bool)containsGpsMetadata;
 - (NSNumber *)getGpsAltitude;
 - (NSNumber *)getGpsSpeed;
 - (CLLocationCoordinate2D)getLocation;
