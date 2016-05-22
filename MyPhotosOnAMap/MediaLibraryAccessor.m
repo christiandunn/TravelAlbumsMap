@@ -187,6 +187,9 @@
                 if (AlbumsLoaded >= AlbumsToLoad) {
                     
                     Finished = TRUE;
+                    if (ErrorState) {
+                        return;
+                    }
                     dispatch_async(dispatch_get_main_queue(), ^(void) {
                         [self callDelegateAndExit];
                     });
@@ -228,6 +231,7 @@
     
     ErrorState = YES;
     ErrorMessage = [self getErrorLoadingPhotosMessage];
+    [MediaObjects removeAllObjects];
     [self callDelegateAndExit];
 }
 
