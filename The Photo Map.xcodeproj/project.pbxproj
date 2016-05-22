@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC07E80B1CF18D2000DE2091 /* HorizontalSizeAdjuster.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07E80A1CF18D2000DE2091 /* HorizontalSizeAdjuster.swift */; };
 		CC1A5E241CE83C6400E9D494 /* FileEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E231CE83C6400E9D494 /* FileEnumerator.swift */; };
 		CC1A5E261CE83F8100E9D494 /* ItemsInDirectoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E251CE83F8100E9D494 /* ItemsInDirectoryLoader.swift */; };
 		CC1A5E281CE8583A00E9D494 /* CDMediaObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A5E271CE8583A00E9D494 /* CDMediaObject.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CC07E80A1CF18D2000DE2091 /* HorizontalSizeAdjuster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSizeAdjuster.swift; sourceTree = "<group>"; };
 		CC1024B01CE01DF800373DAB /* MyPhotosOnAMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MyPhotosOnAMap.entitlements; sourceTree = "<group>"; };
 		CC1A5E231CE83C6400E9D494 /* FileEnumerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileEnumerator.swift; sourceTree = "<group>"; };
 		CC1A5E251CE83F8100E9D494 /* ItemsInDirectoryLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsInDirectoryLoader.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				CCB3538D1CEC3EAA00690A5B /* DirectoryLoaderWindowController.swift */,
 				CCB3538F1CEC3EDA00690A5B /* DirectoryLoaderViewController.swift */,
 				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
+				CC07E80A1CF18D2000DE2091 /* HorizontalSizeAdjuster.swift */,
 			);
 			name = "View and Window Controllers";
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				CC9FC94F1CE939A100558868 /* CDStack.swift in Sources */,
 				CC1A5E241CE83C6400E9D494 /* FileEnumerator.swift in Sources */,
 				CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */,
+				CC07E80B1CF18D2000DE2091 /* HorizontalSizeAdjuster.swift in Sources */,
 				CC1A5E2C1CE88B2D00E9D494 /* CustomDistanceFormatter.m in Sources */,
 				CC4FB0331CF14F2D00123AB4 /* ImageFileDetails.m in Sources */,
 				CC1A5E281CE8583A00E9D494 /* CDMediaObject.swift in Sources */,

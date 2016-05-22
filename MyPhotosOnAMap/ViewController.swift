@@ -11,11 +11,13 @@ import MapKit
 import Foundation
 import Quartz
 
-class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDelegate {
+class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDelegate, HorizontalSizeAdjusterDelegate {
 
     var MapView: MKMapView!
     var ProgressBar: NSProgressIndicator!
     var ImageBrowser: IKImageBrowserView!
+    var SizeAdjuster : HorizontalSizeAdjuster!
+    var MapVsBrowser : Double = 0.5;
     
     var LatLons : [(CLLocationCoordinate2D, CDMediaObjectWithLocation)] = [];
     var MediaLibraryBackupLatLons : [(CLLocationCoordinate2D, CDMediaObjectWithLocation)] = [];
@@ -110,6 +112,11 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         ProgressBar.displayedWhenStopped = true;
         ProgressBar.hidden = true;
         self.view.addSubview(ProgressBar);
+        
+        SizeAdjuster = HorizontalSizeAdjuster.init(frame: CGRectMake(0.0, 0.0, 1.0, 100.0));
+        SizeAdjuster.Delegate = self;
+        self.view.addSubview(SizeAdjuster);
+        MapVsBrowser = Constants.MapViewFraction;
     }
     
     override func viewDidLayout() {
@@ -119,10 +126,12 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         let width = self.view.frame.size.width;
         let height = self.view.frame.size.height;
         
-        MapView.setFrameSize(CGSizeMake(width*0.75, height));
-        scrollView.setFrameOrigin(CGPointMake(width*CGFloat(Constants.MapViewFraction), 0.0));
-        scrollView.setFrameSize(CGSizeMake(width*CGFloat(1-Constants.MapViewFraction), height));
+        MapView.setFrameSize(CGSizeMake(CGFloat(Double(width)*MapVsBrowser), height));
+        scrollView.setFrameOrigin(CGPointMake(width*CGFloat(MapVsBrowser), 0.0));
+        scrollView.setFrameSize(CGSizeMake(width*CGFloat(1-MapVsBrowser), height));
         ProgressBar.setFrameOrigin(CGPointMake(MapView.frame.size.width/2 - 50.0, MapView.frame.size.height/2 - 50.0));
+        SizeAdjuster.setFrameSize(CGSizeMake(CGFloat(Constants.SizeAdjusterWidth), height));
+        SizeAdjuster.setFrameOrigin(CGPointMake(width*CGFloat(MapVsBrowser)-CGFloat(Constants.SizeAdjusterWidth)/2, 0.0));
     }
     
     func loadMapWithFilePaths(mediaObjects: [CDMediaObjectWithLocation]) {
@@ -497,6 +506,16 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         DateFilterFinish = latest;
         DateFilterUse = useDateFilter;
         refreshPoints();
+    }
+    
+    func horizontalSizeAdjusterWasMoved(deltaX: CGFloat) {
+        let width = Double(self.view.frame.size.width);
+        MapVsBrowser = min(max(MapVsBrowser + Double(deltaX) / width, 0.25), 0.75);
+        self.viewDidLayout();
+    }
+    
+    func mouseUp() {
+        self.setTimerForPointsRefresh();
     }
 }
 

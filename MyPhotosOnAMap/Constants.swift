@@ -13,6 +13,7 @@ public class Constants {
     public static let MinimumPointsForCluster : Int = 10;
     public static let ClusterRadius : Double = 32.0;
     public static let MapViewFraction : Double = 0.75;
+    public static let SizeAdjusterWidth : Double = 10.0;
     
     public static let DateFilterStartDefault : NSDate = Constants.dateWithComponents(1, day: 1, year: 1999);
     public static let DateFilterFinishDefault : NSDate = Constants.dateWithComponents(12, day: 31, year: 2199);
