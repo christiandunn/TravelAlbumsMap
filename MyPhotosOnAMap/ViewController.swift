@@ -268,7 +268,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     }
 
     private func addPoints(points: [(CLLocationCoordinate2D, CDMediaObjectWithLocation)]) {
-        print("Points Count " + String(points.count));
+        //print("Points Count " + String(points.count));
         let mapViewPoints = points.map
             {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter
             {CGRectContainsPoint(MapView.frame, $0.0)}.filter
