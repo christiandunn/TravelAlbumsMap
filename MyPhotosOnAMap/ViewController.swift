@@ -33,6 +33,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     var YellowPinView : MKPinAnnotationView? = nil;
     var scrollView : NSScrollView!;
     var LastRegionRefreshed : MKCoordinateRegion? = nil;
+    var mediaAccessorAlert : NSAlert? = nil;
     
     var BackStack : CDMapRegionStack? = nil;
     var ForwardStack : CDStack<MKCoordinateRegion>? = nil;
@@ -177,6 +178,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         MediaAccessorStatusWindow?.close();
         
         if accessor!.ErrorState {
+            accessor?.getMediaObjects().removeAllObjects();
             self.mediaAccessorErrorPrompt();
             return;
         }        
@@ -200,21 +202,26 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     
     func mediaAccessorErrorPrompt() {
         
-        let alert = NSAlert.init();
-        alert.messageText = (accessor?.getErrorLoadingPhotosMessage())!;
-        alert.addButtonWithTitle("Close");
-        alert.addButtonWithTitle("Find Photo Library File");
-        alert.addButtonWithTitle("Load Folder");
-        let response = alert.runModal();
-        
-        if response == NSAlertSecondButtonReturn {
-            let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: self);
-            itemLoader.loadPhotoLibrary();
-        }
-        
-        if response == NSAlertThirdButtonReturn {
-            let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: self);
-            itemLoader.loadItemsFromDirectory();
+        if mediaAccessorAlert == nil {
+            
+            mediaAccessorAlert = NSAlert.init();
+            mediaAccessorAlert!.messageText = (accessor?.getErrorLoadingPhotosMessage())!;
+            mediaAccessorAlert!.addButtonWithTitle("Close");
+            mediaAccessorAlert!.addButtonWithTitle("Find Photo Library File");
+            mediaAccessorAlert!.addButtonWithTitle("Load Folder");
+            let response = mediaAccessorAlert!.runModal();
+            
+            if response == NSAlertSecondButtonReturn {
+                let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: self);
+                itemLoader.loadPhotoLibrary();
+            }
+            
+            if response == NSAlertThirdButtonReturn {
+                let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: self);
+                itemLoader.loadItemsFromDirectory();
+            }
+            
+            mediaAccessorAlert = nil;
         }
     }
     
