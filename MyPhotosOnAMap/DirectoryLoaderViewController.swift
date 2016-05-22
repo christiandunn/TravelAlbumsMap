@@ -14,10 +14,12 @@ public class DirectoryLoaderViewController : NSViewController {
     @IBOutlet weak var Label : NSTextField!;
     
     var Enumerator : FileEnumerator? = nil;
+    var VC : ViewController? = nil;
     
     @IBAction func stopButtonPressed(sender: AnyObject) {
         
         Enumerator?.stopEnumerating();
+        VC?.mediaAccessorStop();
     }
     
     public func updateLabel(labelText: String) {
@@ -28,5 +30,10 @@ public class DirectoryLoaderViewController : NSViewController {
     public func setEnumerator(enumerator: FileEnumerator) {
         
         Enumerator = enumerator;
+    }
+    
+    func setViewController(vc : ViewController) {
+        
+        VC = vc;
     }
 }

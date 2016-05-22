@@ -14,6 +14,7 @@
 
 @synthesize ErrorState;
 @synthesize ErrorMessage;
+@synthesize StatusMessage;
 
 - (void)initialize {
     
@@ -39,6 +40,7 @@
                            context:(__bridge void *)firstMessage];
     KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:self.mediaLibrary andKeyPath:@"mediaSources" andObserver:self];
     [KVO_Observers addObject:observer];
+    [self reportStatus:@"Attempting to load system root media library..."];
     [self.mediaLibrary.mediaSources objectForKey:MLMediaSourcePhotosIdentifier];
 }
 
@@ -67,6 +69,7 @@
                          context:(__bridge void *)msg];
         KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:mediaSource andKeyPath:@"rootMediaGroup" andObserver:self];
         [KVO_Observers addObject:observer];
+        [self reportStatus:@"Attempting to load system root media group..."];
         [mediaSource rootMediaGroup];
     }
     else if (message == RootMediaGroupLoaded)
@@ -146,6 +149,7 @@
                 AlbumsToLoad++;
                 KVO_Observer *observer = [[KVO_Observer alloc] initWithObservee:album andKeyPath:@"mediaObjects" andObserver:self];
                 [KVO_Observers addObject:observer];
+                [self reportStatus:[NSString stringWithFormat:@"Loading photo album called %@...", albumIdentifier]];
                 [album mediaObjects];
                 
                 if (useAllPhotosAlbum) {
@@ -170,6 +174,8 @@
         for (MLMediaObject * mediaObject in mediaObjects)
         {
             [MediaObjects addObject:mediaObject];
+            NSString *reportString = [MediaLibraryAccessor getFileNameFromMediaObject:mediaObject];
+            [self reportStatus:reportString];
         }
         
         AlbumsLoaded++;
@@ -218,13 +224,28 @@
 
 - (NSString *)getErrorLoadingPhotosMessage {
     
-    return @"Unable to load the system photo library. Please ensure the library exists with photos and can be accessed if you would like to be able to load it here. Also please ensure the photo library is set to 'Use as System Photo Library' in the Photos app Preferences.";
+    return @"Unable to load the system photo library. Please ensure the library exists with GPS-tagged photos. Also please ensure the photo library is set to 'Use as System Photo Library' in the Photos app Preferences. You can also use a folder or file.";
+}
+
+- (void)reportStatus:(NSString *)status {
+    
+    StatusMessage = status;
+    if (!Delegate) { return; }
+    SEL selector = NSSelectorFromString(StatusReportSelector);
+    IMP imp = [Delegate methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(Delegate, selector);
 }
 
 - (void)setDelegate:(id)del withSelector:(NSString *)sel {
     
     Delegate = del;
     Selector = sel;
+}
+
+- (void)setStatusReportSelector:(NSString *)sel {
+    
+    StatusReportSelector = sel;
 }
 
 - (NSMutableArray *)getMediaObjects {

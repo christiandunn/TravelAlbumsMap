@@ -28,8 +28,10 @@ typedef enum    {
     NSInteger AlbumsLoaded;
     
     NSString *ErrorMessage;
+    NSString *StatusMessage;
     id Delegate;
     NSString *Selector;
+    NSString *StatusReportSelector;
     NSMutableArray *KVO_Observers;
 }
 
@@ -37,6 +39,7 @@ typedef enum    {
 @property MLMediaGroup *allPhotosAlbum;
 @property bool ErrorState;
 @property NSString *ErrorMessage;
+@property NSString *StatusMessage;
 
 - (void)initialize;
 
@@ -44,6 +47,7 @@ typedef enum    {
                         change:(NSDictionary *)change context:(void *)context;
 
 - (void)setDelegate:(id)del withSelector:(NSString *)sel;
+- (void)setStatusReportSelector:(NSString *)sel;
 
 - (NSMutableArray *)getMediaObjects;
 - (void)callDelegateAndExit;

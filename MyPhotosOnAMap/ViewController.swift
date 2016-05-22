@@ -29,6 +29,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     var verticalScroller : NSScroller? = nil;
     var HighlitPoint : MKPointAnnotation? = nil;
     var accessor : MediaLibraryAccessor? = nil;
+    var MediaAccessorStatusWindow : DirectoryLoaderWindowController? = nil;
     var YellowPinView : MKPinAnnotationView? = nil;
     var scrollView : NSScrollView!;
     var LastRegionRefreshed : MKCoordinateRegion? = nil;
@@ -123,9 +124,9 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         ProgressBar.setFrameOrigin(CGPointMake(MapView.frame.size.width/2 - 50.0, MapView.frame.size.height/2 - 50.0));
     }
     
-    func loadMapWithFilePaths(paths: [NSURL]) {
+    func loadMapWithFilePaths(mediaObjects: [CDMediaObjectWithLocation]) {
         
-        let mediaObjectsWithLocation = paths.map {CDMediaObjectFactory.createMediaObject(withUrl: $0)}.filter {$0.Location != nil};
+        let mediaObjectsWithLocation = mediaObjects.filter {$0.Location != nil};
         LatLons = mediaObjectsWithLocation.map {($0.Location!, $0)};
         refreshPoints();
     }
@@ -141,6 +142,13 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
                 accessor?.removeObserverFromMediaLibrary();
             }
             accessor!.setDelegate(self, withSelector: "mediaAccessorDidFinishLoadingAlbums");
+            accessor!.setStatusReportSelector("mediaAccessorDidReportStatus");
+            
+            let storyboard : NSStoryboard = NSStoryboard.init(name: "Main", bundle: nil);
+            MediaAccessorStatusWindow = storyboard.instantiateControllerWithIdentifier("DateFilterWindowController") as? DirectoryLoaderWindowController;
+            MediaAccessorStatusWindow?.showWindow(nil);
+            MediaAccessorStatusWindow?.VC?.setViewController(self);
+            
             accessor!.initialize();
         } else {
             LatLons = MediaLibraryBackupLatLons;
@@ -154,17 +162,28 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         }
     }
     
+    func mediaAccessorDidReportStatus() {
+        
+        if accessor == nil {
+            return;
+        }
+        let status = accessor!.StatusMessage;
+        MediaAccessorStatusWindow!.VC?.updateLabel(status);
+    }
+    
     func mediaAccessorDidFinishLoadingAlbums() {
         
         ProgressBar.hidden = true;
+        MediaAccessorStatusWindow?.close();
+        
         if accessor!.ErrorState {
-            Constants.MessageBox(accessor!.ErrorMessage);
+            self.mediaAccessorErrorPrompt();
             return;
         }        
         
         let mediaObjects: Array<MLMediaObject> = accessor!.getMediaObjects() as NSArray as! [MLMediaObject];
         if mediaObjects.count == 0 {
-            Constants.MessageBox((accessor?.getErrorLoadingPhotosMessage())!);
+            self.mediaAccessorErrorPrompt();
         }
         
         let attributes = mediaObjects.map {($0.attributes, $0)}.filter {$0.0.indexForKey("latitude") != nil}.filter {$0.0.indexForKey("longitude") != nil};
@@ -172,6 +191,31 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         LatLons = latLons;
         MediaLibraryBackupLatLons = LatLons;
         addPoints(LatLons);
+    }
+    
+    func mediaAccessorStop() {
+        
+        accessor?.reportErrorFindingMedia();
+    }
+    
+    func mediaAccessorErrorPrompt() {
+        
+        let alert = NSAlert.init();
+        alert.messageText = (accessor?.getErrorLoadingPhotosMessage())!;
+        alert.addButtonWithTitle("Close");
+        alert.addButtonWithTitle("Find Photo Library File");
+        alert.addButtonWithTitle("Load Folder");
+        let response = alert.runModal();
+        
+        if response == NSAlertSecondButtonReturn {
+            let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: self);
+            itemLoader.loadPhotoLibrary();
+        }
+        
+        if response == NSAlertThirdButtonReturn {
+            let itemLoader : ItemsInDirectoryLoader = ItemsInDirectoryLoader.init(withViewController: self);
+            itemLoader.loadItemsFromDirectory();
+        }
     }
     
     func userTappedMap(gestureRecognizer : NSGestureRecognizer) {

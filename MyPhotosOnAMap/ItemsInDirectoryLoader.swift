@@ -13,13 +13,27 @@ public class ItemsInDirectoryLoader {
     
     var VC : ViewController;
     var DLWC : DirectoryLoaderWindowController? = nil;
+    var openPanel : NSOpenPanel;
     
     init(withViewController viewController : ViewController) {
         
         VC = viewController;
+        openPanel = NSOpenPanel();
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = false
+        openPanel.canCreateDirectories = false
+        openPanel.canChooseFiles = true
+        openPanel.allowedFileTypes = ["photoslibrary"]
     }
     
     public func loadItemsFromDirectory() {
+        
+        openPanel.canChooseDirectories = true
+        getPath();
+    }
+    
+    public func loadPhotoLibrary() {
+        
         
         getPath();
     }
@@ -27,14 +41,9 @@ public class ItemsInDirectoryLoader {
     private func getPath() {
         
         let window = NSApplication.sharedApplication().mainWindow;
-        let openPanel = NSOpenPanel()
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = true
-        openPanel.canCreateDirectories = false
-        openPanel.canChooseFiles = false
         openPanel.beginSheetModalForWindow(window!, completionHandler: { (result) -> Void in
             if result == NSFileHandlingPanelOKButton {
-                self._loadItemsFromDirectory(withPath: openPanel.URL!);
+                self._loadItemsFromDirectory(withPath: self.openPanel.URL!);
             }
         });
     }
