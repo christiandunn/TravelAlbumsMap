@@ -13,25 +13,25 @@
 - (id)initWithPath:(NSURL *)_path {
     self = [super init];
     path = _path;
+    dictionaryRef = [self getImagePropertiesDictionary];
+    CFRetain(dictionaryRef);
     return self;
 }
 
 - (CFDictionaryRef)getImagePropertiesDictionary {
     
     CFURLRef url = (__bridge CFURLRef)path;
-    CGImageSourceRef myImageSource;
+    
     myImageSource = CGImageSourceCreateWithURL(url, NULL);
     if (myImageSource == nil) {
         return (__bridge CFDictionaryRef)([[NSDictionary alloc] init]);
     }
     CFDictionaryRef imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
-    
     return imagePropertiesDictionary;
 }
 
 - (NSString *)getExifDateTimeOriginal {
     
-    CFDictionaryRef dictionaryRef = [self getImagePropertiesDictionary];
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{Exif}"];
     NSString *result = [[dictionary valueForKey:@"DateTimeOriginal"] copy];
@@ -42,7 +42,6 @@
 
 - (NSNumber *)getGpsAltitude {
     
-    CFDictionaryRef dictionaryRef = [self getImagePropertiesDictionary];
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     NSNumber *result = (NSNumber *)[dictionary valueForKey:@"Altitude"];
@@ -53,7 +52,6 @@
 
 - (NSNumber *)getGpsSpeed {
     
-    CFDictionaryRef dictionaryRef = [self getImagePropertiesDictionary];
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     NSNumber *result = (NSNumber *)[dictionary valueForKey:@"Speed"];
@@ -64,7 +62,6 @@
 
 - (CLLocationCoordinate2D)getLocation {
     
-    CFDictionaryRef dictionaryRef = [self getImagePropertiesDictionary];
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     NSNumber *latitude = (NSNumber *)[dictionary valueForKey:@"Latitude"];
