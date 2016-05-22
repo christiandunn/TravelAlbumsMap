@@ -394,12 +394,14 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         if let anno = annotation as? ModifiedPinAnnotation {
             let pinView = MKPinAnnotationView.init(annotation: anno, reuseIdentifier: "\(anno.coordinate.latitude), \(anno.coordinate.longitude)");
             pinView.pinTintColor = NSColor.redColor();
+            pinView.animatesDrop = false;
             return pinView;
         }
         
         if let anno = annotation as? ModifiedClusterAnnotation {
             let pinView = MKPinAnnotationView.init(annotation: anno, reuseIdentifier: "\(anno.coordinate.latitude), \(anno.coordinate.longitude)");
             pinView.pinTintColor = NSColor.blueColor();
+            pinView.animatesDrop = false;
             return pinView;
         }
         
