@@ -171,19 +171,28 @@
         validMessage = true;
         NSArray * mediaObjects = messageContainer.MediaGroup.mediaObjects;
         
-        for (MLMediaObject * mediaObject in mediaObjects)
-        {
-            [MediaObjects addObject:mediaObject];
-            NSString *reportString = [MediaLibraryAccessor getFileNameFromMediaObject:mediaObject];
-            [self reportStatus:reportString];
-        }
-        
-        AlbumsLoaded++;
-        if (AlbumsLoaded >= AlbumsToLoad) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^(void) {
+            for (MLMediaObject * mediaObject in mediaObjects)
+            {
+                [MediaObjects addObject:mediaObject];
+                NSString *reportString = [MediaLibraryAccessor getFileNameFromMediaObject:mediaObject];
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    [self reportStatus:reportString];
+                });
+                usleep(1000);
+            }
             
-            Finished = TRUE;
-            [self callDelegateAndExit];
-        }
+            @synchronized (self) {
+                AlbumsLoaded++;
+                if (AlbumsLoaded >= AlbumsToLoad) {
+                    
+                    Finished = TRUE;
+                    dispatch_async(dispatch_get_main_queue(), ^(void) {
+                        [self callDelegateAndExit];
+                    });
+                }
+            }
+        });
     }
     
     CFBridgingRelease(context);
@@ -255,7 +264,7 @@
 
 + (NSString *)getFileNameFromMediaObject:(MLMediaObject *)mediaObject {
     
-    return mediaObject.URL.absoluteString;
+    return [mediaObject.URL.absoluteString stringByReplacingOccurrencesOfString:@"file:///" withString:@"/"];
 }
 
 @end
