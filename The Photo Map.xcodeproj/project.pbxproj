@@ -21,8 +21,6 @@
 		CC60C0ED1CC718A90029DA40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0EC1CC718A90029DA40 /* ViewController.swift */; };
 		CC60C0EF1CC718AA0029DA40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */; };
 		CC60C0F21CC718AA0029DA40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC60C0F01CC718AA0029DA40 /* Main.storyboard */; };
-		CC60C0FD1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C0FC1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift */; };
-		CC60C1081CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC60C1071CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift */; };
 		CC60C1181CC71DE10029DA40 /* MediaLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */; };
 		CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */; };
 		CC7EA0401CE90E4000200021 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7EA03F1CE90E4000200021 /* WindowController.swift */; };
@@ -38,23 +36,6 @@
 		CCDDFCA01CE99656001D324F /* CDCsvExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDDFC9F1CE99656001D324F /* CDCsvExporter.swift */; };
 		CCFD3F3F1CE18E7100D8DD82 /* ImageBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD3F3E1CE18E7100D8DD82 /* ImageBrowserDelegate.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		CC60C0F91CC718AB0029DA40 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CC60C0DF1CC718A90029DA40 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CC60C0E61CC718A90029DA40;
-			remoteInfo = MyPhotosOnAMap;
-		};
-		CC60C1041CC718AB0029DA40 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CC60C0DF1CC718A90029DA40 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CC60C0E61CC718A90029DA40;
-			remoteInfo = MyPhotosOnAMap;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		CC07E80A1CF18D2000DE2091 /* HorizontalSizeAdjuster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSizeAdjuster.swift; sourceTree = "<group>"; };
@@ -76,10 +57,8 @@
 		CC60C0EE1CC718AA0029DA40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC60C0F11CC718AA0029DA40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CC60C0F31CC718AA0029DA40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC60C0F81CC718AB0029DA40 /* MyPhotosOnAMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPhotosOnAMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC60C0FC1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotosOnAMapTests.swift; sourceTree = "<group>"; };
 		CC60C0FE1CC718AB0029DA40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC60C1031CC718AB0029DA40 /* MyPhotosOnAMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPhotosOnAMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC60C1071CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPhotosOnAMapUITests.swift; sourceTree = "<group>"; };
 		CC60C1091CC718AB0029DA40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaLibrary.framework; path = System/Library/Frameworks/MediaLibrary.framework; sourceTree = SDKROOT; };
@@ -109,20 +88,6 @@
 				CC2400A41CDC3B4C00974E2D /* Quartz.framework in Frameworks */,
 				CC1A5E2A1CE87C9C00E9D494 /* MapKit.framework in Frameworks */,
 				CC60C1181CC71DE10029DA40 /* MediaLibrary.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CC60C0F51CC718AB0029DA40 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CC60C1001CC718AB0029DA40 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,8 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				CC60C0E71CC718A90029DA40 /* The Photo Map.app */,
-				CC60C0F81CC718AB0029DA40 /* MyPhotosOnAMapTests.xctest */,
-				CC60C1031CC718AB0029DA40 /* MyPhotosOnAMapUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -261,42 +224,6 @@
 			productReference = CC60C0E71CC718A90029DA40 /* The Photo Map.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CC60C0F71CC718AB0029DA40 /* MyPhotosOnAMapTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CC60C10F1CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapTests" */;
-			buildPhases = (
-				CC60C0F41CC718AB0029DA40 /* Sources */,
-				CC60C0F51CC718AB0029DA40 /* Frameworks */,
-				CC60C0F61CC718AB0029DA40 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CC60C0FA1CC718AB0029DA40 /* PBXTargetDependency */,
-			);
-			name = MyPhotosOnAMapTests;
-			productName = MyPhotosOnAMapTests;
-			productReference = CC60C0F81CC718AB0029DA40 /* MyPhotosOnAMapTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		CC60C1021CC718AB0029DA40 /* MyPhotosOnAMapUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CC60C1121CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapUITests" */;
-			buildPhases = (
-				CC60C0FF1CC718AB0029DA40 /* Sources */,
-				CC60C1001CC718AB0029DA40 /* Frameworks */,
-				CC60C1011CC718AB0029DA40 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CC60C1051CC718AB0029DA40 /* PBXTargetDependency */,
-			);
-			name = MyPhotosOnAMapUITests;
-			productName = MyPhotosOnAMapUITests;
-			productReference = CC60C1031CC718AB0029DA40 /* MyPhotosOnAMapUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -319,14 +246,6 @@
 							};
 						};
 					};
-					CC60C0F71CC718AB0029DA40 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = CC60C0E61CC718A90029DA40;
-					};
-					CC60C1021CC718AB0029DA40 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = CC60C0E61CC718A90029DA40;
-					};
 				};
 			};
 			buildConfigurationList = CC60C0E21CC718A90029DA40 /* Build configuration list for PBXProject "The Photo Map" */;
@@ -343,8 +262,6 @@
 			projectRoot = "";
 			targets = (
 				CC60C0E61CC718A90029DA40 /* MyPhotosOnAMap */,
-				CC60C0F71CC718AB0029DA40 /* MyPhotosOnAMapTests */,
-				CC60C1021CC718AB0029DA40 /* MyPhotosOnAMapUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -356,20 +273,6 @@
 			files = (
 				CC60C0EF1CC718AA0029DA40 /* Assets.xcassets in Resources */,
 				CC60C0F21CC718AA0029DA40 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CC60C0F61CC718AB0029DA40 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CC60C1011CC718AB0029DA40 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,36 +309,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CC60C0F41CC718AB0029DA40 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CC60C0FD1CC718AB0029DA40 /* MyPhotosOnAMapTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CC60C0FF1CC718AB0029DA40 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CC60C1081CC718AB0029DA40 /* MyPhotosOnAMapUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CC60C0FA1CC718AB0029DA40 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CC60C0E61CC718A90029DA40 /* MyPhotosOnAMap */;
-			targetProxy = CC60C0F91CC718AB0029DA40 /* PBXContainerItemProxy */;
-		};
-		CC60C1051CC718AB0029DA40 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CC60C0E61CC718A90029DA40 /* MyPhotosOnAMap */;
-			targetProxy = CC60C1041CC718AB0029DA40 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CC60C0F01CC718AA0029DA40 /* Main.storyboard */ = {
@@ -564,56 +438,6 @@
 			};
 			name = Release;
 		};
-		CC60C1101CC718AB0029DA40 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MyPhotosOnAMapTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMapTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyPhotosOnAMap.app/Contents/MacOS/MyPhotosOnAMap";
-			};
-			name = Debug;
-		};
-		CC60C1111CC718AB0029DA40 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MyPhotosOnAMapTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMapTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyPhotosOnAMap.app/Contents/MacOS/MyPhotosOnAMap";
-			};
-			name = Release;
-		};
-		CC60C1131CC718AB0029DA40 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MyPhotosOnAMapUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMapUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = MyPhotosOnAMap;
-			};
-			name = Debug;
-		};
-		CC60C1141CC718AB0029DA40 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MyPhotosOnAMapUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cdunn.MyPhotosOnAMapUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = MyPhotosOnAMap;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -631,24 +455,6 @@
 			buildConfigurations = (
 				CC60C10D1CC718AB0029DA40 /* Debug */,
 				CC60C10E1CC718AB0029DA40 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CC60C10F1CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CC60C1101CC718AB0029DA40 /* Debug */,
-				CC60C1111CC718AB0029DA40 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CC60C1121CC718AB0029DA40 /* Build configuration list for PBXNativeTarget "MyPhotosOnAMapUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CC60C1131CC718AB0029DA40 /* Debug */,
-				CC60C1141CC718AB0029DA40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
