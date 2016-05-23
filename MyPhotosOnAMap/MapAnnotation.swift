@@ -85,8 +85,11 @@ public class ModifiedClusterAnnotation : MKPointAnnotation, ModifiedAnnotation {
         let maxLat = coords.reduce(-9999999, combine: {max($0, $1.latitude)});
         let maxLon = coords.reduce(-9999999, combine: {max($0, $1.longitude)});
         
-        let center = CLLocationCoordinate2DMake((maxLat + minLat) / 2.0, (maxLon + minLon) / 2.0);
+        var center = CLLocationCoordinate2DMake((maxLat + minLat) / 2.0, (maxLon + minLon) / 2.0);
         var latSpan = (maxLat - minLat) * mapPadding;
+        let additionalTopPadding = (maxLat - minLat) * (mapPadding - 1.0);
+        latSpan = latSpan + additionalTopPadding;
+        center.latitude = center.latitude + additionalTopPadding / 2.0;
         latSpan = latSpan < minimumVisibleLatitude ? minimumVisibleLatitude : latSpan;
         let lonSpan = (maxLon - minLon) * mapPadding
         
