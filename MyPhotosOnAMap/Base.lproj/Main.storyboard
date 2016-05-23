@@ -230,7 +230,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="48" height="48"/>
                                     <size key="maxSize" width="48" height="48"/>
-                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="b8J-Mx-aA2">
+                                    <imageView key="view" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="b8J-Mx-aA2" customClass="CDImageView">
                                         <rect key="frame" x="14" y="14" width="48" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Mouse-Cursor-Icon" id="jhN-D5-NEo"/>
@@ -243,6 +243,7 @@
                                 <toolbarItem reference="JIE-xx-mPN"/>
                                 <toolbarItem reference="E6I-PX-XZh"/>
                                 <toolbarItem reference="EBQ-ar-le6"/>
+                                <toolbarItem reference="aRr-sb-Nqu"/>
                                 <toolbarItem reference="yCx-WH-CJP"/>
                                 <toolbarItem reference="8Zp-Yn-iFc"/>
                             </defaultToolbarItems>
@@ -255,6 +256,7 @@
                         <outlet property="ForwardButtonImageView" destination="hGF-AE-DPC" id="1i7-bZ-4rE"/>
                         <outlet property="LoadFolderImageView" destination="XJU-P5-4EG" id="U6y-y7-n8i"/>
                         <outlet property="LoadLibraryImageView" destination="2Ie-7B-HF1" id="exf-NM-NCJ"/>
+                        <outlet property="SelectPointsImageView" destination="b8J-Mx-aA2" id="PLE-HN-dLv"/>
                         <outlet property="Zoom" destination="UJY-WP-Ypz" id="WII-MV-Kh1"/>
                         <outlet property="ZoomSlider" destination="8Zp-Yn-iFc" id="w4u-Cd-xwl"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>

@@ -18,6 +18,7 @@ public class HorizontalSizeAdjuster : NSView {
     
     var TrackingArea : NSTrackingArea? = nil;
     public var Delegate : HorizontalSizeAdjusterDelegate? = nil;
+    var CursorSaver : NSCursor? = nil;
     
     override init(frame frameRect: NSRect) {
         
@@ -27,21 +28,6 @@ public class HorizontalSizeAdjuster : NSView {
     public required init?(coder: NSCoder) {
         
         super.init(coder: coder);
-        self.wantsLayer = true;
-        self.layer!.backgroundColor = NSColor.yellowColor().CGColor;
-        
-    }
-    
-    override public func mouseEntered(theEvent: NSEvent) {
-        let cursor = NSCursor.resizeLeftRightCursor();
-        cursor.setOnMouseEntered(true);
-        cursor.mouseEntered(theEvent);
-    }
-    
-    override public func mouseExited(theEvent: NSEvent) {
-        let cursor = NSCursor.arrowCursor();
-        cursor.setOnMouseExited(true);
-        cursor.mouseExited(theEvent);
     }
     
     override public func mouseDragged(theEvent: NSEvent) {
@@ -52,13 +38,13 @@ public class HorizontalSizeAdjuster : NSView {
         Delegate?.mouseUp();
     }
     
-    public override func updateTrackingAreas() {
-        if TrackingArea != nil {
-            self.removeTrackingArea(TrackingArea!);
-            TrackingArea = nil;
-        }
-        let opts = NSTrackingAreaOptions.MouseEnteredAndExited.union(NSTrackingAreaOptions.ActiveAlways);
-        TrackingArea = NSTrackingArea.init(rect: self.bounds, options: opts, owner: self, userInfo: nil);
-        self.addTrackingArea(TrackingArea!);
+    override public func mouseDown(theEvent: NSEvent) {
+        
+    }
+    
+    public override func resetCursorRects() {
+        let cursor = NSCursor.resizeLeftRightCursor()
+        self.addCursorRect(self.bounds, cursor: cursor);
+        cursor.setOnMouseEntered(true);
     }
 }

@@ -11,13 +11,14 @@ import MapKit
 import Foundation
 import Quartz
 
-class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDelegate, HorizontalSizeAdjusterDelegate {
+class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDelegate, HorizontalSizeAdjusterDelegate, RectangularRegionSelectorDelegate {
 
     var MapView: MKMapView!
     var ProgressBar: NSProgressIndicator!
     var ImageBrowser: IKImageBrowserView!
     var SizeAdjuster : HorizontalSizeAdjuster!
     var MapVsBrowser : Double = 0.5;
+    var RegionSelector : RectangularRegionSelector? = nil;
     
     var LatLons : [(CLLocationCoordinate2D, CDMediaObjectWithLocation)] = [];
     var MediaLibraryBackupLatLons : [(CLLocationCoordinate2D, CDMediaObjectWithLocation)] = [];
@@ -132,6 +133,10 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         ProgressBar.setFrameOrigin(CGPointMake(MapView.frame.size.width/2 - 50.0, MapView.frame.size.height/2 - 50.0));
         SizeAdjuster.setFrameSize(CGSizeMake(CGFloat(Constants.SizeAdjusterWidth), height));
         SizeAdjuster.setFrameOrigin(CGPointMake(width*CGFloat(MapVsBrowser)-CGFloat(Constants.SizeAdjusterWidth)/2, 0.0));
+        
+        if RegionSelector != nil {
+            RegionSelector?.frame = MapView.frame;
+        }
     }
     
     func loadMapWithFilePaths(mediaObjects: [CDMediaObjectWithLocation]) {
@@ -369,20 +374,25 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         
-        let annotation = view.annotation;
+        view.setSelected(true, animated: true);
+        let annotation = view.annotation;        
+        _processAnnotation(annotation!);
+    }
+    
+    func _processAnnotation(annotation : MKAnnotation) {
         
         if (annotation as? ModifiedPinAnnotation) != nil {
-            _processPhotoDataAnnotation(view);
+            _processPhotoDataAnnotation(annotation);
         }
         
         if (annotation as? ModifiedClusterAnnotation) != nil {
-            _processPhotoDataAnnotation(view);
+            _processPhotoDataAnnotation(annotation);
         }
     }
     
-    private func _processPhotoDataAnnotation(view: MKAnnotationView) {
+    private func _processPhotoDataAnnotation(annotation: MKAnnotation) {
         
-        let newRegion = ImageBrowserDel?.activateAnnotationView(view);
+        let newRegion = ImageBrowserDel?.activateAnnotationView(annotation);
         
         if newRegion != nil {
             MapView.setRegion(newRegion!, animated: true);
@@ -518,6 +528,36 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     
     func mouseUp() {
         self.setTimerForPointsRefresh();
+    }
+    
+    func selectPointsInit() {
+        
+        RegionSelector = nil;
+        RegionSelector = RectangularRegionSelector.init(frame: MapView.frame);
+        RegionSelector!.Delegate = self;
+        self.view.addSubview(RegionSelector!);
+    }
+    
+    func rectangularRegionWasSelected(region: CGRect) {
+        
+        RegionSelector?.removeFromSuperview();
+        RegionSelector = nil;
+        
+        let mapViewPoints = LatLons.map
+            {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter
+            {CGRectContainsPoint(region, $0.0)}
+        if mapViewPoints.count == 0 {
+            return;
+        }
+        let cdMediaObjects = mapViewPoints.map({(pt) -> CDMediaObjectWithLocation in
+            return pt.1;
+        });
+        let coords = cdMediaObjects.map({mediaObject in return mediaObject.Location!});
+        
+        let cluster = ClusterOfCoordinates.init(withPoints: coords);
+        let adHocDataLoad = MapAnnotation.init(withMediaObjects: mapViewPoints.map {$0.1}, andCluster: cluster);
+        let adHocClusterAnnotation = ModifiedClusterAnnotation.init(withDataLoad: adHocDataLoad);
+        self._processAnnotation(adHocClusterAnnotation);
     }
 }
 

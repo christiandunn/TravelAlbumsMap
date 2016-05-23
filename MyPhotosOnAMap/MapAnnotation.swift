@@ -44,6 +44,13 @@ public class ClusterOfCoordinates {
         Center = center;
         Points = points;
     }
+    
+    init(withPoints points: [CLLocationCoordinate2D]) {
+        Points = points;
+        let latSum = points.reduce(0.0, combine: {(_latSum, newCoord) in return _latSum + newCoord.latitude});
+        let lonSum = points.reduce(0.0, combine: {(_lonSum, newCoord) in return _lonSum + newCoord.longitude});
+        Center = CLLocationCoordinate2DMake(latSum / Double(points.count), lonSum / Double(points.count));
+    }
 }
 
 public protocol ModifiedAnnotation {

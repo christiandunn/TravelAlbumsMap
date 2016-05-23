@@ -63,10 +63,7 @@ public class ImageBrowserDelegate {
         return ImageRep(imageRepWithMediaObject: mediaObject!);
     }
     
-    public func activateAnnotationView(view : MKAnnotationView) -> MKCoordinateRegion? {
-        
-        let annotation = view.annotation;
-        view.setSelected(true, animated: true);
+    public func activateAnnotationView(annotation : MKAnnotation) -> MKCoordinateRegion? {
         
         if let anno = annotation as? ModifiedPinAnnotation {
             anno.DataLoad.sortByDate();

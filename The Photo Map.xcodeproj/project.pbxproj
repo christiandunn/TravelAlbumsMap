@@ -23,6 +23,7 @@
 		CC60C0F21CC718AA0029DA40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC60C0F01CC718AA0029DA40 /* Main.storyboard */; };
 		CC60C1181CC71DE10029DA40 /* MediaLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60C1171CC71DE10029DA40 /* MediaLibrary.framework */; };
 		CC60C11C1CC71E470029DA40 /* MediaLibraryAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */; };
+		CC7BC91D1CF29C41003608AE /* RectangularRegionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7BC91C1CF29C41003608AE /* RectangularRegionSelector.swift */; };
 		CC7EA0401CE90E4000200021 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7EA03F1CE90E4000200021 /* WindowController.swift */; };
 		CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */; };
 		CC9FC94F1CE939A100558868 /* CDStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9FC94E1CE939A100558868 /* CDStack.swift */; };
@@ -65,6 +66,7 @@
 		CC60C1191CC71E470029DA40 /* MyPhotosOnAMap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyPhotosOnAMap-Bridging-Header.h"; sourceTree = "<group>"; };
 		CC60C11A1CC71E470029DA40 /* MediaLibraryAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaLibraryAccessor.h; sourceTree = "<group>"; };
 		CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaLibraryAccessor.m; sourceTree = "<group>"; };
+		CC7BC91C1CF29C41003608AE /* RectangularRegionSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectangularRegionSelector.swift; sourceTree = "<group>"; };
 		CC7EA03F1CE90E4000200021 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		CC9FC94E1CE939A100558868 /* CDStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDStack.swift; sourceTree = "<group>"; };
@@ -159,6 +161,17 @@
 			path = MyPhotosOnAMapUITests;
 			sourceTree = "<group>";
 		};
+		CC7BC91B1CF29C13003608AE /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				CCDDFC9A1CE983EA001D324F /* CDImageView.h */,
+				CCDDFC9B1CE983EA001D324F /* CDImageView.m */,
+				CC07E80A1CF18D2000DE2091 /* HorizontalSizeAdjuster.swift */,
+				CC7BC91C1CF29C41003608AE /* RectangularRegionSelector.swift */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
 		CC9FC94D1CE9399200558868 /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,7 +192,6 @@
 				CCB3538D1CEC3EAA00690A5B /* DirectoryLoaderWindowController.swift */,
 				CCB3538F1CEC3EDA00690A5B /* DirectoryLoaderViewController.swift */,
 				CC910DFB1CDC3CEA00E54334 /* MapAnnotation.swift */,
-				CC07E80A1CF18D2000DE2091 /* HorizontalSizeAdjuster.swift */,
 			);
 			name = "View and Window Controllers";
 			sourceTree = "<group>";
@@ -187,6 +199,7 @@
 		CCC6BB7F1CEACC1C002A2FB1 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				CC7BC91B1CF29C13003608AE /* Custom Views */,
 				CC1A5E221CE83C4D00E9D494 /* File Enumeration */,
 				CC9FC94D1CE9399200558868 /* Data Structures */,
 				CC24AA851CDF14E300E6D529 /* Constants.swift */,
@@ -196,8 +209,6 @@
 				CC60C11B1CC71E470029DA40 /* MediaLibraryAccessor.m */,
 				CC1A5E2D1CE88B4500E9D494 /* CustomDistanceFormatter.h */,
 				CC1A5E2B1CE88B2D00E9D494 /* CustomDistanceFormatter.m */,
-				CCDDFC9A1CE983EA001D324F /* CDImageView.h */,
-				CCDDFC9B1CE983EA001D324F /* CDImageView.m */,
 				CC4FB0311CF14F2D00123AB4 /* ImageFileDetails.h */,
 				CC4FB0321CF14F2D00123AB4 /* ImageFileDetails.m */,
 			);
@@ -306,6 +317,7 @@
 				CC60C0EB1CC718A90029DA40 /* AppDelegate.swift in Sources */,
 				CC910DFC1CDC3CEA00E54334 /* MapAnnotation.swift in Sources */,
 				CC24AA861CDF14E300E6D529 /* Constants.swift in Sources */,
+				CC7BC91D1CF29C41003608AE /* RectangularRegionSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
