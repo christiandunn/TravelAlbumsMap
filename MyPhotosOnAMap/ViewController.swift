@@ -532,7 +532,10 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     
     func selectPointsInit() {
         
-        RegionSelector = nil;
+        if RegionSelector != nil {
+            RegionSelector?.removeFromSuperview();
+            RegionSelector = nil;
+        }
         RegionSelector = RectangularRegionSelector.init(frame: MapView.frame);
         RegionSelector!.Delegate = self;
         self.view.addSubview(RegionSelector!);
