@@ -75,7 +75,9 @@
 
 - (void)dealloc {
     
-    CFRelease(dictionaryRef);
+    if (dictionaryRef != nil) {
+        CFRelease(dictionaryRef);
+    }    
     CFRelease(myImageSource);
 }
 
