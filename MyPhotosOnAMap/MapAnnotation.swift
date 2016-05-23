@@ -77,13 +77,21 @@ public class ModifiedClusterAnnotation : MKPointAnnotation, ModifiedAnnotation {
     
     public func enclosingRegion() -> MKCoordinateRegion {
         let coords : [CLLocationCoordinate2D] = DataLoad.Objects.map {$0.Location!};
+        let minimumVisibleLatitude = 0.01;
+        let mapPadding = 1.1;
+        
         let minLat = coords.reduce(9999999, combine: {min($0, $1.latitude)});
         let minLon = coords.reduce(9999999, combine: {min($0, $1.longitude)});
         let maxLat = coords.reduce(-9999999, combine: {max($0, $1.latitude)});
         let maxLon = coords.reduce(-9999999, combine: {max($0, $1.longitude)});
         
-        let span = MKCoordinateSpanMake(maxLat - minLat, maxLon - minLon);
-        let region = MKCoordinateRegionMake(DataLoad.Center!, span);
+        let center = CLLocationCoordinate2DMake((maxLat + minLat) / 2.0, (maxLon + minLon) / 2.0);
+        var latSpan = (maxLat - minLat) * mapPadding;
+        latSpan = latSpan < minimumVisibleLatitude ? minimumVisibleLatitude : latSpan;
+        let lonSpan = (maxLon - minLon) * mapPadding
+        
+        let span = MKCoordinateSpanMake(latSpan, lonSpan);
+        let region = MKCoordinateRegionMake(center, span);
         return region;
     }
 }
