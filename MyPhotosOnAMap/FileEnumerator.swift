@@ -55,7 +55,10 @@ public class FileEnumerator {
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while let element = self.DirectoryEnumerator?.nextObject() as! NSURL? {
                 if self.hasImageSuffix(element) {
-                    allObjects.append(CDMediaObjectFactory.createMediaObject(withUrl: element));
+                    let newMediaObject = CDMediaObjectFactory.createMediaObject(withUrl: element);
+                    if !(Constants.ThrowawayFileWithNoLocationData && newMediaObject.Location == nil) {
+                        allObjects.append(newMediaObject);
+                    }
                 } else {
                     continue;
                 }

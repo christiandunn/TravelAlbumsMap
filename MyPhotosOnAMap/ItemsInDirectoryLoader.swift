@@ -23,7 +23,7 @@ public class ItemsInDirectoryLoader {
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = false
         openPanel.canChooseFiles = true
-        openPanel.allowedFileTypes = ["photoslibrary", "photolibrary"]
+        openPanel.allowedFileTypes = ["photoslibrary"]
     }
     
     public func loadItemsFromDirectory() {
