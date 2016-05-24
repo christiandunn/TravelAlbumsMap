@@ -23,8 +23,10 @@ public class FileEnumerator {
         var usePath = path;
         FileManager = NSFileManager.defaultManager();
         var options: NSDirectoryEnumerationOptions = [NSDirectoryEnumerationOptions.SkipsHiddenFiles];
-        if isPhotoLibrary(path) {
+        if !isPhotoLibrary(path) {
             options = options.union([NSDirectoryEnumerationOptions.SkipsPackageDescendants]);
+        }
+        if isPhotoLibrary(path) {
             let masterFolderPath = path.URLByAppendingPathComponent("Masters", isDirectory: true);
             usePath = masterFolderPath;
         }
