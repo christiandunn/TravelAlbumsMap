@@ -48,6 +48,9 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                         change:(NSDictionary *)change context:(void *)context
 {
+    if (context == nil) {
+        return;
+    }
     MediaObjectsLoadedMessenger *messageContainer = (__bridge MediaObjectsLoadedMessenger *)context;
     MediaLoadingMessage message = messageContainer.Message;
     MLMediaSource *mediaSource = [self.mediaLibrary.mediaSources objectForKey:MLMediaSourcePhotosIdentifier];
@@ -198,7 +201,9 @@
         });
     }
     
-    CFBridgingRelease(context);
+    if (context != nil) {
+        CFBridgingRelease(context);
+    }
     if (!validMessage) {
         [self reportErrorFindingMedia];
     }
