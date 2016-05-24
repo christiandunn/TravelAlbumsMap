@@ -12,7 +12,6 @@
 @interface ImageFileDetails : NSObject {
     
     NSURL *path;
-    CGImageSourceRef myImageSource;
     CFDictionaryRef dictionaryRef;
 }
 

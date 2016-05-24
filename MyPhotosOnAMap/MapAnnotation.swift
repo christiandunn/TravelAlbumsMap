@@ -133,7 +133,7 @@ public class ImageRep {
         let dateFormat : String = "yyyy:MM:dd HH:mm:ss";
         dateFormatter.dateFormat = dateFormat;
         dateFormatter.formatterBehavior = NSDateFormatterBehavior.Behavior10_4;
-        if dateString == nil {
+        if dateString == nil || dateString.compare("") == NSComparisonResult.OrderedSame {
             return "";
         }
         let date = dateFormatter.dateFromString(dateString);

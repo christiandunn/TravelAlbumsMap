@@ -21,16 +21,22 @@
     
     CFURLRef url = (__bridge CFURLRef)path;
     
-    myImageSource = CGImageSourceCreateWithURL(url, NULL);
+    CGImageSourceRef myImageSource = CGImageSourceCreateWithURL(url, NULL);
     if (myImageSource == nil) {
         return (__bridge CFDictionaryRef)([[NSDictionary alloc] init]);
     }
     CFDictionaryRef imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
+    if (myImageSource != nil) {
+        CFRelease(myImageSource);
+    }
     return imagePropertiesDictionary;
 }
 
 - (NSString *)getExifDateTimeOriginal {
     
+    if (dictionaryRef == nil) {
+        return @"";
+    }
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{Exif}"];
     NSString *result = [dictionary valueForKey:@"DateTimeOriginal"];
@@ -39,6 +45,9 @@
 
 - (bool)containsGpsMetadata {
     
+    if (dictionaryRef == nil) {
+        return false;
+    }
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     return dictionary != nil;
@@ -46,6 +55,9 @@
 
 - (NSNumber *)getGpsAltitude {
     
+    if (dictionaryRef == nil) {
+        return nil;
+    }
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     NSNumber *result = (NSNumber *)[dictionary valueForKey:@"Altitude"];
@@ -54,6 +66,9 @@
 
 - (NSNumber *)getGpsSpeed {
     
+    if (dictionaryRef == nil) {
+        return nil;
+    }
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     NSNumber *result = (NSNumber *)[dictionary valueForKey:@"Speed"];
@@ -62,6 +77,9 @@
 
 - (CLLocationCoordinate2D)getLocation {
     
+    if (dictionaryRef == nil) {
+        return CLLocationCoordinate2DMake(0.0, 0.0);
+    }
     NSDictionary *imageDict = (__bridge NSDictionary *)(dictionaryRef);
     NSDictionary *dictionary = [imageDict valueForKey:@"{GPS}"];
     NSNumber *latitude = (NSNumber *)[dictionary valueForKey:@"Latitude"];
@@ -77,8 +95,7 @@
     
     if (dictionaryRef != nil) {
         CFRelease(dictionaryRef);
-    }    
-    CFRelease(myImageSource);
+    }
 }
 
 @end

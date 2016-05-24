@@ -23,7 +23,7 @@ public class CDMediaObjectWithLocation {
         DateString = date;
         
         Date = NSDate.distantFuture();
-        if DateString != nil {
+        if DateString != nil && DateString?.compare("") != NSComparisonResult.OrderedSame {
             let result = CDMediaObjectFactory.dateFromDateString(withString: DateString!);
             if result != nil {
                 Date = result!;
