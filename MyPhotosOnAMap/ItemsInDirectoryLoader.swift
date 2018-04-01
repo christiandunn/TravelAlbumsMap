@@ -39,21 +39,21 @@ public class ItemsInDirectoryLoader {
     
     private func getPath() {
         
-        let window = NSApplication.sharedApplication().mainWindow;
-        openPanel.beginSheetModalForWindow(window!, completionHandler: { (result) -> Void in
+        let window = NSApplication.shared().mainWindow;
+        openPanel.beginSheetModal(for: window!, completionHandler: { (result) -> Void in
             if result == NSFileHandlingPanelOKButton {
-                self._loadItemsFromDirectory(withPath: self.openPanel.URL!);
+                self._loadItemsFromDirectory(withPath: self.openPanel.url! as NSURL);
             }
         });
     }
     
     private func _loadItemsFromDirectory(withPath path: NSURL) {
         
-        let fileEnumerator : FileEnumerator = FileEnumerator.init(withPath: path);
+        let fileEnumerator : FileEnumerator = FileEnumerator.init(withPath: path as URL);
         
         let storyboard : NSStoryboard = NSStoryboard.init(name: "Main", bundle: nil);
-        DLWC = storyboard.instantiateControllerWithIdentifier("DateFilterWindowController") as? DirectoryLoaderWindowController;
+        DLWC = storyboard.instantiateController(withIdentifier: "DateFilterWindowController") as? DirectoryLoaderWindowController;
         DLWC?.showWindow(nil);
-        fileEnumerator.getAllImageFiles(VC, dlwc: DLWC!);
+        fileEnumerator.getAllImageFiles(vc: VC, dlwc: DLWC!);
     }
 }

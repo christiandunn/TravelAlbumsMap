@@ -22,8 +22,8 @@ public class CDMediaObjectWithLocation {
         Location = location;
         DateString = date;
         
-        Date = NSDate.distantFuture();
-        if DateString != nil && DateString?.compare("") != NSComparisonResult.OrderedSame {
+        Date = NSDate.distantFuture as NSDate;
+        if DateString != nil && DateString?.compare("") != ComparisonResult.orderedSame {
             let result = CDMediaObjectFactory.dateFromDateString(withString: DateString!);
             if result != nil {
                 Date = result!;
@@ -36,7 +36,7 @@ public class CDMediaObjectWithLocation {
         URL = url;
         Location = location;
         
-        Date = NSDate.distantFuture();
+        Date = NSDate.distantFuture as NSDate;
         if date != nil {
             Date = date!;
         }
@@ -47,11 +47,11 @@ public class CDMediaObjectFactory {
     
     public static func createMediaObject(withUrl Url : NSURL) -> CDMediaObjectWithLocation {
         
-        let imageFileDetails = ImageFileDetails.init(path: Url);
-        let location = imageFileDetails.getLocation();
-        let date = imageFileDetails.getExifDateTimeOriginal();
+        let imageFileDetails = ImageFileDetails.init(path: Url as URL!);
+        let location = imageFileDetails?.getLocation();
+        let date = imageFileDetails?.getExifDateTimeOriginal();
         
-        if (imageFileDetails.containsGpsMetadata() && CDMediaObjectFactory.locationIsLikely(location)) {
+        if (imageFileDetails!.containsGpsMetadata() && CDMediaObjectFactory.locationIsLikely(location: location!)) {
             return CDMediaObjectWithLocation.init(withURL: Url, andLocation: location, andDate: date);
         } else {
             return CDMediaObjectWithLocation.init(withURL: Url, andLocation: nil, andDate: date);
@@ -67,27 +67,27 @@ public class CDMediaObjectFactory {
         
         let latitude = object.attributes["latitude"] as! Double;
         let longitude = object.attributes["longitude"] as! Double;
-        let url = object.URL;        
+        let url = object.url;        
         let loc = CLLocationCoordinate2DMake(latitude, longitude);
         
         var date : NSDate? = nil;
-        if object.attributes.indexForKey("DateAsTimerInterval") != nil {
+        if object.attributes.index(forKey: "DateAsTimerInterval") != nil {
             let dateAsTimerInterval = object.attributes["DateAsTimerInterval"] as! Double;
             let newDate = NSDate.init(timeIntervalSinceReferenceDate: dateAsTimerInterval);
             date = newDate;
         }
         
-        return CDMediaObjectWithLocation.init(withURL: url!, andLocation: loc, andDate: date);
+        return CDMediaObjectWithLocation.init(withURL: url as NSURL!, andLocation: loc, andDate: date);
     }
     
     public static func dateFromDateString(withString string : String) -> NSDate? {
         
         let dateString : String! = string;
-        let dateFormatter : NSDateFormatter = NSDateFormatter.init();
+        let dateFormatter : DateFormatter = DateFormatter.init();
         let dateFormat : String = "yyyy:MM:dd HH:mm:ss";
         dateFormatter.dateFormat = dateFormat;
-        dateFormatter.formatterBehavior = NSDateFormatterBehavior.Behavior10_4;
-        let date = dateFormatter.dateFromString(dateString);
-        return date;
+        dateFormatter.formatterBehavior = DateFormatter.Behavior.behavior10_4;
+        let date = dateFormatter.date(from: dateString);
+        return date as NSDate?;
     }
 }

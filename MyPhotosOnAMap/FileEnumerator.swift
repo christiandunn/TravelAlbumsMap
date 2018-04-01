@@ -10,27 +10,27 @@ import Foundation
 
 public class FileEnumerator {
     
-    var FileManager : NSFileManager;
-    var DirectoryEnumerator : NSDirectoryEnumerator?;
+    var _FileManager : FileManager;
+    var _DirectoryEnumerator : FileManager.DirectoryEnumerator?;
     
     var VC : ViewController? = nil;
     var DLWC : DirectoryLoaderWindowController? = nil;
     
     var StopFlag : Bool = false;
     
-    init(withPath path : NSURL) {
+    init(withPath path : URL) {
         
         var usePath = path;
-        FileManager = NSFileManager.defaultManager();
-        var options: NSDirectoryEnumerationOptions = [NSDirectoryEnumerationOptions.SkipsHiddenFiles];
-        if !isPhotoLibrary(path) {
-            options = options.union([NSDirectoryEnumerationOptions.SkipsPackageDescendants]);
+        _FileManager = FileManager.default;
+        var options: FileManager.DirectoryEnumerationOptions = [FileManager.DirectoryEnumerationOptions.skipsHiddenFiles];
+        if !isPhotoLibrary(path: path as NSURL) {
+            options = options.union([FileManager.DirectoryEnumerationOptions.skipsPackageDescendants]);
         }
-        if isPhotoLibrary(path) {
-            let masterFolderPath = path.URLByAppendingPathComponent("Masters", isDirectory: true);
+        if isPhotoLibrary(path: path as NSURL) {
+            let masterFolderPath = path.appendingPathComponent("Masters", isDirectory: true);
             usePath = masterFolderPath;
         }
-        DirectoryEnumerator = FileManager.enumeratorAtURL(usePath, includingPropertiesForKeys: nil, options: options, errorHandler: nil);
+        _DirectoryEnumerator = _FileManager.enumerator(at: usePath, includingPropertiesForKeys: nil, options: options, errorHandler: nil);
     }
     
     internal func getAllImageFiles(vc : ViewController, dlwc : DirectoryLoaderWindowController) {
@@ -42,19 +42,18 @@ public class FileEnumerator {
     
     private func isPhotoLibrary(path : NSURL) -> Bool {
         
-        return path.pathExtension?.compare("photoslibrary") == NSComparisonResult.OrderedSame ||
-            path.pathExtension?.compare("photolibrary") == NSComparisonResult.OrderedSame;
+        return path.pathExtension?.compare("photoslibrary") == ComparisonResult.orderedSame ||
+            path.pathExtension?.compare("photolibrary") == ComparisonResult.orderedSame;
     }
     
     private func getAllObjects() {
         
         var allObjects : [CDMediaObjectWithLocation] = [];
-        DLWC?.VC?.setEnumerator(self);
+        DLWC?.VC?.setEnumerator(enumerator: self);
         
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            while let element = self.DirectoryEnumerator?.nextObject() as! NSURL? {
-                if self.hasImageSuffix(element) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            while let element = self._DirectoryEnumerator?.nextObject() as! NSURL? {
+                if self.hasImageSuffix(URL: element) {
                     let newMediaObject = CDMediaObjectFactory.createMediaObject(withUrl: element);
                     if !(Constants.ThrowawayFileWithNoLocationData && newMediaObject.Location == nil) {
                         allObjects.append(newMediaObject);
@@ -62,22 +61,22 @@ public class FileEnumerator {
                 } else {
                     continue;
                 }
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     autoreleasepool {
-                        self.DLWC!.VC?.updateLabel(element.absoluteString.stringByReplacingOccurrencesOfString("file:///", withString: "/"));
+                        self.DLWC!.VC?.updateLabel(labelText: (element.absoluteString?.replacingOccurrences(of: "file:///", with: "/"))!);
                     }
                 }
                 usleep(1000);
                 if self.StopFlag {
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async {
                         self.DLWC?.close();
-                    });
+                    };
                     break;
                 }
             }
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.DLWC?.close();
-                self.VC?.loadMapWithFilePaths(allObjects);
+                self.VC?.loadMapWithFilePaths(mediaObjects: allObjects);
             }
         }
     }
@@ -89,14 +88,14 @@ public class FileEnumerator {
     
     private func hasImageSuffix(URL : NSURL) -> Bool {
         
-        let stringValue = URL.absoluteString.lowercaseString;
-        return stringValue.hasSuffix("jpeg") ||
-            stringValue.hasSuffix("jpg") ||
-            stringValue.hasSuffix("bmp") ||
-            stringValue.hasSuffix("png") ||
-            stringValue.hasSuffix("tiff") ||
-            stringValue.hasSuffix("tif") ||
-            stringValue.hasSuffix("jpe") ||
-            stringValue.hasSuffix("gif");
+        let stringValue = URL.absoluteString?.lowercased();
+        return stringValue!.hasSuffix("jpeg") ||
+            stringValue!.hasSuffix("jpg") ||
+            stringValue!.hasSuffix("bmp") ||
+            stringValue!.hasSuffix("png") ||
+            stringValue!.hasSuffix("tiff") ||
+            stringValue!.hasSuffix("tif") ||
+            stringValue!.hasSuffix("jpe") ||
+            stringValue!.hasSuffix("gif");
     }
 }

@@ -27,17 +27,17 @@ public class ClusteringAlgorithm<PointDataType> {
     }
     
     public func kMeans<PointDataType>(points: [(CGPoint, PointDataType)]) -> ([(CGPoint, [PointDataType])], [Double], [Int], [Cluster]) {
-        let initialEstimate = _estimateK(points.map({$0.0}));
+        let initialEstimate = _estimateK(points: points.map({$0.0}));
         var (k, initialCenters) = (min(initialEstimate.0, points.count), initialEstimate.1);
         var maxmaxD = 0.0;
-        var (clusterCenters, maxD, clusterCounts, clusters) = _kMeans(k, initialCenters: initialCenters, points: points);
+        var (clusterCenters, maxD, clusterCounts, clusters) = _kMeans(k: k, initialCenters: initialCenters, points: points);
         maxmaxD = maxD.reduce(0.0) {max($0, $1)};
         while maxmaxD > (MaxDistanceAwayFromCenterOfCluster) && k < 100 {
             if k < points.count {
                 k = k + 1;
-                initialCenters.append(_pointFarthestAway(initialCenters, points: points.map({$0.0})));
+                initialCenters.append(_pointFarthestAway(centers: initialCenters, points: points.map({$0.0})));
             }
-            (clusterCenters, maxD, clusterCounts, clusters) = _kMeans(k, initialCenters: initialCenters, points: points);
+            (clusterCenters, maxD, clusterCounts, clusters) = _kMeans(k: k, initialCenters: initialCenters, points: points);
             maxmaxD = maxD.reduce(0.0) {max($0, $1)};
             //print("k = \(k), maxmaxD = \(maxmaxD)");
         }
@@ -45,8 +45,8 @@ public class ClusteringAlgorithm<PointDataType> {
     }
     
     private func _pointFarthestAway(centers: [CGPoint], points: [CGPoint]) -> CGPoint {
-        let farthestPoint = points.reduce((points[0], 0), combine: {(farthestPoint, newPoint) -> (CGPoint, Double) in
-            let minDistanceToCluster = centers.reduce(9999999.0, combine: {(minDistance, nextCluster) -> Double in min(minDistance, Double(_pointDistance(nextCluster, pt: newPoint)))});
+        let farthestPoint = points.reduce((points[0], 0), {(farthestPoint, newPoint) -> (CGPoint, Double) in
+            let minDistanceToCluster = centers.reduce(9999999.0, {(minDistance, nextCluster) -> Double in min(minDistance, Double(_pointDistance(point: nextCluster, pt: newPoint)))});
             if minDistanceToCluster > farthestPoint.1 {
                 return (newPoint, minDistanceToCluster);
             }
@@ -61,7 +61,7 @@ public class ClusteringAlgorithm<PointDataType> {
         for point in points {
             var foundClique = false;
             for center in centers {
-                if Double(_pointDistance(center, pt: point)) < (MaxDistanceAwayFromCenterOfCluster) {
+                if Double(_pointDistance(point: center, pt: point)) < (MaxDistanceAwayFromCenterOfCluster) {
                     foundClique = true;
                 }
             }
@@ -93,7 +93,7 @@ public class ClusteringAlgorithm<PointDataType> {
                 //Find the closest existing center of index c to the point p
                 var distance = 9999999.0;
                 for c in 0...(k-1) {
-                    let d = Double(_pointDistance(closest[p].0.0, pt: centers[c].0));
+                    let d = Double(_pointDistance(point: closest[p].0.0, pt: centers[c].0));
                     if d < distance {
                         distance = d;
                         var oldClosest = closest[p];
@@ -113,13 +113,13 @@ public class ClusteringAlgorithm<PointDataType> {
                     let y = existingObj.2 + Double(newObj.0.0.y) / Double(pset.count);
                     return (arr, x, y);
                 };
-                centers[c] = (CGPointMake(CGFloat(newX), CGFloat(newY)), mediaObjects);
-                let maxD = pset.reduce(0) {max($0, _pointDistance($1.0.0, pt: centers[c].0))};
+                centers[c] = (CGPoint(x:CGFloat(newX), y:CGFloat(newY)), mediaObjects);
+                let maxD = pset.reduce(0) {max($0, _pointDistance(point: $1.0.0, pt: centers[c].0))};
                 centersMaxD[c] = Double(maxD);
                 centersCount[c] = pset.count;
             }
         }
-        clusters = closest.reduce(clusters, combine: {
+        clusters = closest.reduce(clusters, {
             (existingObj, newObj) -> [Cluster] in
             let index = newObj.1;
             let point = newObj.0.0;

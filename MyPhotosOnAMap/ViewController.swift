@@ -25,7 +25,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     var FriendsNeededToNotBeLonely : Int = Constants.MinimumPointsForCluster;
     var ClusterRadius : Double = Constants.ClusterRadius;
     var Clustering : ClusteringAlgorithm<MLMediaObject>? = nil;
-    var Timing : NSTimer? = nil;
+    var Timing : Timer? = nil;
     var annotations : [ModifiedPinAnnotation] = [];
     var Overlays : [ModifiedClusterAnnotation] = [];
     var ImageBrowserDel : ImageBrowserDelegate? = nil;
@@ -62,7 +62,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         initialization();
     }
     
-    override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
         DateFilterStart = Constants.DateFilterStartDefault;
         DateFilterFinish = Constants.DateFilterFinishDefault;
@@ -75,10 +75,22 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         ViewController.VC = self;
     }
     
+    func CGRectMake(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) -> CGRect {
+        return CGRect(origin: CGPoint(x:x,y:y), size:CGSize(width:w,height:h));
+    }
+    
+    func CGPointMake(x: CGFloat, y: CGFloat) -> CGPoint {
+        return CGPoint(x:x,y:y);
+    }
+    
+    func CGSizeMake(w: CGFloat, h: CGFloat) -> CGSize {
+        return CGSize(width:w,height:h);
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();        
+        NSApplication.shared().mainWindow?.backgroundColor = NSColor.white;        
         Clustering = ClusteringAlgorithm<MLMediaObject>(withMaxDistance: ClusterRadius);
         
         BackStack = CDMapRegionStack.init();
@@ -86,14 +98,14 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         let gestureRecognizer = NSPanGestureRecognizer.init(target: self, action: #selector(userTappedMap));
         gestureRecognizer.delegate = self;
         
-        ImageBrowser = IKImageBrowserView.init(frame: CGRectMake(0.0, 0.0, 1.0, 1.0));
-        ImageBrowser.setIntercellSpacing(CGSizeMake(0.0, 0.0));
+        ImageBrowser = IKImageBrowserView.init(frame: CGRectMake(x: 0.0, y: 0.0, w: 1.0, h: 1.0));
+        ImageBrowser.setIntercellSpacing(CGSizeMake(w: 0.0, h: 0.0));
         ImageBrowser.setAllowsMultipleSelection(false);
         self.view.addSubview(ImageBrowser);
         ImageBrowserDel = ImageBrowserDelegate.init(imageBrowser: ImageBrowser, delegate: self);
         
-        MapView = MKMapView.init(frame: CGRectMake(0.0, 0.0, 1.0, 1.0));
-        MapView.mapType = MKMapType.Hybrid;
+        MapView = MKMapView.init(frame: CGRectMake(x: 0.0, y: 0.0, w: 1.0, h: 1.0));
+        MapView.mapType = MKMapType.hybrid;
         MapView.showsScale = true;
         MapView.showsBuildings = true;
         MapView.showsCompass = true;
@@ -107,14 +119,14 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         scrollView.hasVerticalScroller = true;
         self.view.addSubview(scrollView);
         
-        ProgressBar = NSProgressIndicator.init(frame: CGRectMake(0.0, 0.0, 100.0, 100.0));
-        ProgressBar.style = NSProgressIndicatorStyle.SpinningStyle;
-        ProgressBar.indeterminate = true;
-        ProgressBar.displayedWhenStopped = true;
-        ProgressBar.hidden = true;
+        ProgressBar = NSProgressIndicator.init(frame: CGRectMake(x: 0.0, y: 0.0, w: 100.0, h: 100.0));
+        ProgressBar.style = NSProgressIndicatorStyle.spinningStyle;
+        ProgressBar.isIndeterminate = true;
+        ProgressBar.isDisplayedWhenStopped = true;
+        ProgressBar.isHidden = true;
         self.view.addSubview(ProgressBar);
         
-        SizeAdjuster = HorizontalSizeAdjuster.init(frame: CGRectMake(0.0, 0.0, 1.0, 100.0));
+        SizeAdjuster = HorizontalSizeAdjuster.init(frame: CGRectMake(x: 0.0, y: 0.0, w: 1.0, h: 100.0));
         SizeAdjuster.Delegate = self;
         self.view.addSubview(SizeAdjuster);
         MapVsBrowser = Constants.MapViewFraction;
@@ -127,12 +139,12 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         let width = self.view.frame.size.width;
         let height = self.view.frame.size.height;
         
-        MapView.setFrameSize(CGSizeMake(CGFloat(Double(width)*MapVsBrowser), height));
-        scrollView.setFrameOrigin(CGPointMake(width*CGFloat(MapVsBrowser), 0.0));
-        scrollView.setFrameSize(CGSizeMake(width*CGFloat(1-MapVsBrowser), height));
-        ProgressBar.setFrameOrigin(CGPointMake(MapView.frame.size.width/2 - 50.0, MapView.frame.size.height/2 - 50.0));
-        SizeAdjuster.setFrameSize(CGSizeMake(CGFloat(Constants.SizeAdjusterWidth), height));
-        SizeAdjuster.setFrameOrigin(CGPointMake(width*CGFloat(MapVsBrowser)-CGFloat(Constants.SizeAdjusterWidth)/2, 0.0));
+        MapView.setFrameSize(CGSizeMake(w: CGFloat(Double(width)*MapVsBrowser), h: height));
+        scrollView.setFrameOrigin(CGPointMake(x: width*CGFloat(MapVsBrowser), y: 0.0));
+        scrollView.setFrameSize(CGSizeMake(w: width*CGFloat(1-MapVsBrowser), h: height));
+        ProgressBar.setFrameOrigin(CGPointMake(x: MapView.frame.size.width/2 - 50.0, y: MapView.frame.size.height/2 - 50.0));
+        SizeAdjuster.setFrameSize(CGSizeMake(w: CGFloat(Constants.SizeAdjusterWidth), h: height));
+        SizeAdjuster.setFrameOrigin(CGPointMake(x: width*CGFloat(MapVsBrowser)-CGFloat(Constants.SizeAdjusterWidth)/2, y: 0.0));
         
         if RegionSelector != nil {
             RegionSelector?.frame = MapView.frame;
@@ -149,7 +161,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     func loadMapWithLibrary() {
         
         if MediaLibraryBackupLatLons.count == 0 {
-            ProgressBar.hidden = false;
+            ProgressBar.isHidden = false;
             ProgressBar.startAnimation(self);
             if accessor == nil {
                 accessor = MediaLibraryAccessor();
@@ -160,20 +172,14 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
             accessor!.setStatusReportSelector("mediaAccessorDidReportStatus");
             
             let storyboard : NSStoryboard = NSStoryboard.init(name: "Main", bundle: nil);
-            MediaAccessorStatusWindow = storyboard.instantiateControllerWithIdentifier("DateFilterWindowController") as? DirectoryLoaderWindowController;
+            MediaAccessorStatusWindow = storyboard.instantiateController(withIdentifier: "DateFilterWindowController") as? DirectoryLoaderWindowController;
             MediaAccessorStatusWindow?.showWindow(nil);
-            MediaAccessorStatusWindow?.VC?.setViewController(self);
+            MediaAccessorStatusWindow?.VC?.setViewController(vc: self);
             
             accessor!.initialize();
         } else {
             LatLons = MediaLibraryBackupLatLons;
-            addPoints(LatLons);
-        }
-    }
-
-    override var representedObject: AnyObject? {
-        didSet {
-        // Update the view, if already loaded.
+            addPoints(points: LatLons);
         }
     }
     
@@ -182,16 +188,16 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         if accessor == nil {
             return;
         }
-        let status = accessor!.StatusMessage;
-        MediaAccessorStatusWindow!.VC?.updateLabel(status);
+        let status = accessor!.statusMessage;
+        MediaAccessorStatusWindow!.VC?.updateLabel(labelText: status!);
     }
     
     func mediaAccessorDidFinishLoadingAlbums() {
         
-        ProgressBar.hidden = true;
+        ProgressBar.isHidden = true;
         MediaAccessorStatusWindow?.close();
         
-        if accessor!.ErrorState {
+        if accessor!.errorState {
             accessor?.getMediaObjects().removeAllObjects();
             self.mediaAccessorErrorPrompt();
             return;
@@ -202,11 +208,11 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
             self.mediaAccessorErrorPrompt();
         }
         
-        let attributes = mediaObjects.map {($0.attributes, $0)}.filter {$0.0.indexForKey("latitude") != nil}.filter {$0.0.indexForKey("longitude") != nil};
+        let attributes = mediaObjects.map {($0.attributes, $0)}.filter {$0.0.index(forKey: "latitude") != nil}.filter {$0.0.index(forKey: "longitude") != nil};
         let latLons = attributes.map {(CLLocationCoordinate2DMake($0.0["latitude"] as! Double, $0.0["longitude"] as! Double), CDMediaObjectFactory.createFromMlMediaObject(withObject: $0.1))};
         LatLons = latLons;
         MediaLibraryBackupLatLons = LatLons;
-        addPoints(LatLons);
+        addPoints(points: LatLons);
     }
     
     func mediaAccessorStop() {
@@ -220,9 +226,9 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
             
             mediaAccessorAlert = NSAlert.init();
             mediaAccessorAlert!.messageText = (accessor?.getErrorLoadingPhotosMessage())!;
-            mediaAccessorAlert!.addButtonWithTitle("Close");
-            mediaAccessorAlert!.addButtonWithTitle("Find Photo Library File");
-            mediaAccessorAlert!.addButtonWithTitle("Load Folder");
+            mediaAccessorAlert!.addButton(withTitle: "Close");
+            mediaAccessorAlert!.addButton(withTitle: "Find Photo Library File");
+            mediaAccessorAlert!.addButton(withTitle: "Load Folder");
             let response = mediaAccessorAlert!.runModal();
             
             if response == NSAlertSecondButtonReturn {
@@ -241,12 +247,12 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     
     func userTappedMap(gestureRecognizer : NSGestureRecognizer) {
         
-        if gestureRecognizer.state == NSGestureRecognizerState.Ended {
+        if gestureRecognizer.state == NSGestureRecognizerState.ended {
             self.userInitiatedMapChangeDidHappen();
         }
     }
     
-    func gestureRecognizer(gestureRecognizer: NSGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: NSGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: NSGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: NSGestureRecognizer) -> Bool {
         return true;
     }
     
@@ -261,20 +267,20 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
             Timing?.invalidate();
             Timing = nil;
         }
-        Timing = NSTimer.scheduledTimerWithTimeInterval(1.00, target: self, selector: #selector(refreshPoints), userInfo: nil, repeats: false);
+        Timing = Timer.scheduledTimer(timeInterval: 1.00, target: self, selector: #selector(refreshPoints), userInfo: nil, repeats: false);
     }
     
-    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
         if LastRegion != nil && !NavButton {
-            BackStack?.push(LastRegion!);
+            BackStack?.push(element: LastRegion!);
         }
         LastRegion = mapView.region;
     }
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
-        if LatLons.count > 0 && (LastRegionRefreshed == nil || !CDMapRegionStack.regionsAreSimilarIntolerant(LastRegionRefreshed!, region2: mapView.region)) {
+        if LatLons.count > 0 && (LastRegionRefreshed == nil || !CDMapRegionStack.regionsAreSimilarIntolerant(region1: LastRegionRefreshed!, region2: mapView.region)) {
             
             self.setTimerForPointsRefresh();
         }
@@ -284,43 +290,43 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     @objc private func refreshPoints() {
         
         _removeAllCoordsFromMap();
-        addPoints(LatLons);
+        addPoints(points: LatLons);
         LastRegionRefreshed = MapView.region;
     }
 
     private func addPoints(points: [(CLLocationCoordinate2D, CDMediaObjectWithLocation)]) {
         //print("Points Count " + String(points.count));
         let mapViewPoints = points.map
-            {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter
-            {CGRectContainsPoint(MapView.frame, $0.0)}.filter
-            {!DateFilterUse || ($0.1.Date.isLessThanDate(DateFilterFinish) && $0.1.Date.isGreaterThan(DateFilterStart))}
+            {(MapView.convert($0.0, toPointTo: MapView), $0.1)}.filter
+            {MapView.frame.contains($0.0)}.filter
+            {!DateFilterUse || ($0.1.Date.isLessThanDate(dateToCompare: DateFilterFinish) && $0.1.Date.isGreaterThan(DateFilterStart))}
         let mapViewCGPoints = mapViewPoints.map {$0.0};
         if mapViewPoints.count == 0 {
             return;
         }
-        ProgressBar.hidden = false;
+        ProgressBar.isHidden = false;
         ProgressBar.startAnimation(self);
         
-        let lonelyPoints = mapViewPoints.filter {_countClosePoints($0.0, points: mapViewCGPoints) < FriendsNeededToNotBeLonely};
-        let lonelyCoords = lonelyPoints.map {(MapView.convertPoint($0.0, toCoordinateFromView: MapView), $0.1)};
-        _addLonelyCoordsToMap(lonelyCoords);
+        let lonelyPoints = mapViewPoints.filter {_countClosePoints(point: $0.0, points: mapViewCGPoints) < FriendsNeededToNotBeLonely};
+        let lonelyCoords = lonelyPoints.map {(MapView.convert($0.0, toCoordinateFrom: MapView), $0.1)};
+        _addLonelyCoordsToMap(coords: lonelyCoords);
         
-        let friendlyPoints = mapViewPoints.filter {_countClosePoints($0.0, points: mapViewCGPoints) >= FriendsNeededToNotBeLonely};
+        let friendlyPoints = mapViewPoints.filter {_countClosePoints(point: $0.0, points: mapViewCGPoints) >= FriendsNeededToNotBeLonely};
         if friendlyPoints.count == 0 {
-            ProgressBar.hidden = true;
+            ProgressBar.isHidden = true;
             return;
         }
-        let (clusterCenters, maxD, clusterCounts, clusters) = Clustering!.kMeans(friendlyPoints);
-        let clusterCoords = clusterCenters.map {(MapView.convertPoint($0.0, toCoordinateFromView: MapView), $0.1)};
-        let clustersOfCoords = clusters.map({(c : Cluster) -> ClusterOfCoordinates in _convertClustersToCoordinate(c)});
-        _addClusterCoordsToMap(clusterCoords, maxDs: maxD, clusterCounts: clusterCounts, clusters: clustersOfCoords);
-        ProgressBar.hidden = true;
+        let (clusterCenters, maxD, clusterCounts, clusters) = Clustering!.kMeans(points: friendlyPoints);
+        let clusterCoords = clusterCenters.map {(MapView.convert($0.0, toCoordinateFrom: MapView), $0.1)};
+        let clustersOfCoords = clusters.map({(c : Cluster) -> ClusterOfCoordinates in _convertClustersToCoordinate(cluster: c)});
+        _addClusterCoordsToMap(coords: clusterCoords, maxDs: maxD, clusterCounts: clusterCounts, clusters: clustersOfCoords);
+        ProgressBar.isHidden = true;
     }
     
     private func _convertClustersToCoordinate(cluster : Cluster) -> ClusterOfCoordinates {
         
-        let center = MapView.convertPoint(cluster.Center, toCoordinateFromView: MapView);
-        let points = cluster.Points.map({MapView.convertPoint($0, toCoordinateFromView: MapView)});
+        let center = MapView.convert(cluster.Center, toCoordinateFrom: MapView);
+        let points = cluster.Points.map({MapView.convert($0, toCoordinateFrom: MapView)});
         return ClusterOfCoordinates.init(withCenter: center, andPoints: points);
     }
     
@@ -357,7 +363,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         var count = 0;
         
         for pt in points {
-            let distance = _pointDistance(point, pt: pt);
+            let distance = _pointDistance(point: point, pt: pt);
             if Double(distance) < closeness {
                 count += 1;
             }
@@ -372,45 +378,45 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         return distance;
     }
         
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         view.setSelected(true, animated: true);
         let annotation = view.annotation;        
-        _processAnnotation(annotation!);
+        _processAnnotation(annotation: annotation!);
     }
     
     func _processAnnotation(annotation : MKAnnotation) {
         
         if (annotation as? ModifiedPinAnnotation) != nil {
-            _processPhotoDataAnnotation(annotation);
+            _processPhotoDataAnnotation(annotation: annotation);
         }
         
         if (annotation as? ModifiedClusterAnnotation) != nil {
-            _processPhotoDataAnnotation(annotation);
+            _processPhotoDataAnnotation(annotation: annotation);
         }
     }
     
     private func _processPhotoDataAnnotation(annotation: MKAnnotation) {
         
-        let newRegion = ImageBrowserDel?.activateAnnotationView(annotation);
+        let newRegion = ImageBrowserDel?.activateAnnotationView(annotation: annotation);
         
         if newRegion != nil {
             MapView.setRegion(newRegion!, animated: true);
         }
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if let anno = annotation as? ModifiedPinAnnotation {
             let pinView = MKPinAnnotationView.init(annotation: anno, reuseIdentifier: "\(anno.coordinate.latitude), \(anno.coordinate.longitude)");
-            pinView.pinTintColor = NSColor.redColor();
+            pinView.pinTintColor = NSColor.red;
             pinView.animatesDrop = false;
             return pinView;
         }
         
         if let anno = annotation as? ModifiedClusterAnnotation {
             let pinView = MKPinAnnotationView.init(annotation: anno, reuseIdentifier: "\(anno.coordinate.latitude), \(anno.coordinate.longitude)");
-            pinView.pinTintColor = NSColor.blueColor();
+            pinView.pinTintColor = NSColor.blue;
             pinView.animatesDrop = false;
             return pinView;
         }
@@ -418,7 +424,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         if let anno = annotation as? MKPointAnnotation {
             if anno == HighlitPoint {
                 let pinView = MKPinAnnotationView.init(annotation: anno, reuseIdentifier: "\(anno.coordinate.latitude), \(anno.coordinate.longitude)");
-                pinView.pinTintColor = NSColor.yellowColor();
+                pinView.pinTintColor = NSColor.yellow;
                 YellowPinView = pinView;
                 return pinView;
             }
@@ -427,7 +433,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         return nil;
     }
     
-    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         
         if YellowPinView != nil && views.contains(YellowPinView!) {
             YellowPinView?.wantsLayer = true;
@@ -449,17 +455,17 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
             MapView.addAnnotation(HighlitPoint!);
             
             if(!MKMapRectContainsPoint(MapView.visibleMapRect, MKMapPointForCoordinate(coord))) {
-                MapView.setCenterCoordinate(coord, animated: true);
+                MapView.setCenter(coord, animated: true);
             }
         }
     }
     
     private func _pixelsToDistance(pixels: Int) -> CLLocationDistance {
         
-        let px1 = CGPointMake(MapView.frame.size.width / 2, MapView.frame.size.height / 2);
-        let coord1 = MapView.convertPoint(px1, toCoordinateFromView: MapView);
-        let px2 = CGPointMake(px1.x + CGFloat(pixels), px1.y);
-        let coord2 = MapView.convertPoint(px2, toCoordinateFromView: MapView);
+        let px1 = CGPointMake(x: MapView.frame.size.width / 2, y: MapView.frame.size.height / 2);
+        let coord1 = MapView.convert(px1, toCoordinateFrom: MapView);
+        let px2 = CGPointMake(x: px1.x + CGFloat(pixels), y: px1.y);
+        let coord2 = MapView.convert(px2, toCoordinateFrom: MapView);
         
         let point1 = MKMapPointForCoordinate(coord1);
         let point2 = MKMapPointForCoordinate(coord2);
@@ -476,7 +482,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     func forwardButtonPressed() {
         
         if let newRegion = ForwardStack?.pop() {
-            BackStack?.push(MapView.region);
+            BackStack?.push(element: MapView.region);
             NavButton = true;
             MapView.setRegion(newRegion, animated: true);
         }
@@ -485,7 +491,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
     func backButtonPressed() {
         
         if let newRegion = BackStack?.pop() {
-            ForwardStack?.push(MapView.region);
+            ForwardStack?.push(element: MapView.region);
             NavButton = true;
             MapView.setRegion(newRegion, animated: true);
             LastRegion = nil;
@@ -499,10 +505,10 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
             objects = LatLons.map {$0.1};
         }
         if instructions == SaveDialogService.SaveCsvInstructions.SaveVisible {
-            let mapViewPoints = LatLons.map {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter {CGRectContainsPoint(MapView.frame, $0.0)};
+            let mapViewPoints = LatLons.map {(MapView.convert($0.0, toPointTo: MapView), $0.1)}.filter {MapView.frame.contains($0.0)};
             objects = mapViewPoints.map {$0.1};
         }
-        objects = objects.filter {!DateFilterUse || ($0.Date.isLessThanDate(DateFilterFinish) && $0.Date.isGreaterThan(DateFilterStart))};
+        objects = objects.filter {!DateFilterUse || ($0.Date.isLessThanDate(dateToCompare: DateFilterFinish) && $0.Date.isGreaterThan(DateFilterStart))};
         
         let exporter = CDCsvExporter.init(withPath: path, andItems: objects);
         let result = exporter.export();
@@ -547,8 +553,8 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         RegionSelector = nil;
         
         let mapViewPoints = LatLons.map
-            {(MapView.convertCoordinate($0.0, toPointToView: MapView), $0.1)}.filter
-            {CGRectContainsPoint(region, $0.0)}
+            {(MapView.convert($0.0, toPointTo: MapView), $0.1)}.filter
+            {region.contains($0.0)}
         if mapViewPoints.count == 0 {
             return;
         }
@@ -560,7 +566,7 @@ class ViewController: NSViewController, MKMapViewDelegate, NSGestureRecognizerDe
         let cluster = ClusterOfCoordinates.init(withPoints: coords);
         let adHocDataLoad = MapAnnotation.init(withMediaObjects: mapViewPoints.map {$0.1}, andCluster: cluster);
         let adHocClusterAnnotation = ModifiedClusterAnnotation.init(withDataLoad: adHocDataLoad);
-        self._processAnnotation(adHocClusterAnnotation);
+        self._processAnnotation(annotation: adHocClusterAnnotation);
     }
 }
 

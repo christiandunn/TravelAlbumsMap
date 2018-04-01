@@ -30,20 +30,20 @@ public class HorizontalSizeAdjuster : NSView {
         super.init(coder: coder);
     }
     
-    override public func mouseDragged(theEvent: NSEvent) {
-        Delegate?.horizontalSizeAdjusterWasMoved(theEvent.deltaX);
+    override public func mouseDragged(with theEvent: NSEvent) {
+        Delegate?.horizontalSizeAdjusterWasMoved(deltaX: theEvent.deltaX);
     }
     
-    override public func mouseUp(theEvent: NSEvent) {
+    override public func mouseUp(with theEvent: NSEvent) {
         Delegate?.mouseUp();
     }
     
-    override public func mouseDown(theEvent: NSEvent) {
+    override public func mouseDown(with theEvent: NSEvent) {
         
     }
     
     public override func resetCursorRects() {
-        let cursor = NSCursor.resizeLeftRightCursor()
+        let cursor = NSCursor.resizeLeftRight()
         self.addCursorRect(self.bounds, cursor: cursor);
         cursor.setOnMouseEntered(true);
     }

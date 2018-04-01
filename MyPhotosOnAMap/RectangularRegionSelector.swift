@@ -34,16 +34,16 @@ public class RectangularRegionSelector : NSView {
         super.init(coder: coder);
     }
     
-    override public func mouseDown(theEvent: NSEvent) {
+    override public func mouseDown(with theEvent: NSEvent) {
         
         let loc = theEvent.locationInWindow;
-        let pt = self.convertPoint(loc, fromView: nil);
+        let pt = self.convert(loc, from: nil);
         StartX = pt.x;
         StartY = pt.y;
-        Region = CGRectMake(StartX, StartY, 0.0, 0.0);
+        Region = CGRect(origin: CGPoint(x:StartX, y:StartY), size:CGSize(width:0.0, height:0.0));
     }
     
-    override public func mouseDragged(theEvent: NSEvent) {
+    override public func mouseDragged(with theEvent: NSEvent) {
         
         if Region == nil {
             return;
@@ -56,10 +56,10 @@ public class RectangularRegionSelector : NSView {
         Region!.origin.y = StartY - (DeltaY > 0 ? DeltaY : 0);
         Region!.size.width = fabs(DeltaX);
         Region!.size.height = fabs(DeltaY);
-        self.setNeedsDisplayInRect(self.bounds);
+        self.setNeedsDisplay(self.bounds);
     }
     
-    override public func mouseUp(theEvent: NSEvent) {
+    override public func mouseUp(with theEvent: NSEvent) {
         
         if Region == nil {
             return;
@@ -70,18 +70,18 @@ public class RectangularRegionSelector : NSView {
     
     private func exitThis() {
         
-        let cursor = CursorSaver != nil ? CursorSaver! : NSCursor.arrowCursor();
+        let cursor = CursorSaver != nil ? CursorSaver! : NSCursor.arrow();
         cursor.set();
-        Delegate?.rectangularRegionWasSelected(Region!);
+        Delegate?.rectangularRegionWasSelected(region: Region!);
         Region = nil;
     }
     
-    override public func drawRect(dirtyRect: NSRect) {
+    override public func draw(_ dirtyRect: NSRect) {
         
         if Region == nil {
             return;
         }
-        NSColor.redColor().set();
+        NSColor.red.set();
         let figure = NSBezierPath.init(roundedRect: Region!, xRadius: 0.0, yRadius: 0.0);
         let pattern : [CGFloat] = [5.0, 5.0];
         figure.lineWidth = 2.0;
@@ -90,7 +90,7 @@ public class RectangularRegionSelector : NSView {
     }
     
     public override func resetCursorRects() {
-        let cursor = NSCursor.crosshairCursor();
+        let cursor = NSCursor.crosshair();
         self.addCursorRect(self.bounds, cursor: cursor);
         cursor.setOnMouseEntered(true);
     }

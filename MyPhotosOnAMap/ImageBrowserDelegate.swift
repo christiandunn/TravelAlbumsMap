@@ -22,10 +22,10 @@ public class ImageBrowserDelegate {
         Delegate = delegate;
         
         ImageBrowser = imageBrowser;
-        ImageBrowser.setDataSource(self);
+        ImageBrowser.dataSource = self;
         ImageBrowser.setCellsStyleMask(IKCellsStyleTitled + IKCellsStyleSubtitled);        
         
-        NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: #selector(step), userInfo: nil, repeats: true);
+        Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(step), userInfo: nil, repeats: true);
     }
     
     @objc private func step() {
@@ -33,18 +33,18 @@ public class ImageBrowserDelegate {
         let newSelectionSet = ImageBrowser.selectionIndexes() ?? nil;
         
         if newSelectionSet != nil && newSelectionSet!.count == 0 {
-            Delegate.highlightPoint(CLLocationCoordinate2DMake(0.0, 0.0), yes: false);
+            Delegate.highlightPoint(withIndex: CLLocationCoordinate2DMake(0.0, 0.0), yes: false);
         }
         
         if newSelectionSet != nil && newSelectionSet!.count > 0 {
-            if newSelectionSet!.firstIndex != (SelectionSet?.firstIndex ?? -1) {
-                let index = newSelectionSet!.firstIndex;
-                Delegate.highlightPoint(CLLocationCoordinate2DMake(0.0, 0.0), yes: false);
-                Delegate.highlightPoint((CurrentAnno?.DataLoad.Coords(index))!, yes: true);
+            if newSelectionSet?.min() != (SelectionSet?.firstIndex ?? -1) {
+                let index = newSelectionSet?.min();
+                Delegate.highlightPoint(withIndex: CLLocationCoordinate2DMake(0.0, 0.0), yes: false);
+                Delegate.highlightPoint(withIndex: (CurrentAnno?.DataLoad.Coords(withIndex: index!))!, yes: true);
             }
         }
         
-        SelectionSet = newSelectionSet;
+        SelectionSet = newSelectionSet as NSIndexSet?;
     }
     
     @objc public func numberOfItemsInImageBrowser(aBrowser: IKImageBrowserView!) -> Int {

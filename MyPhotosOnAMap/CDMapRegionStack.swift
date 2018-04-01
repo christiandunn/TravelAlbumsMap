@@ -20,11 +20,11 @@ public class CDMapRegionStack {
         
         let top = Stack.peek();
         if top == nil {
-            Stack.push(element);
+            Stack.push(element: element);
             return;
         }
-        if !CDMapRegionStack.regionsAreSimilar(top!, region2: element) {
-            Stack.push(element);
+        if !CDMapRegionStack.regionsAreSimilar(region1: top!, region2: element) {
+            Stack.push(element: element);
         }
     }
     
@@ -49,12 +49,12 @@ public class CDMapRegionStack {
     
     public static func regionsAreSimilar(region1: MKCoordinateRegion, region2: MKCoordinateRegion) -> Bool {
         
-        return CDMapRegionStack._regionsAreSimilar(region1, region2: region2, latDeltaFactor: 0.25, zoomDeltaFactorConstant: 0.25);
+        return CDMapRegionStack._regionsAreSimilar(region1: region1, region2: region2, latDeltaFactor: 0.25, zoomDeltaFactorConstant: 0.25);
     }
     
     public static func regionsAreSimilarIntolerant(region1: MKCoordinateRegion, region2: MKCoordinateRegion) -> Bool {
         
-        return CDMapRegionStack._regionsAreSimilar(region1, region2: region2, latDeltaFactor: 0.02, zoomDeltaFactorConstant: 0.02);
+        return CDMapRegionStack._regionsAreSimilar(region1: region1, region2: region2, latDeltaFactor: 0.02, zoomDeltaFactorConstant: 0.02);
     }
     
     private static func _regionsAreSimilar(region1: MKCoordinateRegion, region2: MKCoordinateRegion, latDeltaFactor: Double, zoomDeltaFactorConstant: Double) -> Bool {

@@ -18,15 +18,15 @@ class DateFilterViewController : NSViewController {
         
         let VC : ViewController = ViewController.getMainViewController()!;
         
-        StartDatePicker.dateValue = VC.DateFilterStart;
-        FinishDatePicker.dateValue = VC.DateFilterFinish;
+        StartDatePicker.dateValue = VC.DateFilterStart as Date;
+        FinishDatePicker.dateValue = VC.DateFilterFinish as Date;
         let enabled = VC.DateFilterUse;
         
         CheckBox.state = enabled ? NSOnState : NSOffState;
-        let datePickerBackgroundColor = enabled ? NSColor.whiteColor() : NSColor.lightGrayColor();
-        StartDatePicker.enabled = enabled;
+        let datePickerBackgroundColor = enabled ? NSColor.white : NSColor.lightGray;
+        StartDatePicker.isEnabled = enabled;
         StartDatePicker.backgroundColor = datePickerBackgroundColor;
-        FinishDatePicker.enabled = enabled;
+        FinishDatePicker.isEnabled = enabled;
         FinishDatePicker.backgroundColor = datePickerBackgroundColor;
     }
     
@@ -34,23 +34,23 @@ class DateFilterViewController : NSViewController {
         
         let VC : ViewController = ViewController.getMainViewController()!;
         let enabled = CheckBox.state == NSOnState;
-        VC.updateDateFilter(withEarliestDate: StartDatePicker.dateValue, andFuturemostDate: FinishDatePicker.dateValue, useDateFilter: enabled);
+        VC.updateDateFilter(withEarliestDate: StartDatePicker.dateValue as NSDate, andFuturemostDate: FinishDatePicker.dateValue as NSDate, useDateFilter: enabled);
     }
     
     @IBAction func resetButtonPressed(sender: AnyObject) {
         
-        StartDatePicker.dateValue = Constants.DateFilterStartDefault;
-        FinishDatePicker.dateValue = Constants.DateFilterFinishDefault;
+        StartDatePicker.dateValue = Constants.DateFilterStartDefault as Date;
+        FinishDatePicker.dateValue = Constants.DateFilterFinishDefault as Date;
         CheckBox.state = NSOffState;
     }
     
     @IBAction func checkboxChanged(sender: AnyObject) {
         
         let enabled = CheckBox.state == NSOnState;
-        let datePickerBackgroundColor = enabled ? NSColor.whiteColor() : NSColor.lightGrayColor();
-        StartDatePicker.enabled = enabled;
+        let datePickerBackgroundColor = enabled ? NSColor.white : NSColor.lightGray;
+        StartDatePicker.isEnabled = enabled;
         StartDatePicker.backgroundColor = datePickerBackgroundColor;
-        FinishDatePicker.enabled = enabled;
+        FinishDatePicker.isEnabled = enabled;
         FinishDatePicker.backgroundColor = datePickerBackgroundColor;
     }
 }

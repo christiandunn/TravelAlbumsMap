@@ -16,10 +16,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
-        NSApplication.sharedApplication().mainWindow?.backgroundColor = NSColor.whiteColor();
+        NSApplication.shared().mainWindow?.backgroundColor = NSColor.white;
     }
     
-    func applicationDidBecomeActive(notification: NSNotification) {
+    func applicationDidBecomeActive(_ notification: Notification) {
         
         VC = ViewController.getMainViewController();
     }

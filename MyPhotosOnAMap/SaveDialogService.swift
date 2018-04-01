@@ -40,13 +40,13 @@ public class SaveDialogService {
     
     private func getPath() {
         
-        let window = NSApplication.sharedApplication().mainWindow;
+        let window = NSApplication.shared().mainWindow;
         let savePanel = NSSavePanel()
         savePanel.canCreateDirectories = false
-        savePanel.beginSheetModalForWindow(window!, completionHandler: { (result) -> Void in
+        savePanel.beginSheetModal(for: window!, completionHandler: { (result) -> Void in
             if result == NSFileHandlingPanelOKButton {
-                let url = savePanel.URL;
-                self.VC.exportToCsv(url!, instructions: self.CsvInstructions);
+                let url = savePanel.url;
+                self.VC.exportToCsv(path: url! as NSURL, instructions: self.CsvInstructions);
             }
         });
     }

@@ -94,6 +94,7 @@
 - (void)dealloc {
     
     if (dictionaryRef != nil) {
+        
         CFRelease(dictionaryRef);
     }
 }

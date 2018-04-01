@@ -23,10 +23,10 @@ public class CDCsvExporter {
         
         let firstLine = "FileName, Latitude, Longitude, Date";
         var lines = Items.map({(o : CDMediaObjectWithLocation) -> String in "\"\(o.URL.absoluteString)\", \(o.Location?.latitude ?? -999), \(o.Location?.longitude ?? -999), \(o.Date)"});
-        lines.insert(firstLine, atIndex: 0);
+        lines.insert(firstLine, at: 0);
         let output = lines.reduce("") { $0.isEmpty ? $1 : "\($0)\n\($1)" };
         do {
-            try output.writeToURL(Path, atomically: true, encoding: NSUTF8StringEncoding);
+            try output.write(to: Path as URL, atomically: true, encoding: String.Encoding.utf8);
         } catch {
             return false;
         }

@@ -26,7 +26,7 @@ public class WindowController : NSWindowController {
     override public func windowDidLoad() {
         
         VC = ViewController.getMainViewController();
-        Zoom.continuous = true;
+        Zoom.isContinuous = true;
         
         BackButtonImageView.target = self;
         BackButtonImageView.action = #selector(backButtonPressed);
@@ -56,7 +56,7 @@ public class WindowController : NSWindowController {
     }
     
     @IBAction func sliderDidAct(sender: AnyObject) {
-        VC?.setImageBrowserZoom(Float(Zoom.doubleValue/100.0));
+        VC?.setImageBrowserZoom(zoom: Float(Zoom.doubleValue/100.0));
     }
     
     func openFolder(sender: AnyObject) {
